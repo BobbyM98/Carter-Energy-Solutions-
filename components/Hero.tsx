@@ -1,78 +1,190 @@
-import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useCallback } from 'react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 
-export const Hero: React.FC = () => {
-  const scrollToQuote = () => {
-    document.getElementById('get-quote')?.scrollIntoView({ behavior: 'smooth' });
+interface SlideData {
+  id: number;
+  title: React.ReactNode;
+  description: string;
+  cta: string;
+  image: string;
+}
+
+const SLIDES: SlideData[] = [
+  {
+    id: 0,
+    title: <span>Power at the <span className="text-gold-gradient italic">Edge.</span></span>,
+    description: "The future of solar is Vertical. Unlock the potential of weak roofs and farmland with South Africa's first high-yield Vertical Bifacial Systems.",
+    cta: "Book Vertical Audit",
+    image: "https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png"
+  },
+  {
+    id: 1,
+    title: <span>Zero <span className="text-gold-gradient italic">Land Loss.</span></span>,
+    description: "Solar Walls that allow for grazing, crops, and wind protection while generating power. Turn your fences into power plants.",
+    cta: "Explore Solar Walls",
+    image: "https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png"
+  },
+  {
+    id: 2,
+    title: <span>The Solution for <span className="text-gold-gradient italic">Weak Roofs.</span></span>,
+    description: "Ultra-lightweight vertical racking (<10kg/m²) for industrial sites. No ballast required. Aerodynamic and bond-mounted.",
+    cta: "Industrial Specs",
+    image: "https://i.ibb.co/j98GM2hY/Gemini-Generated-Image-vapyvdvapyvdvapy.png"
+  }
+];
+
+interface HeroProps {
+  onOpenTechSpecs: () => void;
+}
+
+export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 1000], [0, 400]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Primary Action Logic
+  const handlePrimaryCta = () => {
+    if (currentSlide === 0) {
+        // Book Vertical Audit -> Scroll to Quote/Form
+        const element = document.getElementById('get-quote');
+        if (element) {
+            const headerOffset = 80;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    } else if (currentSlide === 1) {
+        // Explore Solar Walls -> Scroll to Service Pillars
+        const element = document.getElementById('service-pillars');
+        if (element) {
+            const headerOffset = 100;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
+    } else if (currentSlide === 2) {
+        // Industrial Specs -> Open Tech Specs Modal
+        onOpenTechSpecs();
+    }
   };
 
+  const scrollToCalculator = () => {
+    const element = document.getElementById('calculator');
+    if (element) {
+        // Offset for header
+        const headerOffset = 100;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+    }
+  };
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
+  }, []);
+
   return (
-    <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2072&auto=format&fit=crop" 
-          alt="Solar Panels on Roof" 
-          className="w-full h-full object-cover grayscale opacity-30 dark:opacity-20 transition-opacity duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/40 to-white dark:from-brand-black/60 dark:via-brand-black/90 dark:to-brand-black transition-colors duration-500"></div>
-        {/* Gold glow effect */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-gold opacity-10 blur-[150px] rounded-full"></div>
-      </div>
+    <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden bg-brand-black">
+      {/* Background Slideshow */}
+      <AnimatePresence mode="wait">
+        <motion.div
+            key={`bg-${currentSlide}`}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5 }}
+            style={{ y }}
+            className="absolute inset-0 z-0"
+        >
+            <img 
+                src={SLIDES[currentSlide].image} 
+                alt="Vertical Solar Architecture" 
+                className="w-full h-full object-cover opacity-60 dark:opacity-50"
+                onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    // Fallback to Unsplash if the provided link fails
+                    target.src = "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=2070&auto=format&fit=crop";
+                }}
+            />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/20 to-white dark:from-brand-black/30 dark:via-brand-black/70 dark:to-brand-black transition-colors duration-500"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-gold opacity-10 blur-[150px] rounded-full"></div>
+        </motion.div>
+      </AnimatePresence>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/30 text-brand-gold-dark dark:text-brand-gold text-sm font-medium tracking-wide mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-gold"></span>
-              </span>
-              ENERGY INDEPENDENCE
-            </div>
-          </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-6xl md:text-8xl font-serif font-medium dark:text-white text-brand-black leading-tight mb-8"
-          >
-            Beat <span className="text-gold-gradient italic">Load Shedding</span> Forever.
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-2xl dark:text-slate-300 text-slate-600 mb-12 leading-relaxed max-w-2xl mx-auto font-light"
-          >
-            Experience the luxury of uninterrupted power. Carter Energy Solutions delivers premium solar engineering for South Africa's finest homes.
-          </motion.p>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center"
-          >
-            <button 
-              onClick={scrollToQuote}
-              className="group relative inline-flex justify-center items-center gap-3 bg-brand-gold text-brand-black px-10 py-4 rounded-sm font-semibold text-lg overflow-hidden transition-all hover:pr-12"
-            >
-              <span className="relative z-10">Get a Quote</span>
-              <ArrowRight className="h-5 w-5 absolute right-4 opacity-0 group-hover:opacity-100 group-hover:right-6 transition-all duration-300" />
-              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-            </button>
-            <button className="group inline-flex justify-center items-center gap-2 px-10 py-4 rounded-sm font-semibold text-lg dark:text-white text-brand-black border dark:border-white/20 border-brand-black/20 hover:bg-brand-black/5 dark:hover:bg-white/5 transition-all">
-              View Packages
-            </button>
-          </motion.div>
+            
+          <AnimatePresence mode="wait">
+             <motion.div 
+               key={currentSlide}
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               exit={{ opacity: 0, y: -20 }}
+               transition={{ duration: 0.5 }}
+             >
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/30 text-brand-gold-dark dark:text-brand-gold text-sm font-medium tracking-wide mb-8">
+                <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-gold"></span>
+                </span>
+                SOUTH AFRICA'S FIRST VERTICAL INSTALLERS
+                </div>
+                
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium dark:text-white text-brand-black leading-tight mb-8 min-h-[1.2em]">
+                    {SLIDES[currentSlide].title}
+                </h1>
+                
+                <p className="text-lg md:text-2xl dark:text-slate-300 text-slate-600 mb-12 leading-relaxed max-w-2xl mx-auto font-light min-h-[4em] md:min-h-[3em]">
+                    {SLIDES[currentSlide].description}
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                    <button 
+                        onClick={handlePrimaryCta}
+                        className="group relative inline-flex justify-center items-center gap-3 bg-brand-gold text-brand-black px-10 py-4 rounded-sm font-semibold text-lg overflow-hidden transition-all hover:pr-12"
+                    >
+                        <span className="relative z-10">{SLIDES[currentSlide].cta}</span>
+                        {currentSlide === 2 ? (
+                            // Use a document/list icon for specs
+                             <ArrowRight className="h-5 w-5 absolute right-4 opacity-0 group-hover:opacity-100 group-hover:right-6 transition-all duration-300" />
+                        ) : (
+                             <ArrowRight className="h-5 w-5 absolute right-4 opacity-0 group-hover:opacity-100 group-hover:right-6 transition-all duration-300" />
+                        )}
+                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    </button>
+                    <button 
+                        onClick={scrollToCalculator}
+                        className="group inline-flex justify-center items-center gap-2 px-10 py-4 rounded-sm font-semibold text-lg dark:text-white text-brand-black border dark:border-white/20 border-brand-black/20 hover:bg-brand-black/5 dark:hover:bg-white/5 transition-all"
+                    >
+                        Yield Report
+                    </button>
+                </div>
+             </motion.div>
+          </AnimatePresence>
 
           <motion.div 
             initial={{ opacity: 0 }}
@@ -83,15 +195,36 @@ export const Hero: React.FC = () => {
              <div className="flex -space-x-4">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="w-10 h-10 rounded-full dark:border-brand-black border-white border-2 overflow-hidden shadow-lg">
-                   <img src={`https://picsum.photos/seed/${i + 88}/100`} alt="User" className="w-full h-full object-cover" />
+                   <img src={`https://picsum.photos/seed/${i + 42}/100`} alt="User" className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
             <div className="text-left">
               <div className="flex text-brand-gold text-xs">★★★★★</div>
-              <p className="text-sm dark:text-slate-400 text-slate-500">Trusted by <span className="dark:text-white text-brand-black font-semibold">2,000+</span> Families</p>
+              <p className="text-sm dark:text-slate-400 text-slate-500">Experts in <span className="dark:text-white text-brand-black font-semibold">Industrial, Commercial & Farms</span></p>
             </div>
           </motion.div>
+        </div>
+
+        {/* Carousel Controls */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 z-20">
+            <button onClick={prevSlide} className="p-2 rounded-full border border-white/10 hover:bg-white/10 text-white/50 hover:text-white transition-all">
+                <ChevronLeft className="w-5 h-5" />
+            </button>
+            <div className="flex gap-2">
+                {SLIDES.map((_, idx) => (
+                    <button
+                        key={idx}
+                        onClick={() => setCurrentSlide(idx)}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                            idx === currentSlide ? 'w-8 bg-brand-gold' : 'bg-white/20 hover:bg-brand-gold/50'
+                        }`}
+                    />
+                ))}
+            </div>
+            <button onClick={nextSlide} className="p-2 rounded-full border border-white/10 hover:bg-white/10 text-white/50 hover:text-white transition-all">
+                <ChevronRight className="w-5 h-5" />
+            </button>
         </div>
       </div>
     </section>

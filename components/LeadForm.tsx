@@ -6,7 +6,7 @@ export const LeadForm: React.FC = () => {
   const [formState, setFormState] = useState({
     name: '',
     phone: '',
-    area: ''
+    siteType: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -19,14 +19,27 @@ export const LeadForm: React.FC = () => {
       setIsSubmitting(false);
       setIsSuccess(true);
       setTimeout(() => setIsSuccess(false), 5000);
-      setFormState({ name: '', phone: '', area: '' });
+      setFormState({ name: '', phone: '', siteType: '' });
     }, 1500);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    let value = e.target.value;
+
+    if (e.target.name === 'phone') {
+      const raw = value.replace(/\D/g, '');
+      if (raw.length <= 3) {
+        value = raw;
+      } else if (raw.length <= 6) {
+        value = `${raw.slice(0, 3)} ${raw.slice(3)}`;
+      } else {
+        value = `${raw.slice(0, 3)} ${raw.slice(3, 6)} ${raw.slice(6, 10)}`;
+      }
+    }
+
     setFormState({
       ...formState,
-      [e.target.name]: e.target.value
+      [e.target.name]: value
     });
   };
 
@@ -40,9 +53,9 @@ export const LeadForm: React.FC = () => {
         >
           <Check className="w-12 h-12 text-brand-gold" />
         </motion.div>
-        <h3 className="text-3xl font-serif dark:text-white text-brand-black mb-4">Request Received</h3>
+        <h3 className="text-3xl font-serif dark:text-white text-brand-black mb-4">Audit Requested</h3>
         <p className="dark:text-slate-400 text-slate-500 max-w-xs mx-auto font-light">
-          We will be in touch shortly to curate your energy solution.
+          Our technical team will contact you to schedule your site feasibility assessment.
         </p>
       </div>
     );
@@ -57,13 +70,13 @@ export const LeadForm: React.FC = () => {
       className="dark:bg-brand-black bg-white p-8 md:p-12 rounded-sm border dark:border-white/10 border-slate-200 shadow-2xl dark:shadow-black/50 h-full flex flex-col justify-center"
     >
       <div className="mb-10">
-        <h3 className="text-2xl font-serif dark:text-white text-brand-black mb-2">Request Consultation</h3>
-        <p className="dark:text-slate-400 text-slate-500 font-light">Provide your details for a bespoke proposal.</p>
+        <h3 className="text-2xl font-serif dark:text-white text-brand-black mb-2">Book Feasibility Audit</h3>
+        <p className="dark:text-slate-400 text-slate-500 font-light">Expert analysis for complex roofs and agricultural land.</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-8">
-        <div className="group">
-          <label htmlFor="name" className="block text-xs uppercase tracking-widest dark:text-slate-500 text-slate-400 group-hover:text-brand-gold transition-colors mb-2">Full Name</label>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label htmlFor="name" className="block text-xs uppercase tracking-widest dark:text-slate-500 text-slate-400 mb-2">Full Name</label>
           <input
             type="text"
             id="name"
@@ -71,13 +84,13 @@ export const LeadForm: React.FC = () => {
             required
             value={formState.name}
             onChange={handleChange}
-            className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 dark:text-white text-brand-black placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-all"
-            placeholder="John Doe"
+            className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg py-3 px-4 dark:text-white text-brand-black placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all"
+            placeholder="Jane Doe"
           />
         </div>
 
-        <div className="group">
-          <label htmlFor="phone" className="block text-xs uppercase tracking-widest dark:text-slate-500 text-slate-400 group-hover:text-brand-gold transition-colors mb-2">Phone Number</label>
+        <div>
+          <label htmlFor="phone" className="block text-xs uppercase tracking-widest dark:text-slate-500 text-slate-400 mb-2">Phone Number</label>
           <input
             type="tel"
             id="phone"
@@ -85,23 +98,29 @@ export const LeadForm: React.FC = () => {
             required
             value={formState.phone}
             onChange={handleChange}
-            className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 dark:text-white text-brand-black placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-all"
+            className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg py-3 px-4 dark:text-white text-brand-black placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all"
             placeholder="082 123 4567"
           />
         </div>
 
-        <div className="group">
-          <label htmlFor="area" className="block text-xs uppercase tracking-widest dark:text-slate-500 text-slate-400 group-hover:text-brand-gold transition-colors mb-2">Area / Suburb</label>
-          <input
-            type="text"
-            id="area"
-            name="area"
-            required
-            value={formState.area}
-            onChange={handleChange}
-            className="w-full bg-transparent border-b border-slate-300 dark:border-slate-700 py-3 dark:text-white text-brand-black placeholder-slate-500 focus:outline-none focus:border-brand-gold transition-all"
-            placeholder="Sandton, Johannesburg"
-          />
+        <div>
+          <label htmlFor="siteType" className="block text-xs uppercase tracking-widest dark:text-slate-500 text-slate-400 mb-2">Site Type</label>
+          <div className="relative">
+            <select
+                id="siteType"
+                name="siteType"
+                required
+                value={formState.siteType}
+                onChange={handleChange}
+                className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg py-3 px-4 dark:text-white text-brand-black placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all appearance-none"
+            >
+                <option value="" disabled>Select Site Type</option>
+                <option value="Agricultural">Agricultural / Farm</option>
+                <option value="Industrial">Industrial Warehouse</option>
+                <option value="Estate">Residential Estate / Green Roof</option>
+                <option value="Commercial">Commercial Office</option>
+            </select>
+          </div>
         </div>
 
         <button
@@ -113,7 +132,7 @@ export const LeadForm: React.FC = () => {
             'Processing...'
           ) : (
             <>
-              Request Quote <Send className="w-4 h-4" />
+              Request Vertical Audit <Send className="w-4 h-4" />
             </>
           )}
         </button>

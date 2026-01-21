@@ -1,23 +1,23 @@
 import React from 'react';
-import { Award, ShieldCheck, Sparkles } from 'lucide-react';
+import { TrendingUp, Wind, Droplets } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const TrustSignals: React.FC = () => {
   const signals = [
     {
-      icon: <Award className="h-8 w-8 text-brand-gold" strokeWidth={1.5} />,
-      title: "CETA Approved",
-      description: "Fully certified for working at heights, complex solar installations, and electrical compliance."
+      icon: <TrendingUp className="h-8 w-8 text-brand-gold" strokeWidth={1.5} />,
+      title: "The Camel Curve",
+      description: "Standard solar peaks at noon when power is cheap. Vertical bifacial panels peak at 8 AM and 4 PM—capturing the high-tariff morning and evening sun."
     },
     {
-      icon: <Sparkles className="h-8 w-8 text-brand-gold" strokeWidth={1.5} />,
-      title: "PV Cleaning & Care",
-      description: " Specialized panel washing and thermal inspections to ensure your system operates at peak efficiency."
+      icon: <Droplets className="h-8 w-8 text-brand-gold" strokeWidth={1.5} />,
+      title: "The Dust Solution",
+      description: "Gauteng dust kills horizontal efficiency by up to 15%. Vertical panels use gravity to self-clean, maintaining 98% efficiency year-round."
     },
     {
-      icon: <ShieldCheck className="h-8 w-8 text-brand-gold" strokeWidth={1.5} />,
-      title: "5-Year Warranty",
-      description: "Comprehensive coverage on workmanship, with dedicated support teams for ongoing maintenance."
+      icon: <Wind className="h-8 w-8 text-brand-gold" strokeWidth={1.5} />,
+      title: "Aerodynamic Cooling",
+      description: "Heat degrades solar voltage. Vertical racking allows unrestricted airflow, keeping panels cooler and voltage higher during the SA summer."
     }
   ];
 
@@ -37,14 +37,14 @@ export const TrustSignals: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-4xl md:text-5xl font-serif dark:text-white text-brand-black mb-6 leading-tight">
-              Forged in the Heat of <span className="text-brand-gold italic">December</span>.
+              Why <span className="text-brand-gold italic">Vertical?</span>
             </h2>
             <div className="h-1 w-24 bg-brand-gold mb-8"></div>
             <p className="text-lg dark:text-slate-300 text-slate-600 font-light leading-relaxed mb-6">
-              Carter Energy Solutions was established last December, born from a singular realization during the height of the summer crisis: <strong>installation is not enough.</strong>
+              We started as a standard maintenance company, but we saw a massive problem. In Gauteng, roofs were too weak for heavy ballasted solar, and dust was killing efficiency within weeks.
             </p>
             <p className="text-lg dark:text-slate-300 text-slate-600 font-light leading-relaxed">
-              We saw homeowners abandoned after the sale, their systems losing efficiency to dust and neglect. We founded this company to bridge the gap between premium engineering and white-glove service. We don't just sell power; we curate enduring energy independence through meticulous maintenance and cleaning.
+              We refused to offer sub-par solutions. We scoured the globe—from Norway to Germany—to bring <strong>Vertical Bifacial Technology</strong> to South Africa. We are the pioneers of the 'Vertical Revolution'.
             </p>
           </motion.div>
           
@@ -57,13 +57,13 @@ export const TrustSignals: React.FC = () => {
           >
             <div className="aspect-[4/3] rounded-sm overflow-hidden border border-brand-gold/20 shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1598418041042-4b2a325121b6?q=80&w=2000&auto=format&fit=crop" 
+                src="https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png" 
                 alt="Solar Maintenance" 
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-cover transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-black/80 to-transparent"></div>
               <div className="absolute bottom-6 left-6 text-white">
-                <p className="font-serif text-2xl italic">"Efficiency is a discipline."</p>
+                <p className="font-serif text-2xl italic">"Efficiency is an angle."</p>
               </div>
             </div>
           </motion.div>
