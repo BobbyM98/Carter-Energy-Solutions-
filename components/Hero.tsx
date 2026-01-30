@@ -106,6 +106,37 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
     setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
   }, []);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.2
+      }
+    }
+  };
+
+  const childVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    },
+    exit: { 
+      opacity: 0, 
+      y: -20,
+      transition: { duration: 0.3, ease: "easeIn" }
+    }
+  };
+
   return (
     <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden bg-brand-black">
       {/* Background Slideshow */}
@@ -141,28 +172,40 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
           <AnimatePresence mode="wait">
              <motion.div 
                key={currentSlide}
-               initial={{ opacity: 0, y: 20 }}
-               animate={{ opacity: 1, y: 0 }}
-               exit={{ opacity: 0, y: -20 }}
-               transition={{ duration: 0.5 }}
+               initial="hidden"
+               animate="visible"
+               exit="exit"
+               variants={containerVariants}
              >
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/30 text-brand-gold-dark dark:text-brand-gold text-sm font-medium tracking-wide mb-8">
+                <motion.div 
+                  variants={childVariants}
+                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/30 text-brand-gold-dark dark:text-brand-gold text-sm font-medium tracking-wide mb-8"
+                >
                 <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-gold"></span>
                 </span>
                 SOUTH AFRICA'S FIRST VERTICAL INSTALLERS
-                </div>
+                </motion.div>
                 
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium dark:text-white text-brand-black leading-tight mb-8 min-h-[1.2em]">
+                <motion.h1 
+                  variants={childVariants}
+                  className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium dark:text-white text-brand-black leading-tight mb-8 min-h-[1.2em]"
+                >
                     {SLIDES[currentSlide].title}
-                </h1>
+                </motion.h1>
                 
-                <p className="text-lg md:text-2xl dark:text-slate-300 text-slate-600 mb-12 leading-relaxed max-w-2xl mx-auto font-light min-h-[4em] md:min-h-[3em]">
+                <motion.p 
+                  variants={childVariants}
+                  className="text-lg md:text-2xl dark:text-slate-300 text-slate-600 mb-12 leading-relaxed max-w-2xl mx-auto font-light min-h-[4em] md:min-h-[3em]"
+                >
                     {SLIDES[currentSlide].description}
-                </p>
+                </motion.p>
                 
-                <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <motion.div 
+                  variants={childVariants}
+                  className="flex flex-col sm:flex-row gap-6 justify-center"
+                >
                     <button 
                         onClick={handlePrimaryCta}
                         className="group relative inline-flex justify-center items-center gap-3 bg-brand-gold text-brand-black px-10 py-4 rounded-sm font-semibold text-lg overflow-hidden transition-all hover:pr-12"
@@ -182,7 +225,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                     >
                         Yield Report
                     </button>
-                </div>
+                </motion.div>
              </motion.div>
           </AnimatePresence>
 

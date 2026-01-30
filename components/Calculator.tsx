@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TrendingUp, Zap } from 'lucide-react';
+import { TrendingUp, Zap, Info } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const Calculator: React.FC = () => {
@@ -31,9 +31,20 @@ export const Calculator: React.FC = () => {
 
         <div className="space-y-8">
           <div>
-            <label htmlFor="bill" className="block text-xs uppercase tracking-widest dark:text-brand-gold text-brand-gold-dark font-semibold mb-3">
-              Monthly Bill (ZAR)
-            </label>
+            <div className="flex items-center gap-2 mb-3">
+                <label htmlFor="bill" className="block text-xs uppercase tracking-widest dark:text-brand-gold text-brand-gold-dark font-semibold">
+                Monthly Bill (ZAR)
+                </label>
+                {/* Tooltip for ZAR */}
+                <div className="group/tooltip relative">
+                    <Info className="w-3.5 h-3.5 text-slate-400 cursor-help" />
+                    <div className="invisible group-hover/tooltip:visible opacity-0 group-hover/tooltip:opacity-100 transition-all duration-300 absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-3 bg-slate-900 text-white text-xs rounded-md shadow-lg z-50 pointer-events-none">
+                        South African Rand (R). Please enter your average monthly electricity bill.
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
+                    </div>
+                </div>
+            </div>
+            
             <div className="relative group">
               <span className="absolute left-4 top-1/2 -translate-y-1/2 dark:text-slate-400 text-slate-500 text-2xl font-light pointer-events-none group-focus-within:text-brand-gold transition-colors">R</span>
               <input
@@ -63,7 +74,17 @@ export const Calculator: React.FC = () => {
              <div className="h-px bg-slate-200 dark:bg-white/10"></div>
 
              <div className="flex items-center justify-between">
-                <span className="dark:text-slate-300 text-slate-600 font-light">10-Year Value (Bifacial)</span>
+                <div className="flex items-center gap-2">
+                    <span className="dark:text-slate-300 text-slate-600 font-light">10-Year Value (Bifacial)</span>
+                    {/* Tooltip for 10-Year Value */}
+                    <div className="group/tooltip relative">
+                        <Info className="w-3.5 h-3.5 text-slate-400 cursor-help" />
+                        <div className="invisible group-hover/tooltip:visible opacity-0 group-hover/tooltip:opacity-100 transition-all duration-300 absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-slate-900 text-white text-xs rounded-md shadow-lg z-50 pointer-events-none">
+                             Estimated cumulative savings over 10 years, accounting for a 12% annual tariff increase and superior bifacial generation performance.
+                            <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
+                        </div>
+                    </div>
+                </div>
                 <p className="text-3xl font-serif text-brand-gold">
                     R {monthlyBill > 0 ? Number(tenYearSavings).toLocaleString() : '0'}
                 </p>
