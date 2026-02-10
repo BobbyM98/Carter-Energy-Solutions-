@@ -17,7 +17,7 @@ const PRODUCTS: ProductPillar[] = [
       description: "Turn your fences into power plants with our advanced Vert-X Walls. Livestock-friendly, tractor-safe, and zero land loss. Create micro-climates that reduce water evaporation for crops while generating bifacial power.",
       specs: ["Ground Clearance: 1.2m+", "Bifacial Gain: up to 30%", "Livestock Safe"],
       // Use the Agrivoltaics/Fence generated image
-      imageUrl: "https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png"
+      imageUrl: "https://wsrv.nl/?url=https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png&w=1000&output=webp&q=80"
     },
     {
       title: "Carter Vert-X Industrial",
@@ -25,7 +25,7 @@ const PRODUCTS: ProductPillar[] = [
       description: "The solution for old or weak industrial roofs. Our aerodynamic, lightweight racking weighs less than 10kg/m² and requires zero ballast. Bond-mounted for waterproofing integrity.",
       specs: ["Weight: <10kg/m²", "Mounting: Chemical Bond", "Wind Load: Hurricane Rated"],
       // Use the Industrial Roof generated image
-      imageUrl: "https://i.ibb.co/j98GM2hY/Gemini-Generated-Image-vapyvdvapyvdvapy.png"
+      imageUrl: "https://wsrv.nl/?url=https://i.ibb.co/j98GM2hY/Gemini-Generated-Image-vapyvdvapyvdvapy.png&w=1000&output=webp&q=80"
     },
     {
       title: "Vert-X Estate",
@@ -33,7 +33,7 @@ const PRODUCTS: ProductPillar[] = [
       description: "Aesthetic vertical solutions for green roofs that don't kill the plants. Maintain your garden space while generating power. Perfect for eco-estates requiring visual discretion.",
       specs: ["Finish: Matte Black", "Spacing: Customizable", "Plant Friendly"],
       // Use the General/Clean generated image for Estate aesthetics
-      imageUrl: "https://i.ibb.co/GfWMr0JQ/Gemini-Generated-Image-9c3aj9c3aj9c3aj9.png"
+      imageUrl: "https://wsrv.nl/?url=https://i.ibb.co/GfWMr0JQ/Gemini-Generated-Image-9c3aj9c3aj9c3aj9.png&w=1000&output=webp&q=80"
     }
 ];
 

@@ -57,7 +57,7 @@ export const TrustSignals: React.FC = () => {
           >
             <div className="aspect-[4/3] rounded-sm overflow-hidden border border-brand-gold/20 shadow-2xl">
               <img 
-                src="https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png" 
+                src="https://wsrv.nl/?url=https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png&w=800&output=webp&q=80" 
                 alt="Solar Maintenance" 
                 className="w-full h-full object-cover transition-all duration-700"
                 loading="lazy"

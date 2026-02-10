@@ -16,21 +16,22 @@ const SLIDES: SlideData[] = [
     title: <span>Power at the <span className="text-gold-gradient italic">Edge.</span></span>,
     description: "The future of solar is the Carter Vert-X System. Unlock the potential of weak roofs and farmland with South Africa's first high-yield Vertical Bifacial Technology.",
     cta: "Book Vertical Audit",
-    image: "https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png"
+    // Optimized via wsrv.nl
+    image: "https://wsrv.nl/?url=https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png&w=1200&output=webp&q=80"
   },
   {
     id: 1,
     title: <span>Zero <span className="text-gold-gradient italic">Land Loss.</span></span>,
     description: "Vert-X Walls allow for grazing, crops, and wind protection while generating power. Turn your fences into power plants.",
     cta: "Explore Vert-X Walls",
-    image: "https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png"
+    image: "https://wsrv.nl/?url=https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png&w=1200&output=webp&q=80"
   },
   {
     id: 2,
     title: <span>The Solution for <span className="text-gold-gradient italic">Weak Roofs.</span></span>,
     description: "Ultra-lightweight Vert-X racking (<10kg/m²) for industrial sites. No ballast required. Aerodynamic and bond-mounted.",
     cta: "Industrial Specs",
-    image: "https://i.ibb.co/j98GM2hY/Gemini-Generated-Image-vapyvdvapyvdvapy.png"
+    image: "https://wsrv.nl/?url=https://i.ibb.co/j98GM2hY/Gemini-Generated-Image-vapyvdvapyvdvapy.png&w=1200&output=webp&q=80"
   }
 ];
 
@@ -167,7 +168,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                 fetchpriority={currentSlide === 0 ? "high" : "auto"}
                 onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    // Fallback to Unsplash if the provided link fails
                     target.src = "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=2070&auto=format&fit=crop";
                 }}
             />

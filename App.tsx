@@ -1,12 +1,13 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { TrustSignals } from './components/TrustSignals';
 
 // Eager load Footer for structure, or lazy load if very heavy. Keeping it lazy for now as it's at the bottom.
 const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
 
 // Lazy load below-the-fold components to improve initial load performance
-const TrustSignals = lazy(() => import('./components/TrustSignals').then(m => ({ default: m.TrustSignals })));
+// TrustSignals is now eager loaded to prevent CLS below hero and ensure smooth scrolling immediately.
 const ComparisonTable = lazy(() => import('./components/ComparisonTable').then(m => ({ default: m.ComparisonTable })));
 const ServicePillars = lazy(() => import('./components/ServicePillars').then(m => ({ default: m.ServicePillars })));
 const Calculator = lazy(() => import('./components/Calculator').then(m => ({ default: m.Calculator })));
@@ -23,9 +24,9 @@ const AppointmentModal = lazy(() => import('./components/AppointmentModal').then
 const TechSpecsModal = lazy(() => import('./components/TechSpecsModal').then(m => ({ default: m.TechSpecsModal })));
 const SignUpModal = lazy(() => import('./components/SignUpModal').then(m => ({ default: m.SignUpModal })));
 
-// Minimal loader to prevent layout thrashing too much
-const SectionLoader = () => (
-  <div className="py-24 flex justify-center items-center w-full min-h-[300px]">
+// Minimal loader with better spacing
+const SectionLoader = ({ height = "min-h-[400px]" }: { height?: string }) => (
+  <div className={`py-24 flex justify-center items-center w-full ${height}`}>
     <div className="w-10 h-10 border-4 border-brand-gold border-t-transparent rounded-full animate-spin"></div>
   </div>
 );
@@ -72,17 +73,15 @@ const App: React.FC = () => {
       <main className="flex-grow">
         <Hero onOpenTechSpecs={() => setIsTechSpecsOpen(true)} />
         
-        {/* Why Vertical / Education Section */}
-        <Suspense fallback={<div className="h-96 bg-brand-black/5" />}>
-           <TrustSignals />
-        </Suspense>
+        {/* Why Vertical / Education Section - Eager Loaded */}
+        <TrustSignals />
         
         {/* Lazy load remaining sections */}
-        <Suspense fallback={<SectionLoader />}>
+        <Suspense fallback={<SectionLoader height="min-h-[500px]" />}>
             <ComparisonTable />
         </Suspense>
         
-        <Suspense fallback={<SectionLoader />}>
+        <Suspense fallback={<SectionLoader height="min-h-[600px]" />}>
             <ServicePillars />
         </Suspense>
 
@@ -90,7 +89,7 @@ const App: React.FC = () => {
             <InstallationSteps />
         </Suspense>
 
-        <Suspense fallback={<div className="h-20 bg-brand-gold/10" />}>
+        <Suspense fallback={<div className="h-64 bg-brand-gold/10" />}>
             <SignUpSection onSignUp={() => setIsSignUpOpen(true)} />
         </Suspense>
 
