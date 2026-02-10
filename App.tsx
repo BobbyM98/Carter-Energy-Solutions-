@@ -1,21 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { TrustSignals } from './components/TrustSignals';
-import { ComparisonTable } from './components/ComparisonTable';
-import { Calculator } from './components/Calculator';
-import { LeadForm } from './components/LeadForm';
-import { Footer } from './components/Footer';
-import { ServicePillars } from './components/ServicePillars';
-import { SideServices } from './components/SideServices';
-import { CommercialBenefits } from './components/CommercialBenefits';
-import { ScrollToTop } from './components/ScrollToTop';
-import { AppointmentModal } from './components/AppointmentModal';
-import { TechSpecsModal } from './components/TechSpecsModal';
-import { SignUpModal } from './components/SignUpModal';
-import { SignUpSection } from './components/SignUpSection';
-import { Testimonials } from './components/Testimonials';
-import { InstallationSteps } from './components/InstallationSteps';
+// Eager load Footer for structure, or lazy load if very heavy. Keeping it lazy for now as it's at the bottom.
+const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
+
+// Lazy load below-the-fold components to improve initial load performance
+const ComparisonTable = lazy(() => import('./components/ComparisonTable').then(m => ({ default: m.ComparisonTable })));
+const ServicePillars = lazy(() => import('./components/ServicePillars').then(m => ({ default: m.ServicePillars })));
+const Calculator = lazy(() => import('./components/Calculator').then(m => ({ default: m.Calculator })));
+const LeadForm = lazy(() => import('./components/LeadForm').then(m => ({ default: m.LeadForm })));
+const InstallationSteps = lazy(() => import('./components/InstallationSteps').then(m => ({ default: m.InstallationSteps })));
+const SignUpSection = lazy(() => import('./components/SignUpSection').then(m => ({ default: m.SignUpSection })));
+const CommercialBenefits = lazy(() => import('./components/CommercialBenefits').then(m => ({ default: m.CommercialBenefits })));
+const SideServices = lazy(() => import('./components/SideServices').then(m => ({ default: m.SideServices })));
+const Testimonials = lazy(() => import('./components/Testimonials').then(m => ({ default: m.Testimonials })));
+const ScrollToTop = lazy(() => import('./components/ScrollToTop').then(m => ({ default: m.ScrollToTop })));
+
+// Modals
+const AppointmentModal = lazy(() => import('./components/AppointmentModal').then(m => ({ default: m.AppointmentModal })));
+const TechSpecsModal = lazy(() => import('./components/TechSpecsModal').then(m => ({ default: m.TechSpecsModal })));
+const SignUpModal = lazy(() => import('./components/SignUpModal').then(m => ({ default: m.SignUpModal })));
+
+// Minimal loader to prevent layout thrashing too much
+const SectionLoader = () => (
+  <div className="py-24 flex justify-center items-center w-full min-h-[300px]">
+    <div className="w-10 h-10 border-4 border-brand-gold border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 const App: React.FC = () => {
   // Theme management
@@ -59,29 +71,37 @@ const App: React.FC = () => {
       <main className="flex-grow">
         <Hero onOpenTechSpecs={() => setIsTechSpecsOpen(true)} />
         
-        {/* Why Vertical / Education Section */}
+        {/* Why Vertical / Education Section - Kept eager or high priority */}
         <TrustSignals />
         
-        {/* Comparison Data Section */}
-        <ComparisonTable />
+        {/* Lazy load remaining sections */}
+        <Suspense fallback={<SectionLoader />}>
+            <ComparisonTable />
+        </Suspense>
         
-        {/* Service Pillars / Product Section */}
-        <ServicePillars />
+        <Suspense fallback={<SectionLoader />}>
+            <ServicePillars />
+        </Suspense>
 
-        {/* Installation Process Guide */}
-        <InstallationSteps />
+        <Suspense fallback={<SectionLoader />}>
+            <InstallationSteps />
+        </Suspense>
 
-        {/* New Sign Up Section - CTA before detailed breakdown */}
-        <SignUpSection onSignUp={() => setIsSignUpOpen(true)} />
+        <Suspense fallback={<div className="h-20 bg-brand-gold/10" />}>
+            <SignUpSection onSignUp={() => setIsSignUpOpen(true)} />
+        </Suspense>
 
-        {/* Commercial & Retail Deep Dive */}
-        <CommercialBenefits />
+        <Suspense fallback={<SectionLoader />}>
+            <CommercialBenefits />
+        </Suspense>
 
-        {/* Side Services / Maintenance Section */}
-        <SideServices />
+        <Suspense fallback={<SectionLoader />}>
+            <SideServices />
+        </Suspense>
 
-        {/* Social Proof Section */}
-        <Testimonials />
+        <Suspense fallback={<SectionLoader />}>
+            <Testimonials />
+        </Suspense>
 
         {/* Concierge Section */}
         <section id="get-quote" className="py-24 px-4 relative overflow-hidden transition-colors duration-500 dark:bg-brand-charcoal bg-slate-50">
@@ -99,18 +119,31 @@ const App: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
-              <Calculator />
-              <LeadForm />
+              <Suspense fallback={<div className="h-[400px] w-full bg-slate-100 dark:bg-white/5 rounded-sm animate-pulse" />}>
+                <Calculator />
+              </Suspense>
+              <Suspense fallback={<div className="h-[400px] w-full bg-slate-100 dark:bg-white/5 rounded-sm animate-pulse" />}>
+                <LeadForm />
+              </Suspense>
             </div>
           </div>
         </section>
 
       </main>
-      <Footer />
-      <ScrollToTop />
-      <AppointmentModal isOpen={isAppointmentOpen} onClose={() => setIsAppointmentOpen(false)} />
-      <TechSpecsModal isOpen={isTechSpecsOpen} onClose={() => setIsTechSpecsOpen(false)} />
-      <SignUpModal isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} />
+      
+      <Suspense fallback={<div className="h-64 bg-brand-black" />}>
+         <Footer />
+      </Suspense>
+      
+      <Suspense fallback={null}>
+         <ScrollToTop />
+      </Suspense>
+
+      <Suspense fallback={null}>
+        <AppointmentModal isOpen={isAppointmentOpen} onClose={() => setIsAppointmentOpen(false)} />
+        <TechSpecsModal isOpen={isTechSpecsOpen} onClose={() => setIsTechSpecsOpen(false)} />
+        <SignUpModal isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} />
+      </Suspense>
     </div>
   );
 };
