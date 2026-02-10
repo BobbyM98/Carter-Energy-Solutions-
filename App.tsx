@@ -1,11 +1,12 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { TrustSignals } from './components/TrustSignals';
+
 // Eager load Footer for structure, or lazy load if very heavy. Keeping it lazy for now as it's at the bottom.
 const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
 
 // Lazy load below-the-fold components to improve initial load performance
+const TrustSignals = lazy(() => import('./components/TrustSignals').then(m => ({ default: m.TrustSignals })));
 const ComparisonTable = lazy(() => import('./components/ComparisonTable').then(m => ({ default: m.ComparisonTable })));
 const ServicePillars = lazy(() => import('./components/ServicePillars').then(m => ({ default: m.ServicePillars })));
 const Calculator = lazy(() => import('./components/Calculator').then(m => ({ default: m.Calculator })));
@@ -71,8 +72,10 @@ const App: React.FC = () => {
       <main className="flex-grow">
         <Hero onOpenTechSpecs={() => setIsTechSpecsOpen(true)} />
         
-        {/* Why Vertical / Education Section - Kept eager or high priority */}
-        <TrustSignals />
+        {/* Why Vertical / Education Section */}
+        <Suspense fallback={<div className="h-96 bg-brand-black/5" />}>
+           <TrustSignals />
+        </Suspense>
         
         {/* Lazy load remaining sections */}
         <Suspense fallback={<SectionLoader />}>

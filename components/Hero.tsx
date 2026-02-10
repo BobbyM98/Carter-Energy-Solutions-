@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useTransform, Variants } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, Variants, useInView } from 'framer-motion';
 
 interface SlideData {
   id: number;
@@ -42,13 +42,20 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 1000], [0, 400]);
+  
+  // Ref for intersection observer to pause carousel
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { margin: "0px 0px -200px 0px" });
 
   useEffect(() => {
+    // Only run the timer if the hero is in view
+    if (!isInView) return;
+
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isInView]);
 
   // Primary Action Logic
   const handlePrimaryCta = () => {
@@ -138,7 +145,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
   };
 
   return (
-    <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden bg-brand-black">
+    <section ref={containerRef} className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden bg-brand-black">
       {/* Background Slideshow */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -155,6 +162,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                 alt="Vertical Solar Architecture" 
                 className="w-full h-full object-cover opacity-60 dark:opacity-50"
                 loading={currentSlide === 0 ? "eager" : "lazy"}
+                decoding="async"
                 // @ts-ignore
                 fetchpriority={currentSlide === 0 ? "high" : "auto"}
                 onError={(e) => {

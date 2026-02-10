@@ -23,8 +23,8 @@ export const TrustSignals: React.FC = () => {
 
   return (
     <section id="benefits" className="dark:bg-brand-black bg-white py-24 border-y dark:border-white/5 border-slate-100 transition-colors duration-500 overflow-hidden relative">
-      {/* Decorative background element */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-gold opacity-5 blur-[120px] rounded-full pointer-events-none"></div>
+      {/* Decorative background element - Optimized: Replaced expensive blur filter with radial gradient */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(212,175,55,0.08)_0%,transparent_70%)] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -61,6 +61,7 @@ export const TrustSignals: React.FC = () => {
                 alt="Solar Maintenance" 
                 className="w-full h-full object-cover transition-all duration-700"
                 loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-black/80 to-transparent"></div>
               <div className="absolute bottom-6 left-6 text-white">
