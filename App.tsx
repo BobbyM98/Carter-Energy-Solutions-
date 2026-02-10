@@ -15,6 +15,7 @@ import { TechSpecsModal } from './components/TechSpecsModal';
 import { SignUpModal } from './components/SignUpModal';
 import { SignUpSection } from './components/SignUpSection';
 import { Testimonials } from './components/Testimonials';
+import { InstallationSteps } from './components/InstallationSteps';
 
 const App: React.FC = () => {
   // Theme management
@@ -66,6 +67,9 @@ const App: React.FC = () => {
         
         {/* Service Pillars / Product Section */}
         <ServicePillars />
+
+        {/* Installation Process Guide */}
+        <InstallationSteps />
 
         {/* New Sign Up Section - CTA before detailed breakdown */}
         <SignUpSection onSignUp={() => setIsSignUpOpen(true)} />
