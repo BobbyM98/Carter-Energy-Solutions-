@@ -68,7 +68,7 @@ export const ServicePillars: React.FC = () => {
         <div className="text-center mb-16">
            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 dark:text-white text-slate-900">Our Vertical Systems</h2>
            <div className="h-0.5 w-16 bg-brand-gold mx-auto mb-4"></div>
-           <p className="text-slate-500 dark:text-slate-400 font-light">Engineered for the edge cases. Built for South Africa.</p>
+           <p className="text-slate-600 dark:text-slate-400 font-light">Engineered for the edge cases. Built for South Africa.</p>
         </div>
 
         <div className="relative max-w-6xl mx-auto">
@@ -89,6 +89,7 @@ export const ServicePillars: React.FC = () => {
                        src={PRODUCTS[currentIndex].imageUrl} 
                        alt={PRODUCTS[currentIndex].title} 
                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                       loading="lazy"
                      />
                   </div>
 
@@ -96,7 +97,7 @@ export const ServicePillars: React.FC = () => {
                   <div className="flex flex-col text-left">
                      <span className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-2">{PRODUCTS[currentIndex].subtitle}</span>
                      <h3 className="text-4xl font-serif dark:text-white text-brand-black mb-6">{PRODUCTS[currentIndex].title}</h3>
-                     <p className="text-lg dark:text-slate-300 text-slate-600 leading-relaxed mb-8 font-light">
+                     <p className="text-lg dark:text-slate-300 text-slate-700 leading-relaxed mb-8 font-light">
                        {PRODUCTS[currentIndex].description}
                      </p>
                      
@@ -104,14 +105,14 @@ export const ServicePillars: React.FC = () => {
                         {PRODUCTS[currentIndex].specs.map((spec, idx) => (
                              <div key={idx} className="flex items-center gap-3">
                                 <div className="w-1.5 h-1.5 bg-brand-gold rounded-full"></div>
-                                <span className="dark:text-slate-400 text-slate-600 font-mono text-sm uppercase">{spec}</span>
+                                <span className="dark:text-slate-400 text-slate-700 font-mono text-sm uppercase">{spec}</span>
                              </div>
                         ))}
                      </div>
 
                      <button 
                        onClick={scrollToQuote}
-                       className="flex items-center gap-2 text-brand-gold hover:text-white transition-colors group w-fit"
+                       className="flex items-center gap-2 text-brand-gold-dark dark:text-brand-gold hover:text-brand-black dark:hover:text-white transition-colors group w-fit"
                      >
                         <span className="font-bold border-b border-brand-gold pb-0.5">Request Specs</span>
                         <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
@@ -125,7 +126,8 @@ export const ServicePillars: React.FC = () => {
           <div className="flex justify-center items-center gap-6 mt-12">
             <button 
                 onClick={prev}
-                className="p-3 rounded-full border border-slate-200 dark:border-white/10 text-slate-400 hover:text-brand-gold hover:border-brand-gold transition-all dark:bg-brand-charcoal bg-white"
+                aria-label="Previous Product"
+                className="p-3 rounded-full border border-slate-200 dark:border-white/10 text-slate-400 hover:text-brand-gold hover:border-brand-gold transition-all dark:bg-brand-charcoal bg-white min-w-[44px] min-h-[44px] flex items-center justify-center"
             >
                 <ChevronLeft className="w-6 h-6" />
             </button>
@@ -135,8 +137,9 @@ export const ServicePillars: React.FC = () => {
                 <button
                     key={idx}
                     onClick={() => setCurrentIndex(idx)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    idx === currentIndex ? 'w-8 bg-brand-gold' : 'bg-slate-300 dark:bg-slate-700 hover:bg-brand-gold/50'
+                    aria-label={`Go to product ${idx + 1}`}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                    idx === currentIndex ? 'w-8 bg-brand-gold' : 'w-2 bg-slate-300 dark:bg-slate-700 hover:bg-brand-gold/50'
                     }`}
                 />
                 ))}
@@ -144,7 +147,8 @@ export const ServicePillars: React.FC = () => {
 
             <button 
                 onClick={next}
-                className="p-3 rounded-full border border-slate-200 dark:border-white/10 text-slate-400 hover:text-brand-gold hover:border-brand-gold transition-all dark:bg-brand-charcoal bg-white"
+                aria-label="Next Product"
+                className="p-3 rounded-full border border-slate-200 dark:border-white/10 text-slate-400 hover:text-brand-gold hover:border-brand-gold transition-all dark:bg-brand-charcoal bg-white min-w-[44px] min-h-[44px] flex items-center justify-center"
             >
                 <ChevronRight className="w-6 h-6" />
             </button>

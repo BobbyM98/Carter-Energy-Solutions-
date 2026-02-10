@@ -154,6 +154,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                 src={SLIDES[currentSlide].image} 
                 alt="Vertical Solar Architecture" 
                 className="w-full h-full object-cover opacity-60 dark:opacity-50"
+                loading={currentSlide === 0 ? "eager" : "lazy"}
+                // @ts-ignore
+                fetchpriority={currentSlide === 0 ? "high" : "auto"}
                 onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     // Fallback to Unsplash if the provided link fails
@@ -197,7 +200,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                 
                 <motion.p 
                   variants={childVariants}
-                  className="text-lg md:text-2xl dark:text-slate-300 text-slate-600 mb-12 leading-relaxed max-w-2xl mx-auto font-light min-h-[4em] md:min-h-[3em]"
+                  className="text-lg md:text-2xl dark:text-slate-300 text-slate-700 mb-12 leading-relaxed max-w-2xl mx-auto font-light min-h-[4em] md:min-h-[3em]"
                 >
                     {SLIDES[currentSlide].description}
                 </motion.p>
@@ -208,7 +211,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                 >
                     <button 
                         onClick={handlePrimaryCta}
-                        className="group relative inline-flex justify-center items-center gap-3 bg-brand-gold text-brand-black px-10 py-4 rounded-sm font-semibold text-lg overflow-hidden transition-all hover:pr-12"
+                        className="group relative inline-flex justify-center items-center gap-3 bg-brand-gold text-brand-black px-10 py-4 rounded-sm font-semibold text-lg overflow-hidden transition-all hover:pr-12 min-h-[56px]"
                     >
                         <span className="relative z-10">{SLIDES[currentSlide].cta}</span>
                         {currentSlide === 2 ? (
@@ -221,7 +224,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                     </button>
                     <button 
                         onClick={scrollToCalculator}
-                        className="group inline-flex justify-center items-center gap-2 px-10 py-4 rounded-sm font-semibold text-lg dark:text-white text-brand-black border dark:border-white/20 border-brand-black/20 hover:bg-brand-black/5 dark:hover:bg-white/5 transition-all"
+                        className="group inline-flex justify-center items-center gap-2 px-10 py-4 rounded-sm font-semibold text-lg dark:text-white text-brand-black border dark:border-white/20 border-brand-black/20 hover:bg-brand-black/5 dark:hover:bg-white/5 transition-all min-h-[56px]"
                     >
                         Yield Report
                     </button>
@@ -238,20 +241,29 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
              <div className="flex -space-x-4">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="w-10 h-10 rounded-full dark:border-brand-black border-white border-2 overflow-hidden shadow-lg">
-                   <img src={`https://picsum.photos/seed/${i + 42}/100`} alt="User" className="w-full h-full object-cover" />
+                   <img 
+                    src={`https://picsum.photos/seed/${i + 42}/100`} 
+                    alt={`Satisfied customer ${i}`} 
+                    loading="lazy"
+                    className="w-full h-full object-cover" 
+                   />
                 </div>
               ))}
             </div>
             <div className="text-left">
               <div className="flex text-brand-gold text-xs">★★★★★</div>
-              <p className="text-sm dark:text-slate-400 text-slate-500">Experts in <span className="dark:text-white text-brand-black font-semibold">Industrial, Commercial & Farms</span></p>
+              <p className="text-sm dark:text-slate-400 text-slate-600">Experts in <span className="dark:text-white text-brand-black font-semibold">Industrial, Commercial & Farms</span></p>
             </div>
           </motion.div>
         </div>
 
         {/* Carousel Controls */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 z-20">
-            <button onClick={prevSlide} className="p-2 rounded-full border border-white/10 hover:bg-white/10 text-white/50 hover:text-white transition-all">
+            <button 
+                onClick={prevSlide} 
+                className="p-3 rounded-full border border-white/10 hover:bg-white/10 text-white/50 hover:text-white transition-all min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="Previous Slide"
+            >
                 <ChevronLeft className="w-5 h-5" />
             </button>
             <div className="flex gap-2">
@@ -259,13 +271,18 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                     <button
                         key={idx}
                         onClick={() => setCurrentSlide(idx)}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            idx === currentSlide ? 'w-8 bg-brand-gold' : 'bg-white/20 hover:bg-brand-gold/50'
+                        aria-label={`Go to slide ${idx + 1}`}
+                        className={`h-2 rounded-full transition-all duration-300 ${
+                            idx === currentSlide ? 'w-8 bg-brand-gold' : 'w-2 bg-white/20 hover:bg-brand-gold/50'
                         }`}
                     />
                 ))}
             </div>
-            <button onClick={nextSlide} className="p-2 rounded-full border border-white/10 hover:bg-white/10 text-white/50 hover:text-white transition-all">
+            <button 
+                onClick={nextSlide} 
+                className="p-3 rounded-full border border-white/10 hover:bg-white/10 text-white/50 hover:text-white transition-all min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="Next Slide"
+            >
                 <ChevronRight className="w-5 h-5" />
             </button>
         </div>

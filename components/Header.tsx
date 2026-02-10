@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Zap, Menu, X, Sun, Moon, Calendar, UserPlus } from 'lucide-react';
+import { Zap, Menu, X, Sun, Moon, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface HeaderProps {
@@ -96,7 +96,7 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
                 </div>
             </div>
             <span className="text-xl md:text-2xl font-bold tracking-tight dark:text-white text-slate-900 font-serif">
-              Carter<span className="text-brand-gold">Energy</span>
+              Carter<span className="text-brand-gold-dark dark:text-brand-gold">Energy</span>
             </span>
           </div>
 
@@ -105,10 +105,10 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
             <a 
               href="#benefits" 
               onClick={(e) => scrollToSection(e, 'benefits')}
-              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline ${
+              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
                 activeSection === 'benefits' 
-                  ? 'text-brand-gold' 
-                  : 'dark:text-slate-300 text-slate-600 hover:text-brand-gold'
+                  ? 'text-brand-gold-dark dark:text-brand-gold' 
+                  : 'dark:text-slate-300 text-slate-700 hover:text-brand-gold-dark dark:hover:text-brand-gold'
               }`}
               aria-current={activeSection === 'benefits' ? 'true' : undefined}
             >
@@ -117,10 +117,10 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
             <a 
               href="#calculator" 
               onClick={(e) => scrollToSection(e, 'calculator')}
-              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline ${
+              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
                 activeSection === 'calculator' 
-                  ? 'text-brand-gold' 
-                  : 'dark:text-slate-300 text-slate-600 hover:text-brand-gold'
+                  ? 'text-brand-gold-dark dark:text-brand-gold' 
+                  : 'dark:text-slate-300 text-slate-700 hover:text-brand-gold-dark dark:hover:text-brand-gold'
               }`}
               aria-current={activeSection === 'calculator' ? 'true' : undefined}
             >
@@ -130,7 +130,7 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
             {/* Theme Toggle */}
             <button 
               onClick={toggleTheme}
-              className="p-2 rounded-full dark:bg-white/5 bg-slate-100 dark:hover:bg-white/10 hover:bg-slate-200 transition-colors mr-2 focus:outline-none focus:ring-2 focus:ring-brand-gold"
+              className="p-3 rounded-full dark:bg-white/5 bg-slate-100 dark:hover:bg-white/10 hover:bg-slate-200 transition-colors mr-2 focus:outline-none focus:ring-2 focus:ring-brand-gold min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
             >
               {isDark ? <Sun className="h-4 w-4 text-brand-gold" aria-hidden="true" /> : <Moon className="h-4 w-4 text-slate-700" aria-hidden="true" />}
@@ -138,14 +138,14 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
             
             <button 
               onClick={onSignUp}
-              className="hidden lg:flex items-center gap-2 text-brand-gold dark:text-brand-gold px-3 py-2.5 rounded-sm font-semibold text-sm hover:text-white transition-all mr-2 focus:outline-none focus:ring-2 focus:ring-brand-gold"
+              className="hidden lg:flex items-center gap-2 text-brand-gold-dark dark:text-brand-gold px-3 py-2.5 rounded-sm font-semibold text-sm hover:text-brand-black dark:hover:text-white transition-all mr-2 focus:outline-none focus:ring-2 focus:ring-brand-gold min-h-[44px]"
             >
               Sign Up
             </button>
 
             <button 
               onClick={onBookAppointment}
-              className="hidden lg:flex items-center gap-2 border border-brand-gold text-brand-gold px-5 py-2.5 rounded-sm font-semibold text-sm hover:bg-brand-gold hover:text-brand-black transition-all focus:outline-none focus:ring-2 focus:ring-brand-gold"
+              className="hidden lg:flex items-center gap-2 border border-brand-gold-dark dark:border-brand-gold text-brand-gold-dark dark:text-brand-gold px-5 py-2.5 rounded-sm font-semibold text-sm hover:bg-brand-gold hover:text-brand-black transition-all focus:outline-none focus:ring-2 focus:ring-brand-gold min-h-[44px]"
             >
               <Calendar className="w-4 h-4" aria-hidden="true" />
               <span>Book Appointment</span>
@@ -153,7 +153,7 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
 
             <button 
               onClick={(e) => scrollToSection(e, 'get-quote')}
-              className="bg-brand-gold hover:bg-brand-gold-light text-brand-black px-6 py-2.5 rounded-sm font-semibold text-sm transition-all shadow-[0_0_20px_-5px_rgba(212,175,55,0.4)] focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 dark:focus:ring-offset-brand-black"
+              className="bg-brand-gold hover:bg-brand-gold-light text-brand-black px-6 py-2.5 rounded-sm font-semibold text-sm transition-all shadow-[0_0_20px_-5px_rgba(212,175,55,0.4)] focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 dark:focus:ring-offset-brand-black min-h-[44px]"
             >
               Get a Quote
             </button>
@@ -163,13 +163,13 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
           <div className="flex items-center gap-4 md:hidden">
             <button 
               onClick={toggleTheme}
-              className="p-2 rounded-full dark:bg-white/5 bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-gold"
+              className="p-3 rounded-full dark:bg-white/5 bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-gold min-w-[44px] min-h-[44px] flex items-center justify-center"
               aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
             >
               {isDark ? <Sun className="h-4 w-4 text-brand-gold" aria-hidden="true" /> : <Moon className="h-4 w-4 text-slate-700" aria-hidden="true" />}
             </button>
             <button 
-              className="dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-gold p-1 rounded-md"
+              className="dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-gold p-2 rounded-md min-w-[44px] min-h-[44px] flex items-center justify-center"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Close main menu" : "Open main menu"}
               aria-expanded={isMobileMenuOpen}
@@ -195,7 +195,7 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
              <a 
                href="#benefits" 
                onClick={(e) => scrollToSection(e, 'benefits')} 
-               className={`font-serif text-lg ${activeSection === 'benefits' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-600'}`}
+               className={`font-serif text-lg py-2 ${activeSection === 'benefits' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-700'}`}
                aria-current={activeSection === 'benefits' ? 'true' : undefined}
              >
                Expertise
@@ -203,7 +203,7 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
             <a 
               href="#calculator" 
               onClick={(e) => scrollToSection(e, 'calculator')} 
-              className={`font-serif text-lg ${activeSection === 'calculator' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-600'}`}
+              className={`font-serif text-lg py-2 ${activeSection === 'calculator' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-700'}`}
               aria-current={activeSection === 'calculator' ? 'true' : undefined}
             >
               Savings
@@ -214,7 +214,7 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
                 onSignUp();
                 setIsMobileMenuOpen(false);
               }}
-              className="font-serif text-lg dark:text-white text-slate-900 hover:text-brand-gold focus:outline-none focus:text-brand-gold"
+              className="font-serif text-lg dark:text-white text-slate-900 hover:text-brand-gold focus:outline-none focus:text-brand-gold py-2"
             >
               Sign Up
             </button>
@@ -224,14 +224,14 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
                 onBookAppointment();
                 setIsMobileMenuOpen(false);
               }}
-              className="border border-brand-gold text-brand-gold px-5 py-4 rounded-sm font-bold w-full flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-brand-gold"
+              className="border border-brand-gold text-brand-gold px-5 py-4 rounded-sm font-bold w-full flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-brand-gold min-h-[44px]"
             >
               <Calendar className="w-5 h-5" aria-hidden="true" />
               Book Appointment
             </button>
             <button 
               onClick={(e) => scrollToSection(e, 'get-quote')}
-              className="bg-brand-gold text-brand-black px-5 py-4 rounded-sm font-bold w-full focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 dark:focus:ring-offset-brand-black"
+              className="bg-brand-gold text-brand-black px-5 py-4 rounded-sm font-bold w-full focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 dark:focus:ring-offset-brand-black min-h-[44px]"
             >
               Get a Quote
             </button>

@@ -40,10 +40,10 @@ export const TrustSignals: React.FC = () => {
               Why <span className="text-brand-gold italic">Vertical?</span>
             </h2>
             <div className="h-1 w-24 bg-brand-gold mb-8"></div>
-            <p className="text-lg dark:text-slate-300 text-slate-600 font-light leading-relaxed mb-6">
+            <p className="text-lg dark:text-slate-300 text-slate-700 font-light leading-relaxed mb-6">
               We started as a standard maintenance company, but we saw a massive problem. In Gauteng, roofs were too weak for heavy ballasted solar, and dust was killing efficiency within weeks.
             </p>
-            <p className="text-lg dark:text-slate-300 text-slate-600 font-light leading-relaxed">
+            <p className="text-lg dark:text-slate-300 text-slate-700 font-light leading-relaxed">
               We refused to offer sub-par solutions. We scoured the globe—from Norway to Germany—to bring <strong>Vertical Bifacial Technology</strong> to South Africa. We are the pioneers of the 'Vertical Revolution'.
             </p>
           </motion.div>
@@ -60,6 +60,7 @@ export const TrustSignals: React.FC = () => {
                 src="https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png" 
                 alt="Solar Maintenance" 
                 className="w-full h-full object-cover transition-all duration-700"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-black/80 to-transparent"></div>
               <div className="absolute bottom-6 left-6 text-white">
@@ -84,7 +85,7 @@ export const TrustSignals: React.FC = () => {
                 {signal.icon}
               </div>
               <h3 className="text-2xl font-serif dark:text-white text-brand-black mb-3">{signal.title}</h3>
-              <p className="dark:text-slate-400 text-slate-600 leading-relaxed font-light">{signal.description}</p>
+              <p className="dark:text-slate-400 text-slate-700 leading-relaxed font-light">{signal.description}</p>
             </motion.div>
           ))}
         </div>

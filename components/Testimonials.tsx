@@ -50,7 +50,7 @@ export const Testimonials: React.FC = () => {
         <div className="text-center mb-16">
            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 dark:text-white text-slate-900">Voices of Independence</h2>
            <div className="h-0.5 w-16 bg-brand-gold mx-auto mb-4"></div>
-           <p className="text-slate-500 dark:text-slate-400 font-light">Join the families who have already secured their power.</p>
+           <p className="text-slate-600 dark:text-slate-400 font-light">Join the families who have already secured their power.</p>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
@@ -72,6 +72,7 @@ export const Testimonials: React.FC = () => {
                              src={TESTIMONIAL_DATA[currentIndex].imageUrl} 
                              alt={TESTIMONIAL_DATA[currentIndex].name} 
                              className="w-full h-full rounded-full object-cover"
+                             loading="lazy"
                            />
                         </div>
                         <div className="absolute -bottom-2 -right-2 bg-brand-gold text-brand-black p-1.5 rounded-full">
@@ -88,7 +89,7 @@ export const Testimonials: React.FC = () => {
                      </blockquote>
 
                      <div>
-                       <h4 className="text-lg font-bold dark:text-white text-brand-black tracking-wide">{TESTIMONIAL_DATA[currentIndex].name}</h4>
+                       <h3 className="text-lg font-bold dark:text-white text-brand-black tracking-wide">{TESTIMONIAL_DATA[currentIndex].name}</h3>
                        <p className="text-sm dark:text-brand-gold text-brand-gold-dark uppercase tracking-widest mt-1">{TESTIMONIAL_DATA[currentIndex].location}</p>
                      </div>
                   </div>
@@ -99,7 +100,7 @@ export const Testimonials: React.FC = () => {
           {/* Navigation Buttons */}
           <button 
             onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full border border-slate-200 dark:border-white/10 text-slate-400 hover:text-brand-gold hover:border-brand-gold transition-all dark:bg-brand-charcoal bg-white shadow-lg z-20"
+            className="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full border border-slate-200 dark:border-white/10 text-slate-400 hover:text-brand-gold hover:border-brand-gold transition-all dark:bg-brand-charcoal bg-white shadow-lg z-20 min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="w-6 h-6" />
@@ -107,7 +108,7 @@ export const Testimonials: React.FC = () => {
           
           <button 
             onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full border border-slate-200 dark:border-white/10 text-slate-400 hover:text-brand-gold hover:border-brand-gold transition-all dark:bg-brand-charcoal bg-white shadow-lg z-20"
+            className="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full border border-slate-200 dark:border-white/10 text-slate-400 hover:text-brand-gold hover:border-brand-gold transition-all dark:bg-brand-charcoal bg-white shadow-lg z-20 min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Next testimonial"
           >
             <ChevronRight className="w-6 h-6" />
@@ -119,8 +120,9 @@ export const Testimonials: React.FC = () => {
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  idx === currentIndex ? 'w-8 bg-brand-gold' : 'bg-slate-300 dark:bg-slate-700 hover:bg-brand-gold/50'
+                aria-label={`Go to testimonial ${idx + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  idx === currentIndex ? 'w-8 bg-brand-gold' : 'w-2 bg-slate-300 dark:bg-slate-700 hover:bg-brand-gold/50'
                 }`}
               />
             ))}
