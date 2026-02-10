@@ -12,9 +12,9 @@ interface ProductPillar {
 
 const PRODUCTS: ProductPillar[] = [
     {
-      title: "Carter Solar Walls",
+      title: "Carter Vert-X Walls",
       subtitle: "The Solar Fence",
-      description: "Turn your fences into power plants with our advanced Solar Walls. Livestock-friendly, tractor-safe, and zero land loss. Create micro-climates that reduce water evaporation for crops while generating bifacial power.",
+      description: "Turn your fences into power plants with our advanced Vert-X Walls. Livestock-friendly, tractor-safe, and zero land loss. Create micro-climates that reduce water evaporation for crops while generating bifacial power.",
       specs: ["Ground Clearance: 1.2m+", "Bifacial Gain: up to 30%", "Livestock Safe"],
       // Use the Agrivoltaics/Fence generated image
       imageUrl: "https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png"

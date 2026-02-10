@@ -7,17 +7,17 @@ export const TrustSignals: React.FC = () => {
     {
       icon: <TrendingUp className="h-8 w-8 text-brand-gold" strokeWidth={1.5} />,
       title: "The Camel Curve",
-      description: "Standard solar peaks at noon when power is cheap. Vertical bifacial panels peak at 8 AM and 4 PM—capturing the high-tariff morning and evening sun."
+      description: "Standard solar peaks at noon when power is cheap. Vert-X bifacial panels peak at 8 AM and 4 PM—capturing the high-tariff morning and evening sun."
     },
     {
       icon: <Droplets className="h-8 w-8 text-brand-gold" strokeWidth={1.5} />,
       title: "The Dust Solution",
-      description: "Gauteng dust kills horizontal efficiency by up to 15%. Vertical panels use gravity to self-clean, maintaining 98% efficiency year-round."
+      description: "Gauteng dust kills horizontal efficiency by up to 15%. Vert-X panels use gravity to self-clean, maintaining 98% efficiency year-round."
     },
     {
       icon: <Wind className="h-8 w-8 text-brand-gold" strokeWidth={1.5} />,
       title: "Aerodynamic Cooling",
-      description: "Heat degrades solar voltage. Vertical racking allows unrestricted airflow, keeping panels cooler and voltage higher during the SA summer."
+      description: "Heat degrades solar voltage. Vert-X racking allows unrestricted airflow, keeping panels cooler and voltage higher during the SA summer."
     }
   ];
 
@@ -44,7 +44,7 @@ export const TrustSignals: React.FC = () => {
               We started as a standard maintenance company, but we saw a massive problem. In Gauteng, roofs were too weak for heavy ballasted solar, and dust was killing efficiency within weeks.
             </p>
             <p className="text-lg dark:text-slate-300 text-slate-700 font-light leading-relaxed">
-              We refused to offer sub-par solutions. We scoured the globe—from Norway to Germany—to bring <strong>Vertical Bifacial Technology</strong> to South Africa. We are the pioneers of the 'Vertical Revolution'.
+              We refused to offer sub-par solutions. We scoured the globe—from Norway to Germany—to bring the <strong>Carter Vert-X System</strong> to South Africa. We are the pioneers of the 'Vert-X Revolution'.
             </p>
           </motion.div>
           

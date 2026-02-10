@@ -6,22 +6,22 @@ const BENEFITS = [
   {
     icon: <Footprints className="w-6 h-6" />,
     title: "The 'HVAC Alley' Access",
-    description: "Standard solar blocks walking paths. Vertical systems create clear corridors, allowing maintenance crews to service AC units without stepping on panels."
+    description: "Standard solar blocks walking paths. Vert-X systems create clear corridors, allowing maintenance crews to service AC units without stepping on panels."
   },
   {
     icon: <Feather className="w-6 h-6" />,
     title: "Safe for Big Box Roofs",
-    description: "Malls often can't support the 25kg/m² of ballasted solar. Our aerodynamic vertical systems weigh just 11kg/m², unlocking roof real estate you thought was unusable."
+    description: "Malls often can't support the 25kg/m² of ballasted solar. Our aerodynamic Vert-X systems weigh just 11kg/m², unlocking roof real estate you thought was unusable."
   },
   {
     icon: <Clock className="w-6 h-6" />,
     title: "The 6 PM Shopping Rush",
-    description: "Malls peak in energy use during late afternoon. West-facing vertical panels generate their maximum power exactly when you need it most—matching the evening shopper footfall."
+    description: "Malls peak in energy use during late afternoon. West-facing Vert-X panels generate their maximum power exactly when you need it most—matching the evening shopper footfall."
   },
   {
     icon: <Sprout className="w-6 h-6" />,
     title: "Green Roof Compatible",
-    description: "Don't kill your eco-friendly aesthetics. Vertical units allow sunlight and rain to reach the soil, keeping your green roof alive while generating power."
+    description: "Don't kill your eco-friendly aesthetics. Vert-X units allow sunlight and rain to reach the soil, keeping your green roof alive while generating power."
   }
 ];
 
@@ -46,7 +46,7 @@ export const CommercialBenefits: React.FC = () => {
                 
                 <div className="p-8 bg-white dark:bg-brand-black border-l-4 border-brand-gold rounded-r-sm shadow-xl">
                     <p className="italic text-slate-700 dark:text-slate-300 font-serif text-lg mb-6 leading-relaxed">
-                        "Our vertical system lets you keep your walkways clear for HVAC crews, keeps your green roof alive, and powers your lights during the 6 PM shopping rush."
+                        "Our Vert-X system lets you keep your walkways clear for HVAC crews, keeps your green roof alive, and powers your lights during the 6 PM shopping rush."
                     </p>
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center font-bold text-brand-gold">

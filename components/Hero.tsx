@@ -14,21 +14,21 @@ const SLIDES: SlideData[] = [
   {
     id: 0,
     title: <span>Power at the <span className="text-gold-gradient italic">Edge.</span></span>,
-    description: "The future of solar is Vertical. Unlock the potential of weak roofs and farmland with South Africa's first high-yield Vertical Bifacial Systems.",
+    description: "The future of solar is the Carter Vert-X System. Unlock the potential of weak roofs and farmland with South Africa's first high-yield Vertical Bifacial Technology.",
     cta: "Book Vertical Audit",
     image: "https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png"
   },
   {
     id: 1,
     title: <span>Zero <span className="text-gold-gradient italic">Land Loss.</span></span>,
-    description: "Solar Walls that allow for grazing, crops, and wind protection while generating power. Turn your fences into power plants.",
-    cta: "Explore Solar Walls",
+    description: "Vert-X Walls allow for grazing, crops, and wind protection while generating power. Turn your fences into power plants.",
+    cta: "Explore Vert-X Walls",
     image: "https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png"
   },
   {
     id: 2,
     title: <span>The Solution for <span className="text-gold-gradient italic">Weak Roofs.</span></span>,
-    description: "Ultra-lightweight vertical racking (<10kg/m²) for industrial sites. No ballast required. Aerodynamic and bond-mounted.",
+    description: "Ultra-lightweight Vert-X racking (<10kg/m²) for industrial sites. No ballast required. Aerodynamic and bond-mounted.",
     cta: "Industrial Specs",
     image: "https://i.ibb.co/j98GM2hY/Gemini-Generated-Image-vapyvdvapyvdvapy.png"
   }
@@ -66,7 +66,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
             });
         }
     } else if (currentSlide === 1) {
-        // Explore Solar Walls -> Scroll to Service Pillars
+        // Explore Vert-X Walls -> Scroll to Service Pillars
         const element = document.getElementById('service-pillars');
         if (element) {
             const headerOffset = 100;

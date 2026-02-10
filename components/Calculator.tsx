@@ -25,8 +25,8 @@ export const Calculator: React.FC = () => {
       
       <div className="relative z-10">
         <div className="mb-10">
-          <h3 className="text-2xl font-serif dark:text-white text-brand-black mb-2">Estimate Vertical Yield</h3>
-          <p className="dark:text-slate-400 text-slate-500 font-light">Enter your monthly electricity spend to see the potential savings of a high-yield bifacial system.</p>
+          <h3 className="text-2xl font-serif dark:text-white text-brand-black mb-2">Estimate Vert-X Yield</h3>
+          <p className="dark:text-slate-400 text-slate-500 font-light">Enter your monthly electricity spend to see the potential savings of a high-yield Vert-X system.</p>
         </div>
 
         <div className="space-y-8">

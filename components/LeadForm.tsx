@@ -132,7 +132,7 @@ export const LeadForm: React.FC = () => {
             'Processing...'
           ) : (
             <>
-              Request Vertical Audit <Send className="w-4 h-4" />
+              Request Vert-X Audit <Send className="w-4 h-4" />
             </>
           )}
         </button>
