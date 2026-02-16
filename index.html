@@ -85,32 +85,32 @@
         color: transparent;
       }
     </style>
-
-    <!-- ESM Import Map -->
-    <script type="importmap">
+  <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@18.2.0",
-    "react/": "https://esm.sh/react@18.2.0/",
-    "react-dom": "https://esm.sh/react-dom@18.2.0",
-    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
-    "lucide-react": "https://esm.sh/lucide-react@0.344.0?deps=react@18.2.0",
-    "framer-motion": "https://esm.sh/framer-motion@10.16.4?deps=react@18.2.0,react-dom@18.2.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
     "vite": "https://esm.sh/vite@^7.3.1",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4"
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "lucide-react": "https://esm.sh/lucide-react@^0.564.0",
+    "framer-motion": "https://esm.sh/framer-motion@^12.34.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
   }
 }
 </script>
-  </head>
+</head>
   <body class="bg-white dark:bg-brand-black text-slate-900 dark:text-slate-50 antialiased selection:bg-brand-gold selection:text-white">
     <div id="root">
+        <!-- Static fallback content shown before React loads -->
         <header>
             <h1 class="text-gold-gradient text-4xl font-serif my-6 text-center">Carter Energy Solutions</h1>
             <p class="text-center mb-8">
             Pioneering Vertical Bifacial Solar in South Africa.<br>
             High-yield solar walls for farms and lightweight racking for industrial and commercial roofs.
             </p>
+            <div class="flex justify-center mt-4">
+                 <div class="w-8 h-8 border-4 border-brand-gold border-t-transparent rounded-full animate-spin"></div>
+            </div>
         </header>
     </div>
     <script type="module" src="./index.tsx"></script>

@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // IMPORTANT: The base must match your GitHub repository name exactly, surrounded by slashes.
-  // Based on your screenshot URL, the repo path is "/Carter-Energy-Solutions-/"
-  base: '/Carter-Energy-Solutions-/', 
+  // Using './' makes the paths relative to the index.html file. 
+  // This ensures assets load correctly regardless of the repo name or trailing slashes.
+  base: './', 
 })
