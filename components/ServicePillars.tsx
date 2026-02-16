@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const MotionDiv = motion.div as any;
+
 interface ProductPillar {
   title: string;
   subtitle: string;
@@ -88,7 +90,7 @@ export const ServicePillars: React.FC<ServicePillarsProps> = ({ onOpenAgriSpecs,
         <div className="relative max-w-6xl mx-auto">
             <div className="relative min-h-[500px] flex items-center">
               <AnimatePresence mode="wait">
-                <motion.div
+                <MotionDiv
                   key={currentIndex}
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -134,7 +136,7 @@ export const ServicePillars: React.FC<ServicePillarsProps> = ({ onOpenAgriSpecs,
                         {currentIndex === 0 ? <BookOpen className="w-4 h-4" /> : <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />}
                      </button>
                   </div>
-                </motion.div>
+                </MotionDiv>
               </AnimatePresence>
             </div>
 

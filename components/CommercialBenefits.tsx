@@ -2,6 +2,8 @@ import React from 'react';
 import { Footprints, Feather, Clock, Sprout, ShoppingBag } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+const MotionDiv = motion.div as any;
+
 const BENEFITS = [
   {
     icon: <Footprints className="w-6 h-6" />,
@@ -63,7 +65,7 @@ export const CommercialBenefits: React.FC = () => {
             {/* Right Column: Grid of Benefits */}
             <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
                 {BENEFITS.map((benefit, idx) => (
-                    <motion.div
+                    <MotionDiv
                         key={idx}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -78,7 +80,7 @@ export const CommercialBenefits: React.FC = () => {
                         <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-light">
                             {benefit.description}
                         </p>
-                    </motion.div>
+                    </MotionDiv>
                 ))}
             </div>
         </div>

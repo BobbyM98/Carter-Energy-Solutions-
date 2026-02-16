@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useTransform, Variants, useInView } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
+
+// Cast motion components to any to resolve prop type mismatches
+const MotionDiv = motion.div as any;
+const MotionH1 = motion.h1 as any;
+const MotionP = motion.p as any;
 
 interface SlideData {
   id: number;
@@ -114,7 +119,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
     setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
   }, []);
 
-  const containerVariants: Variants = {
+  const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -131,7 +136,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
     }
   };
 
-  const childVariants: Variants = {
+  const childVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
@@ -149,13 +154,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
     <section ref={containerRef} className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden bg-brand-black">
       {/* Background Slideshow */}
       <AnimatePresence mode="wait">
-        <motion.div
+        <MotionDiv
             key={`bg-${currentSlide}`}
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.5 }}
-            style={{ y }}
+            style={{ y } as any}
             className="absolute inset-0 z-0"
         >
             <img 
@@ -166,7 +171,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                 decoding="async"
                 // @ts-ignore
                 fetchpriority={currentSlide === 0 ? "high" : "auto"}
-                onError={(e) => {
+                onError={(e: any) => {
                     const target = e.target as HTMLImageElement;
                     target.src = "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=2070&auto=format&fit=crop";
                 }}
@@ -174,21 +179,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/20 to-white dark:from-brand-black/30 dark:via-brand-black/70 dark:to-brand-black transition-colors duration-500"></div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-gold opacity-10 blur-[150px] rounded-full"></div>
-        </motion.div>
+        </MotionDiv>
       </AnimatePresence>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-4xl mx-auto text-center">
             
           <AnimatePresence mode="wait">
-             <motion.div 
+             <MotionDiv 
                key={currentSlide}
                initial="hidden"
                animate="visible"
                exit="exit"
                variants={containerVariants}
              >
-                <motion.div 
+                <MotionDiv 
                   variants={childVariants}
                   className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/30 text-brand-gold-dark dark:text-brand-gold text-sm font-medium tracking-wide mb-8"
                 >
@@ -197,23 +202,23 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-gold"></span>
                 </span>
                 SOUTH AFRICA'S FIRST VERTICAL INSTALLERS
-                </motion.div>
+                </MotionDiv>
                 
-                <motion.h1 
+                <MotionH1 
                   variants={childVariants}
                   className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium dark:text-white text-brand-black leading-tight mb-8 min-h-[1.2em]"
                 >
                     {SLIDES[currentSlide].title}
-                </motion.h1>
+                </MotionH1>
                 
-                <motion.p 
+                <MotionP 
                   variants={childVariants}
                   className="text-lg md:text-2xl dark:text-slate-300 text-slate-700 mb-12 leading-relaxed max-w-2xl mx-auto font-light min-h-[4em] md:min-h-[3em]"
                 >
                     {SLIDES[currentSlide].description}
-                </motion.p>
+                </MotionP>
                 
-                <motion.div 
+                <MotionDiv 
                   variants={childVariants}
                   className="flex flex-col sm:flex-row gap-6 justify-center"
                 >
@@ -236,11 +241,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                     >
                         Yield Report
                     </button>
-                </motion.div>
-             </motion.div>
+                </MotionDiv>
+             </MotionDiv>
           </AnimatePresence>
 
-          <motion.div 
+          <MotionDiv 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1 }}
@@ -262,7 +267,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
               <div className="flex text-brand-gold text-xs">★★★★★</div>
               <p className="text-sm dark:text-slate-400 text-slate-600">Experts in <span className="dark:text-white text-brand-black font-semibold">Industrial, Commercial & Farms</span></p>
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
 
         {/* Carousel Controls */}

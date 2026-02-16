@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Zap, Menu, X, Sun, Moon, Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+// Cast motion components to any to resolve prop type mismatches
+const MotionHeader = motion.header as any;
+const MotionDiv = motion.div as any;
+
 interface HeaderProps {
   isDark: boolean;
   toggleTheme: () => void;
@@ -67,7 +71,7 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
   };
 
   return (
-    <motion.header 
+    <MotionHeader 
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
@@ -183,7 +187,7 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
 
       {/* Mobile Nav */}
       {isMobileMenuOpen && (
-        <motion.div 
+        <MotionDiv 
           id="mobile-menu"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -236,8 +240,8 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
               Get a Quote
             </button>
           </nav>
-        </motion.div>
+        </MotionDiv>
       )}
-    </motion.header>
+    </MotionHeader>
   );
 };

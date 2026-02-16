@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const MotionDiv = motion.div as any;
+
 interface Testimonial {
   name: string;
   location: string;
@@ -56,7 +58,7 @@ export const Testimonials: React.FC = () => {
         <div className="relative max-w-4xl mx-auto">
             <div className="relative min-h-[400px] flex items-center">
               <AnimatePresence mode="wait">
-                <motion.div
+                <MotionDiv
                   key={currentIndex}
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -93,7 +95,7 @@ export const Testimonials: React.FC = () => {
                        <p className="text-sm dark:text-brand-gold text-brand-gold-dark uppercase tracking-widest mt-1">{TESTIMONIAL_DATA[currentIndex].location}</p>
                      </div>
                   </div>
-                </motion.div>
+                </MotionDiv>
               </AnimatePresence>
             </div>
 

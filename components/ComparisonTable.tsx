@@ -2,6 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, XCircle, AlertTriangle } from 'lucide-react';
 
+const MotionDiv = motion.div as any;
+
 const COMPARISON_DATA = [
   {
     feature: "Production Profile",
@@ -59,7 +61,7 @@ export const ComparisonTable: React.FC = () => {
           </p>
         </div>
 
-        <motion.div 
+        <MotionDiv 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -104,7 +106,7 @@ export const ComparisonTable: React.FC = () => {
               </tbody>
             </table>
           </div>
-        </motion.div>
+        </MotionDiv>
         
         <div className="mt-8 text-center">
             <p className="text-xs text-slate-400 dark:text-slate-500 italic">

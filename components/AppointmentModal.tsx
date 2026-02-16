@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { X, Calendar, Clock, User, Mail, Phone, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const MotionDiv = motion.div as any;
+
 interface AppointmentModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -33,7 +35,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
       {isOpen && (
         <>
           {/* Backdrop */}
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -41,11 +43,11 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
             className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
           >
             {/* Modal */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
               className="bg-white dark:bg-brand-black w-full max-w-lg rounded-sm shadow-2xl border border-slate-200 dark:border-brand-gold/20 overflow-hidden relative"
             >
               <button 
@@ -57,13 +59,13 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
 
               {isSuccess ? (
                 <div className="p-12 flex flex-col items-center justify-center text-center min-h-[400px]">
-                  <motion.div
+                  <MotionDiv
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-6"
                   >
                     <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
-                  </motion.div>
+                  </MotionDiv>
                   <h3 className="text-2xl font-serif font-bold mb-2 dark:text-white text-slate-900">Appointment Confirmed</h3>
                   <p className="text-slate-500 dark:text-slate-400">
                     We've received your request. A consultant will contact you shortly to confirm the slot.
@@ -147,8 +149,8 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({ isOpen, onCl
                   </form>
                 </div>
               )}
-            </motion.div>
-          </motion.div>
+            </MotionDiv>
+          </MotionDiv>
         </>
       )}
     </AnimatePresence>

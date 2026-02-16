@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { TrendingUp, Zap, Info, FileText, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+const MotionDiv = motion.div as any;
+
 export const Calculator: React.FC = () => {
   const [bill, setBill] = useState<string>('');
   
@@ -11,7 +13,7 @@ export const Calculator: React.FC = () => {
   const tenYearSavings = (monthlyBill * 12 * 0.45 * 10 * 1.12).toFixed(0); // compounding tariff increase
 
   return (
-    <motion.div 
+    <MotionDiv 
       id="calculator"
       initial={{ opacity: 0, x: -30 }}
       whileInView={{ opacity: 1, x: 0 }}
@@ -118,5 +120,6 @@ export const Calculator: React.FC = () => {
           </p>
         </div>
       </div>
-    </motion.div>
+    </MotionDiv>
   );
+};

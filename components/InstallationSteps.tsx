@@ -2,6 +2,8 @@ import React from 'react';
 import { ClipboardCheck, PencilRuler, Truck, Hammer, Power } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+const MotionDiv = motion.div as any;
+
 const STEPS = [
   {
     id: 1,
@@ -53,7 +55,7 @@ export const InstallationSteps: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8 relative z-10">
             {STEPS.map((step, index) => (
-              <motion.div
+              <MotionDiv
                 key={step.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -75,7 +77,7 @@ export const InstallationSteps: React.FC = () => {
                 <p className="text-sm dark:text-slate-400 text-slate-500 leading-relaxed font-light">
                   {step.description}
                 </p>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { X, User, Mail, Phone, MapPin, Lock, ArrowRight, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const MotionDiv = motion.div as any;
+
 interface SignUpModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -79,7 +81,7 @@ export const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => 
       {isOpen && (
         <>
           {/* Backdrop */}
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -87,11 +89,11 @@ export const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => 
             className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
           >
             {/* Modal */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
               className="bg-white dark:bg-brand-black w-full max-w-md rounded-sm shadow-2xl border border-slate-200 dark:border-brand-gold/20 overflow-hidden relative"
             >
               <button 
@@ -103,13 +105,13 @@ export const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => 
 
               {isSuccess ? (
                 <div className="p-12 flex flex-col items-center justify-center text-center min-h-[400px]">
-                  <motion.div
+                  <MotionDiv
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-6"
                   >
                     <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
-                  </motion.div>
+                  </MotionDiv>
                   <h3 className="text-2xl font-serif font-bold mb-2 dark:text-white text-slate-900">Welcome Aboard</h3>
                   <p className="text-slate-500 dark:text-slate-400">
                     Your account has been created. A verification email has been sent to your inbox.
@@ -217,8 +219,8 @@ export const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => 
                   </form>
                 </div>
               )}
-            </motion.div>
-          </motion.div>
+            </MotionDiv>
+          </MotionDiv>
         </>
       )}
     </AnimatePresence>

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const MotionButton = motion.button as any;
+
 export const ScrollToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -29,7 +31,7 @@ export const ScrollToTop: React.FC = () => {
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.button
+        <MotionButton
           initial={{ opacity: 0, scale: 0.5, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
@@ -39,7 +41,7 @@ export const ScrollToTop: React.FC = () => {
           aria-label="Scroll to top"
         >
           <ArrowUp className="w-6 h-6 group-hover:-translate-y-1 transition-transform duration-300" strokeWidth={2.5} />
-        </motion.button>
+        </MotionButton>
       )}
     </AnimatePresence>
   );

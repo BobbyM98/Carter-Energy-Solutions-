@@ -2,6 +2,8 @@ import React from 'react';
 import { ArrowRight, UserPlus } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+const MotionDiv = motion.div as any;
+
 interface SignUpSectionProps {
   onSignUp: () => void;
 }
@@ -16,7 +18,7 @@ export const SignUpSection: React.FC<SignUpSectionProps> = ({ onSignUp }) => {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -42,7 +44,7 @@ export const SignUpSection: React.FC<SignUpSectionProps> = ({ onSignUp }) => {
             Sign Up Now
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
-        </motion.div>
+        </MotionDiv>
       </div>
     </section>
   );

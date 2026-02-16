@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Send, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+const MotionDiv = motion.div as any;
+
 export const LeadForm: React.FC = () => {
   const [formState, setFormState] = useState({
     name: '',
@@ -47,13 +49,13 @@ export const LeadForm: React.FC = () => {
   if (isSuccess) {
     return (
       <div className="h-full min-h-[500px] flex flex-col items-center justify-center dark:bg-brand-black bg-white p-12 rounded-sm border border-brand-gold/30 text-center shadow-2xl">
-        <motion.div 
+        <MotionDiv 
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           className="w-24 h-24 bg-brand-gold/10 rounded-full flex items-center justify-center mb-8"
         >
           <Check className="w-12 h-12 text-brand-gold" />
-        </motion.div>
+        </MotionDiv>
         <h3 className="text-3xl font-serif dark:text-white text-brand-black mb-4">Audit Requested</h3>
         <p className="dark:text-slate-400 text-slate-500 max-w-xs mx-auto font-light">
           Our technical team will contact you to schedule your site feasibility assessment.
@@ -63,7 +65,7 @@ export const LeadForm: React.FC = () => {
   }
 
   return (
-    <motion.div 
+    <MotionDiv 
       initial={{ opacity: 0, x: 30 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
@@ -160,6 +162,6 @@ export const LeadForm: React.FC = () => {
           )}
         </button>
       </form>
-    </motion.div>
+    </MotionDiv>
   );
 };

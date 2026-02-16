@@ -2,6 +2,8 @@ import React from 'react';
 import { Wrench, Gauge, Droplets } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+const MotionDiv = motion.div as any;
+
 const SERVICES = [
   {
     icon: <Wrench className="w-6 h-6" />,
@@ -34,7 +36,7 @@ export const SideServices: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {SERVICES.map((service, index) => (
-            <motion.div 
+            <MotionDiv 
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +57,7 @@ export const SideServices: React.FC = () => {
                     {service.description}
                 </p>
               </div>
-            </motion.div>
+            </MotionDiv>
           ))}
         </div>
       </div>

@@ -2,6 +2,8 @@ import React from 'react';
 import { X, FileText, Download, Shield, Wind, Zap, Scale, Anchor } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const MotionDiv = motion.div as any;
+
 interface TechSpecsModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -24,7 +26,7 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
       {isOpen && (
         <>
           {/* Backdrop */}
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -32,11 +34,11 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
             className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
           >
             {/* Modal */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
               className="bg-white dark:bg-brand-black w-full max-w-2xl rounded-sm shadow-2xl border border-slate-200 dark:border-brand-gold/20 overflow-hidden relative flex flex-col max-h-[90vh]"
             >
               {/* Header */}
@@ -92,8 +94,8 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
                     Download Full Datasheet (PDF)
                  </button>
               </div>
-            </motion.div>
-          </motion.div>
+            </MotionDiv>
+          </MotionDiv>
         </>
       )}
     </AnimatePresence>
