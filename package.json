@@ -1,7 +1,7 @@
 {
   "name": "carter-energy",
   "version": "0.1.0",
-  "homepage": "https://your-username.github.io/Carter-Energy-Solutions-Landing-Page",
+  "homepage": "https://bobbym98.github.io/Carter-Energy-Solutions-/",
   "private": true,
   "dependencies": {
     "@google/genai": "^1.37.0",
