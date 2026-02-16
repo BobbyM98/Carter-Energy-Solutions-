@@ -6,7 +6,8 @@ export const LeadForm: React.FC = () => {
   const [formState, setFormState] = useState({
     name: '',
     phone: '',
-    siteType: ''
+    siteType: '',
+    location: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -19,7 +20,7 @@ export const LeadForm: React.FC = () => {
       setIsSubmitting(false);
       setIsSuccess(true);
       setTimeout(() => setIsSuccess(false), 5000);
-      setFormState({ name: '', phone: '', siteType: '' });
+      setFormState({ name: '', phone: '', siteType: '', location: '' });
     }, 1500);
   };
 
@@ -103,24 +104,46 @@ export const LeadForm: React.FC = () => {
           />
         </div>
 
-        <div>
-          <label htmlFor="siteType" className="block text-xs uppercase tracking-widest dark:text-slate-500 text-slate-400 mb-2">Site Type</label>
-          <div className="relative">
-            <select
-                id="siteType"
-                name="siteType"
-                required
-                value={formState.siteType}
-                onChange={handleChange}
-                className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg py-3 px-4 dark:text-white text-brand-black placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all appearance-none"
-            >
-                <option value="" disabled>Select Site Type</option>
-                <option value="Agricultural">Agricultural / Farm</option>
-                <option value="Industrial">Industrial Warehouse</option>
-                <option value="Estate">Residential Estate / Green Roof</option>
-                <option value="Commercial">Commercial Office</option>
-            </select>
-          </div>
+        <div className="grid grid-cols-2 gap-4">
+             <div>
+              <label htmlFor="siteType" className="block text-xs uppercase tracking-widest dark:text-slate-500 text-slate-400 mb-2">Site Type</label>
+              <div className="relative">
+                <select
+                    id="siteType"
+                    name="siteType"
+                    required
+                    value={formState.siteType}
+                    onChange={handleChange}
+                    className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg py-3 px-4 dark:text-white text-brand-black placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all appearance-none"
+                >
+                    <option value="" disabled>Type</option>
+                    <option value="Agricultural">Farm / Agri</option>
+                    <option value="Industrial">Warehouse</option>
+                    <option value="Commercial">Office/Mall</option>
+                    <option value="Estate">Residential</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label htmlFor="location" className="block text-xs uppercase tracking-widest dark:text-slate-500 text-slate-400 mb-2">Region</label>
+              <div className="relative">
+                <select
+                    id="location"
+                    name="location"
+                    required
+                    value={formState.location}
+                    onChange={handleChange}
+                    className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg py-3 px-4 dark:text-white text-brand-black placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all appearance-none"
+                >
+                    <option value="" disabled>Region</option>
+                    <option value="GP">Gauteng</option>
+                    <option value="WC">Western Cape</option>
+                    <option value="KZN">KZN</option>
+                    <option value="BW">Botswana</option>
+                    <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
         </div>
 
         <button

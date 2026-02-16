@@ -181,6 +181,7 @@ export const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => 
                         <option value="GP">Gauteng</option>
                         <option value="WC">Western Cape</option>
                         <option value="KZN">KwaZulu-Natal</option>
+                        <option value="BW">Botswana</option>
                         <option value="Other">Other</option>
                       </select>
                     </div>

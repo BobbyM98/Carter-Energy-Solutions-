@@ -10,13 +10,13 @@ const SERVICES = [
   },
   {
     icon: <Gauge className="w-6 h-6" />,
-    title: "Optimisation",
+    title: "System Tuning",
     description: "Inverter firmware updates, load balancing analysis, and string performance tuning to ensure your system operates at peak theoretical efficiency."
   },
   {
     icon: <Droplets className="w-6 h-6" />,
-    title: "Cleaning",
-    description: "Pure water, chemical-free cleaning services. We remove urban grime and agricultural dust to instantly restore up to 15% lost generation capacity."
+    title: "Certified Optimization",
+    description: "We specialize in restoring energy yield through deionized cleaning and technical health audits, ensuring your system remains insurance-compliant and fire-safe."
   }
 ];
 

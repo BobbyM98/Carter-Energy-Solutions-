@@ -46,7 +46,7 @@ export const CommercialBenefits: React.FC = () => {
                 
                 <div className="p-8 bg-white dark:bg-brand-black border-l-4 border-brand-gold rounded-r-sm shadow-xl">
                     <p className="italic text-slate-700 dark:text-slate-300 font-serif text-lg mb-6 leading-relaxed">
-                        "Our Vert-X system lets you keep your walkways clear for HVAC crews, keeps your green roof alive, and powers your lights during the 6 PM shopping rush."
+                        "We structure assets to maximize <strong className="text-brand-gold-dark dark:text-brand-gold not-italic">Section 12B</strong> (100% Year 1 write-off) and the extended <strong className="text-brand-gold-dark dark:text-brand-gold not-italic">Section 12L</strong> (2030). The fiscal framework for renewables is stable and aggressive."
                     </p>
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center font-bold text-brand-gold">
@@ -54,7 +54,7 @@ export const CommercialBenefits: React.FC = () => {
                         </div>
                         <div className="text-xs">
                             <span className="block font-bold dark:text-white text-slate-900 uppercase tracking-wide">Carter Strategy</span>
-                            <span className="text-brand-gold">Commercial Insight</span>
+                            <span className="text-brand-gold">Financial Insight</span>
                         </div>
                     </div>
                 </div>

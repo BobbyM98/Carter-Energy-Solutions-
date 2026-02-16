@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
               </span>
             </div>
             <p className="dark:text-slate-400 text-slate-500 max-w-sm font-light leading-relaxed">
-              Empowering South African homes with premium sustainable energy solutions. We turn sunshine into independence.
+              Made in SA, Designed for Africa. Empowering homes and businesses with premium sustainable energy solutions.
             </p>
           </div>
           

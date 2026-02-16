@@ -23,6 +23,7 @@ const ScrollToTop = lazy(() => import('./components/ScrollToTop').then(m => ({ d
 const AppointmentModal = lazy(() => import('./components/AppointmentModal').then(m => ({ default: m.AppointmentModal })));
 const TechSpecsModal = lazy(() => import('./components/TechSpecsModal').then(m => ({ default: m.TechSpecsModal })));
 const SignUpModal = lazy(() => import('./components/SignUpModal').then(m => ({ default: m.SignUpModal })));
+const AgriKitModal = lazy(() => import('./components/AgriKitModal').then(m => ({ default: m.AgriKitModal })));
 
 // Minimal loader with better spacing
 const SectionLoader = ({ height = "min-h-[400px]" }: { height?: string }) => (
@@ -38,6 +39,7 @@ const App: React.FC = () => {
   const [isAppointmentOpen, setIsAppointmentOpen] = useState(false);
   const [isTechSpecsOpen, setIsTechSpecsOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
+  const [isAgriKitOpen, setIsAgriKitOpen] = useState(false);
 
   useEffect(() => {
     // Check system preference or default to dark
@@ -82,7 +84,10 @@ const App: React.FC = () => {
         </Suspense>
         
         <Suspense fallback={<SectionLoader height="min-h-[600px]" />}>
-            <ServicePillars />
+            <ServicePillars 
+                onOpenAgriSpecs={() => setIsAgriKitOpen(true)}
+                onOpenTechSpecs={() => setIsTechSpecsOpen(true)}
+            />
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
@@ -145,6 +150,7 @@ const App: React.FC = () => {
         <AppointmentModal isOpen={isAppointmentOpen} onClose={() => setIsAppointmentOpen(false)} />
         <TechSpecsModal isOpen={isTechSpecsOpen} onClose={() => setIsTechSpecsOpen(false)} />
         <SignUpModal isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} />
+        <AgriKitModal isOpen={isAgriKitOpen} onClose={() => setIsAgriKitOpen(false)} />
       </Suspense>
     </div>
   );

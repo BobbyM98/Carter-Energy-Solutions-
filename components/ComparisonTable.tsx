@@ -4,17 +4,17 @@ import { CheckCircle2, XCircle, AlertTriangle } from 'lucide-react';
 
 const COMPARISON_DATA = [
   {
-    feature: "Peak Power Time",
-    standard: "12:00 PM (Low Tariff Time)",
+    feature: "Production Profile",
+    standard: "Single Peak (Midday). Misses evening demand.",
     standardIcon: <AlertTriangle className="w-4 h-4 text-orange-400" />,
-    vertx: "8:00 AM & 4:00 PM (High Tariff Time)",
+    vertx: "Two Peak Cycles (AM & PM). Matches Duck Curve.",
     vertxIcon: <CheckCircle2 className="w-4 h-4 text-brand-gold" />
   },
   {
-    feature: "Dust Impact",
-    standard: "High. Loses 15–30% yield if not washed.",
+    feature: "Winter & Dust",
+    standard: "High loss. Poor winter angle & dust buildup.",
     standardIcon: <XCircle className="w-4 h-4 text-red-400" />,
-    vertx: "Near Zero. Self-cleaning by gravity/rain.",
+    vertx: "Unmatched. Captures low winter sun; Self-cleaning.",
     vertxIcon: <CheckCircle2 className="w-4 h-4 text-brand-gold" />
   },
   {
@@ -39,10 +39,10 @@ const COMPARISON_DATA = [
     vertxIcon: <CheckCircle2 className="w-4 h-4 text-brand-gold" />
   },
   {
-    feature: "Total Value",
-    standard: "Higher volume (perfect conditions).",
+    feature: "Capture Rate",
+    standard: "Lower. Grid feed-in often required.",
     standardIcon: <AlertTriangle className="w-4 h-4 text-orange-400" />,
-    vertx: "Higher financial value (Real World).",
+    vertx: "Superior. Max Self-Consumption.",
     vertxIcon: <CheckCircle2 className="w-4 h-4 text-brand-gold" />
   }
 ];

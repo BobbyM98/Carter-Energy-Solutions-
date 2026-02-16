@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ProductPillar {
@@ -37,7 +37,12 @@ const PRODUCTS: ProductPillar[] = [
     }
 ];
 
-export const ServicePillars: React.FC = () => {
+interface ServicePillarsProps {
+  onOpenAgriSpecs?: () => void;
+  onOpenTechSpecs?: () => void;
+}
+
+export const ServicePillars: React.FC<ServicePillarsProps> = ({ onOpenAgriSpecs, onOpenTechSpecs }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const next = () => {
@@ -48,17 +53,26 @@ export const ServicePillars: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + PRODUCTS.length) % PRODUCTS.length);
   };
 
-  const scrollToQuote = () => {
-    const element = document.getElementById('get-quote');
-    if (element) {
-        const headerOffset = 80;
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
+  const handleAction = () => {
+    if (currentIndex === 0 && onOpenAgriSpecs) {
+        // Agri / Fence Slide -> Open Agri Kit Modal
+        onOpenAgriSpecs();
+    } else if (currentIndex === 1 && onOpenTechSpecs) {
+        // Industrial Slide -> Open Tech Specs Modal
+        onOpenTechSpecs();
+    } else {
+        // Default -> Scroll to Quote
+        const element = document.getElementById('get-quote');
+        if (element) {
+            const headerOffset = 80;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+        }
     }
   };
 
@@ -68,7 +82,7 @@ export const ServicePillars: React.FC = () => {
         <div className="text-center mb-16">
            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 dark:text-white text-slate-900">Our Vertical Systems</h2>
            <div className="h-0.5 w-16 bg-brand-gold mx-auto mb-4"></div>
-           <p className="text-slate-600 dark:text-slate-400 font-light">Engineered for the edge cases. Built for South Africa.</p>
+           <p className="text-slate-600 dark:text-slate-400 font-light">Engineered for the edge cases. Made in SA, Designed for Africa.</p>
         </div>
 
         <div className="relative max-w-6xl mx-auto">
@@ -111,11 +125,13 @@ export const ServicePillars: React.FC = () => {
                      </div>
 
                      <button 
-                       onClick={scrollToQuote}
+                       onClick={handleAction}
                        className="flex items-center gap-2 text-brand-gold-dark dark:text-brand-gold hover:text-brand-black dark:hover:text-white transition-colors group w-fit"
                      >
-                        <span className="font-bold border-b border-brand-gold pb-0.5">Request Specs</span>
-                        <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                        <span className="font-bold border-b border-brand-gold pb-0.5">
+                            {currentIndex === 0 ? "View Kit Configurations" : (currentIndex === 1 ? "View Technical Specs" : "Request Specs")}
+                        </span>
+                        {currentIndex === 0 ? <BookOpen className="w-4 h-4" /> : <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />}
                      </button>
                   </div>
                 </motion.div>

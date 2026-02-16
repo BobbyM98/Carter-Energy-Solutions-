@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TrendingUp, Zap, Info } from 'lucide-react';
+import { TrendingUp, Zap, Info, FileText, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const Calculator: React.FC = () => {
@@ -91,6 +91,28 @@ export const Calculator: React.FC = () => {
              </div>
           </div>
           
+          {/* Section 12B & 12L Tax Incentive Box */}
+          <div className="mt-8 p-5 bg-brand-gold/10 border border-brand-gold/30 rounded-sm relative overflow-hidden">
+             <div className="absolute top-0 right-0 p-2 opacity-5 pointer-events-none">
+                <FileText className="w-24 h-24 text-brand-gold" />
+             </div>
+             <div className="relative z-10">
+                <h4 className="flex items-center gap-2 font-serif font-bold dark:text-brand-gold text-brand-gold-dark mb-2 text-sm uppercase tracking-wider">
+                    <ShieldCheck className="w-4 h-4 fill-current" /> Tax Incentives (2026)
+                </h4>
+                <div className="text-sm dark:text-slate-300 text-slate-700 leading-relaxed mb-3 space-y-2">
+                    <p>
+                        <strong className="text-brand-black dark:text-white block">Section 12B (Active):</strong> 
+                        Reverts to a <span className="underline decoration-brand-gold underline-offset-2 font-bold decoration-2">100% upfront deduction</span> for solar PV &lt;1MW (or 50/30/20% split for &gt;1MW).
+                    </p>
+                    <p>
+                        <strong className="text-brand-black dark:text-white block">Section 12L (Extended):</strong> 
+                        Energy-efficiency tax incentives confirmed until <span className="font-semibold text-brand-gold-dark dark:text-brand-gold">31 Dec 2030</span>.
+                    </p>
+                </div>
+             </div>
+          </div>
+
           <p className="text-xs dark:text-slate-500 text-slate-400 mt-6 italic">
             *Projections include East/West peak tariff offset and reduced cleaning maintenance costs.
           </p>
@@ -98,4 +120,3 @@ export const Calculator: React.FC = () => {
       </div>
     </motion.div>
   );
-};
