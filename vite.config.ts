@@ -1,10 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import sitemap from 'vite-plugin-sitemap'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  // Using './' makes the paths relative to the index.html file. 
-  // This ensures assets load correctly regardless of the repo name or trailing slashes.
-  base: './', 
+  plugins: [
+    react(),
+    sitemap({
+      hostname: 'https://bobbym98.github.io/Carter-Energy-Solutions-/'
+    })
+  ],
+  // Explicit base path matches your GitHub Pages repository URL
+  base: '/Carter-Energy-Solutions-/', 
 })
