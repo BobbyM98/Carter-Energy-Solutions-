@@ -45,7 +45,7 @@ export const Footer: React.FC = () => {
             <h4 className="text-brand-gold font-bold uppercase tracking-widest text-xs mb-6">Services</h4>
             <ul className="space-y-4 text-sm dark:text-slate-400 text-slate-600 font-light">
               <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="hover:text-brand-gold transition-colors">ESD & CSI</a></li>
-              <li><a href="#tenders" onClick={(e) => scrollToSection(e, 'tenders')} className="hover:text-brand-gold transition-colors">Public & Private Tenders</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="hover:text-brand-gold transition-colors">Public & Private Tenders</a></li>
               <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="hover:text-brand-gold transition-colors">Commercial Solar</a></li>
               <li><a href="#service-pillars" onClick={(e) => scrollToSection(e, 'service-pillars')} className="hover:text-brand-gold transition-colors">Vert-X Systems</a></li>
             </ul>
@@ -54,9 +54,9 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="text-brand-gold font-bold uppercase tracking-widest text-xs mb-6">Company</h4>
             <ul className="space-y-4 text-sm dark:text-slate-400 text-slate-600 font-light">
-              <li><a href="#credentials" onClick={(e) => scrollToSection(e, 'credentials')} className="hover:text-brand-gold transition-colors">Credentials</a></li>
               <li><a href="#benefits" onClick={(e) => scrollToSection(e, 'benefits')} className="hover:text-brand-gold transition-colors">About Us</a></li>
               <li><a href="#get-quote" onClick={(e) => scrollToSection(e, 'get-quote')} className="hover:text-brand-gold transition-colors">Contact Us</a></li>
+              <li><a href="#" className="hover:text-brand-gold transition-colors">Careers</a></li>
             </ul>
           </div>
 
