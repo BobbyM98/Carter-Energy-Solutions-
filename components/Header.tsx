@@ -119,18 +119,6 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
               Expertise
             </a>
             <a 
-              href="#services" 
-              onClick={(e) => scrollToSection(e, 'services')}
-              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
-                activeSection === 'services' 
-                  ? 'text-brand-gold-dark dark:text-brand-gold' 
-                  : 'dark:text-slate-300 text-slate-700 hover:text-brand-gold-dark dark:hover:text-brand-gold'
-              }`}
-              aria-current={activeSection === 'services' ? 'true' : undefined}
-            >
-              Services
-            </a>
-            <a 
               href="#calculator" 
               onClick={(e) => scrollToSection(e, 'calculator')}
               className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
@@ -215,14 +203,6 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
                aria-current={activeSection === 'benefits' ? 'true' : undefined}
              >
                Expertise
-             </a>
-             <a 
-               href="#services" 
-               onClick={(e) => scrollToSection(e, 'services')} 
-               className={`font-serif text-lg py-2 ${activeSection === 'services' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-700'}`}
-               aria-current={activeSection === 'services' ? 'true' : undefined}
-             >
-               Services
              </a>
             <a 
               href="#calculator" 
