@@ -119,6 +119,42 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
               Expertise
             </a>
             <a 
+              href="#services" 
+              onClick={(e) => scrollToSection(e, 'services')}
+              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
+                activeSection === 'services' 
+                  ? 'text-brand-gold-dark dark:text-brand-gold' 
+                  : 'dark:text-slate-300 text-slate-700 hover:text-brand-gold-dark dark:hover:text-brand-gold'
+              }`}
+              aria-current={activeSection === 'services' ? 'true' : undefined}
+            >
+              Services
+            </a>
+            <a 
+              href="#tenders" 
+              onClick={(e) => scrollToSection(e, 'tenders')}
+              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
+                activeSection === 'tenders' 
+                  ? 'text-brand-gold-dark dark:text-brand-gold' 
+                  : 'dark:text-slate-300 text-slate-700 hover:text-brand-gold-dark dark:hover:text-brand-gold'
+              }`}
+              aria-current={activeSection === 'tenders' ? 'true' : undefined}
+            >
+              Tenders
+            </a>
+            <a 
+              href="#credentials" 
+              onClick={(e) => scrollToSection(e, 'credentials')}
+              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
+                activeSection === 'credentials' 
+                  ? 'text-brand-gold-dark dark:text-brand-gold' 
+                  : 'dark:text-slate-300 text-slate-700 hover:text-brand-gold-dark dark:hover:text-brand-gold'
+              }`}
+              aria-current={activeSection === 'credentials' ? 'true' : undefined}
+            >
+              Credentials
+            </a>
+            <a 
               href="#calculator" 
               onClick={(e) => scrollToSection(e, 'calculator')}
               className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
@@ -203,6 +239,30 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
                aria-current={activeSection === 'benefits' ? 'true' : undefined}
              >
                Expertise
+             </a>
+             <a 
+               href="#services" 
+               onClick={(e) => scrollToSection(e, 'services')} 
+               className={`font-serif text-lg py-2 ${activeSection === 'services' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-700'}`}
+               aria-current={activeSection === 'services' ? 'true' : undefined}
+             >
+               Services
+             </a>
+             <a 
+               href="#tenders" 
+               onClick={(e) => scrollToSection(e, 'tenders')} 
+               className={`font-serif text-lg py-2 ${activeSection === 'tenders' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-700'}`}
+               aria-current={activeSection === 'tenders' ? 'true' : undefined}
+             >
+               Tenders
+             </a>
+             <a 
+               href="#credentials" 
+               onClick={(e) => scrollToSection(e, 'credentials')} 
+               className={`font-serif text-lg py-2 ${activeSection === 'credentials' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-700'}`}
+               aria-current={activeSection === 'credentials' ? 'true' : undefined}
+             >
+               Credentials
              </a>
             <a 
               href="#calculator" 

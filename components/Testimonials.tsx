@@ -15,20 +15,20 @@ interface Testimonial {
 const TESTIMONIAL_DATA: Testimonial[] = [
     {
       name: "Johan De Villiers",
-      location: "Stellenbosch, WC",
-      quote: "The craftsmanship is impeccable. Carter Energy didn't just install solar; they upgraded our entire home's energy infrastructure. Truly world-class.",
+      location: "Commercial Farm, WC",
+      quote: "Carter Energy's Vert-X system allowed us to generate 1.2MW of power without losing a single hectare of grazing land. The dual-peak generation perfectly matches our irrigation schedules.",
       imageUrl: optimizeImage("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d", 200)
     },
     {
       name: "Lindiwe Mazibuko",
-      location: "Hyde Park, JHB",
-      quote: "I was skeptical about the aesthetic impact, but the all-black panels actually improved our roof's look. No more load shedding anxiety.",
+      location: "Logistics Hub, JHB",
+      quote: "Our warehouse roof couldn't support traditional ballasted solar. Carter's lightweight vertical racking solved a 3-year headache. Plus, the B-BBEE Level 1 spend was a massive bonus for our scorecard.",
       imageUrl: optimizeImage("https://images.unsplash.com/photo-1573496359142-b8d87734a5a2", 200)
     },
     {
       name: "David Cohen",
-      location: "Camps Bay, Cape Town",
-      quote: "Efficient, polite, and incredibly tidy. The team worked around our schedule and the system has paid for itself in peace of mind alone.",
+      location: "Retail Center, Cape Town",
+      quote: "The evening generation peak of the Vert-X system aligns perfectly with our 6 PM shopping rush. The installation was fast, clean, and fully compliant with our strict insurance requirements.",
       imageUrl: optimizeImage("https://images.unsplash.com/photo-1500648767791-00dcc994a43e", 200)
     }
 ];

@@ -12,6 +12,8 @@ const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.
 // TrustSignals is now eager loaded to prevent CLS below hero and ensure smooth scrolling immediately.
 const ComparisonTable = lazy(() => import('./components/ComparisonTable').then(m => ({ default: m.ComparisonTable })));
 const RevenueStreams = lazy(() => import('./components/RevenueStreams').then(m => ({ default: m.RevenueStreams })));
+const TendersAndProcurement = lazy(() => import('./components/TendersAndProcurement').then(m => ({ default: m.TendersAndProcurement })));
+const Credentials = lazy(() => import('./components/Credentials').then(m => ({ default: m.Credentials })));
 const ServicePillars = lazy(() => import('./components/ServicePillars').then(m => ({ default: m.ServicePillars })));
 const Calculator = lazy(() => import('./components/Calculator').then(m => ({ default: m.Calculator })));
 const LeadForm = lazy(() => import('./components/LeadForm').then(m => ({ default: m.LeadForm })));
@@ -86,6 +88,14 @@ const App: React.FC = () => {
           {/* Lazy load remaining sections */}
           <Suspense fallback={<SectionLoader height="min-h-[500px]" />}>
               <RevenueStreams />
+          </Suspense>
+
+          <Suspense fallback={<SectionLoader height="min-h-[500px]" />}>
+              <TendersAndProcurement />
+          </Suspense>
+
+          <Suspense fallback={<SectionLoader height="min-h-[500px]" />}>
+              <Credentials />
           </Suspense>
 
           <Suspense fallback={<SectionLoader height="min-h-[500px]" />}>
