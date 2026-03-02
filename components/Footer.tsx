@@ -30,27 +30,33 @@ export const Footer: React.FC = () => {
                 Carter<span className="text-brand-gold">Energy</span>
               </span>
             </div>
-            <p className="dark:text-slate-400 text-slate-500 max-w-sm font-light leading-relaxed">
+            <p className="dark:text-slate-400 text-slate-500 max-w-sm font-light leading-relaxed mb-4">
               Made in SA, Designed for Africa. Empowering homes and businesses with premium sustainable energy solutions.
             </p>
+            <div className="text-sm dark:text-slate-500 text-slate-400 font-light space-y-1">
+              <p><strong>CIPC:</strong> 2025/852718/07</p>
+              <p><strong>SARS:</strong> 9218382282</p>
+              <p><strong>B-BBEE:</strong> Level 1 Contributor</p>
+              <p className="mt-2"><a href="mailto:info@cenergys.space" className="hover:text-brand-gold transition-colors">info@cenergys.space</a></p>
+            </div>
           </div>
           
           <div>
             <h4 className="text-brand-gold font-bold uppercase tracking-widest text-xs mb-6">Services</h4>
             <ul className="space-y-4 text-sm dark:text-slate-400 text-slate-600 font-light">
-              <li><a href="#" className="hover:text-brand-gold transition-colors">Residential Solar</a></li>
-              <li><a href="#" className="hover:text-brand-gold transition-colors">Commercial Solutions</a></li>
-              <li><a href="#" className="hover:text-brand-gold transition-colors">Battery Backup</a></li>
-              <li><a href="#" className="hover:text-brand-gold transition-colors">Maintenance Plans</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="hover:text-brand-gold transition-colors">ESD & CSI</a></li>
+              <li><a href="#tenders" onClick={(e) => scrollToSection(e, 'tenders')} className="hover:text-brand-gold transition-colors">Public & Private Tenders</a></li>
+              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="hover:text-brand-gold transition-colors">Commercial Solar</a></li>
+              <li><a href="#service-pillars" onClick={(e) => scrollToSection(e, 'service-pillars')} className="hover:text-brand-gold transition-colors">Vert-X Systems</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-brand-gold font-bold uppercase tracking-widest text-xs mb-6">Company</h4>
             <ul className="space-y-4 text-sm dark:text-slate-400 text-slate-600 font-light">
+              <li><a href="#credentials" onClick={(e) => scrollToSection(e, 'credentials')} className="hover:text-brand-gold transition-colors">Credentials</a></li>
               <li><a href="#benefits" onClick={(e) => scrollToSection(e, 'benefits')} className="hover:text-brand-gold transition-colors">About Us</a></li>
               <li><a href="#get-quote" onClick={(e) => scrollToSection(e, 'get-quote')} className="hover:text-brand-gold transition-colors">Contact Us</a></li>
-              <li><a href="#" className="hover:text-brand-gold transition-colors">Careers</a></li>
             </ul>
           </div>
 
@@ -66,7 +72,7 @@ export const Footer: React.FC = () => {
               <a href="#" aria-label="Instagram" className="w-10 h-10 rounded-full border dark:border-white/10 border-slate-200 flex items-center justify-center dark:text-slate-400 text-slate-500 hover:border-brand-gold hover:text-brand-gold transition-all">
                 <Instagram className="h-4 w-4" />
               </a>
-              <a href="#" aria-label="LinkedIn" className="w-10 h-10 rounded-full border dark:border-white/10 border-slate-200 flex items-center justify-center dark:text-slate-400 text-slate-500 hover:border-brand-gold hover:text-brand-gold transition-all">
+              <a href="https://www.linkedin.com/company/112013610/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-10 h-10 rounded-full border dark:border-white/10 border-slate-200 flex items-center justify-center dark:text-slate-400 text-slate-500 hover:border-brand-gold hover:text-brand-gold transition-all">
                 <Linkedin className="h-4 w-4" />
               </a>
             </div>

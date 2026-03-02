@@ -58,6 +58,15 @@
             },
             backgroundImage: {
               'gold-gradient': 'linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #AA8C2C 100%)',
+            },
+            keyframes: {
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-33.3333%)' },
+              }
+            },
+            animation: {
+              marquee: 'marquee 30s linear infinite',
             }
           }
         }

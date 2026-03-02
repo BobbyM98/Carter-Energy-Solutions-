@@ -6,45 +6,38 @@ const MotionDiv = motion.div as any;
 
 const COMPARISON_DATA = [
   {
-    feature: "Production Profile",
-    standard: "Single Peak (Midday). Misses evening demand.",
+    feature: "Energy Generation",
+    standard: "Single Peak (Midday). Misses morning and evening demand.",
     standardIcon: <AlertTriangle className="w-4 h-4 text-orange-400" />,
-    vertx: "Two Peak Cycles (AM & PM). Matches Duck Curve.",
+    vertx: "Dual Peak Cycles (AM & PM). Generates up to 30% more energy.",
     vertxIcon: <CheckCircle2 className="w-4 h-4 text-brand-gold" />
   },
   {
-    feature: "Winter & Dust",
-    standard: "High loss. Poor winter angle & dust buildup.",
+    feature: "Productive Land Loss",
+    standard: "100% loss under panels. Blocks ground completely.",
     standardIcon: <XCircle className="w-4 h-4 text-red-400" />,
-    vertx: "Unmatched. Captures low winter sun; Self-cleaning.",
+    vertx: "0% Land Loss. Mounts on perimeters. Livestock-safe clearance.",
     vertxIcon: <CheckCircle2 className="w-4 h-4 text-brand-gold" />
   },
   {
-    feature: "Roof Weight",
-    standard: "Heavy. Needs concrete blocks (ballast).",
+    feature: "Roof Weight (Industrial)",
+    standard: "Heavy. Requires concrete ballast or roof reinforcement.",
     standardIcon: <XCircle className="w-4 h-4 text-red-400" />,
-    vertx: "Ultra-Light. Aerodynamic; slices wind.",
+    vertx: "Ultra-Light (<10kg/m²). No ballast required. Aerodynamic.",
     vertxIcon: <CheckCircle2 className="w-4 h-4 text-brand-gold" />
   },
   {
-    feature: "Heat Efficiency",
-    standard: "Poor. Traps heat underneath.",
+    feature: "Winter & Dust Performance",
+    standard: "High loss. Poor winter angle & dust buildup on flat surface.",
     standardIcon: <XCircle className="w-4 h-4 text-red-400" />,
-    vertx: "Superior. Double-sided cooling.",
+    vertx: "Unmatched. Captures low winter sun; gravity prevents dust.",
     vertxIcon: <CheckCircle2 className="w-4 h-4 text-brand-gold" />
   },
   {
-    feature: "Land Use (Farms)",
-    standard: "Blocks the ground. Land is lost.",
+    feature: "Agricultural Impact",
+    standard: "Creates dead zones. Prevents tractor access.",
     standardIcon: <XCircle className="w-4 h-4 text-red-400" />,
-    vertx: "Dual-Use. 90% remains usable.",
-    vertxIcon: <CheckCircle2 className="w-4 h-4 text-brand-gold" />
-  },
-  {
-    feature: "Capture Rate",
-    standard: "Lower. Grid feed-in often required.",
-    standardIcon: <AlertTriangle className="w-4 h-4 text-orange-400" />,
-    vertx: "Superior. Max Self-Consumption.",
+    vertx: "Creates micro-climates. Wind protection for crops.",
     vertxIcon: <CheckCircle2 className="w-4 h-4 text-brand-gold" />
   }
 ];
@@ -54,10 +47,10 @@ export const ComparisonTable: React.FC = () => {
     <section className="py-24 bg-white dark:bg-brand-black transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 dark:text-white text-slate-900">The Efficiency Gap</h2>
+          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 dark:text-white text-slate-900">The Vert-X Advantage</h2>
           <div className="h-0.5 w-16 bg-brand-gold mx-auto mb-4"></div>
           <p className="text-slate-500 dark:text-slate-400 font-light max-w-2xl mx-auto">
-            Why traditional horizontal solar is failing South African industries and farms.
+            Why traditional horizontal solar is failing South African agriculture and industry.
           </p>
         </div>
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
+import { optimizeImage } from '../src/utils/image';
 
 // Cast motion components to any to resolve prop type mismatches
 const MotionDiv = motion.div as any;
@@ -20,23 +21,22 @@ const SLIDES: SlideData[] = [
     id: 0,
     title: <span>Power at the <span className="text-gold-gradient italic">Edge.</span></span>,
     description: "The future of solar is the Carter Vert-X System. Unlock the potential of weak roofs and farmland with South Africa's first high-yield Vertical Bifacial Technology.",
-    cta: "Book Vertical Audit",
-    // Optimized via wsrv.nl
-    image: "https://wsrv.nl/?url=https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png&w=1200&output=webp&q=80"
+    cta: "Request ESD/CSI Proposal",
+    image: optimizeImage("https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png", 1200)
   },
   {
     id: 1,
     title: <span>Zero <span className="text-gold-gradient italic">Land Loss.</span></span>,
     description: "Vert-X Walls allow for grazing, crops, and wind protection while generating power. Turn your fences into power plants.",
-    cta: "Explore Vert-X Walls",
-    image: "https://wsrv.nl/?url=https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png&w=1200&output=webp&q=80"
+    cta: "Add Us to Your Vendor Database",
+    image: optimizeImage("https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png", 1200)
   },
   {
     id: 2,
     title: <span>The Solution for <span className="text-gold-gradient italic">Weak Roofs.</span></span>,
     description: "Ultra-lightweight Vert-X racking (<10kg/m²) for industrial sites. No ballast required. Aerodynamic and bond-mounted.",
-    cta: "Industrial Specs",
-    image: "https://wsrv.nl/?url=https://i.ibb.co/j98GM2hY/Gemini-Generated-Image-vapyvdvapyvdvapy.png&w=1200&output=webp&q=80"
+    cta: "Download Our Compliance Pack",
+    image: optimizeImage("https://i.ibb.co/j98GM2hY/Gemini-Generated-Image-vapyvdvapyvdvapy.png", 1200)
   }
 ];
 
@@ -52,6 +52,19 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
   // Ref for intersection observer to pause carousel
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { margin: "0px 0px -200px 0px" });
+
+  useEffect(() => {
+    // Preload the first image for LCP
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = SLIDES[0].image;
+    document.head.appendChild(link);
+
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []);
 
   useEffect(() => {
     // Only run the timer if the hero is in view
@@ -201,7 +214,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-gold"></span>
                 </span>
-                SOUTH AFRICA'S FIRST VERTICAL INSTALLERS
+                B-BBEE LEVEL 1 | 100% BLACK-OWNED EME
                 </MotionDiv>
                 
                 <MotionH1 
@@ -255,7 +268,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
               {[1, 2, 3].map((i) => (
                 <div key={i} className="w-10 h-10 rounded-full dark:border-brand-black border-white border-2 overflow-hidden shadow-lg">
                    <img 
-                    src={`https://picsum.photos/seed/${i + 42}/100`} 
+                    src={optimizeImage(`https://picsum.photos/seed/${i + 42}/100`, 100)} 
                     alt={`Satisfied customer ${i}`} 
                     loading="lazy"
                     className="w-full h-full object-cover" 
