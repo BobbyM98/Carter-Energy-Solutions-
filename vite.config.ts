@@ -7,7 +7,7 @@ export default defineConfig({
     react()
   ],
   // Explicit base path matches your GitHub Pages repository URL
-  base: '/Carter-Energy-Solutions/', 
+  base: '/', 
   build: {
     rollupOptions: {
       output: {
