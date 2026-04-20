@@ -30,7 +30,7 @@ export const RevenueStreams: React.FC = () => {
     {
       icon: <FileText className="h-8 w-8 text-brand-gold" strokeWidth={1.5} />,
       title: "Private Tenders",
-      description: "Respond to your RFP/RFQ within 5 business days. Full compliance pack included: CIPC, SARS, B-BBEE affidavit, technical certifications. SANS 10142-1 compliant. COC issued on every installation.",
+      description: "Respond to your RFP/RFQ within 5 business days. Full compliance pack included: CIPC, SARS, B-BBEE certificate, technical certifications. SANS 10142-1 compliant. COC issued on every installation.",
       target: "Corporate Procurement, Developers",
       cta: "Add Us to Vendor Database"
     },

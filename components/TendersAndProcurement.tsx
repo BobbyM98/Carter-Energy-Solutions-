@@ -9,7 +9,7 @@ export const TendersAndProcurement: React.FC = () => {
     "Company Profile — Carter Energy Solutions (PTY) Ltd",
     "CIPC Certificate of Incorporation (2025/852718/07)",
     "SARS Tax Clearance / Registration (9218382282)",
-    "B-BBEE Level 1 EME Affidavit",
+    "B-BBEE Level 1 Certificate",
     "DLO Energy Resources Group Recommendation Letter",
     "CETA Accredited Working on Heights Certificate",
     "Subcontractor Agreement with registered ECB electrician",

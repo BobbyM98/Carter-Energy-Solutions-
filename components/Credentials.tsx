@@ -25,7 +25,7 @@ export const Credentials: React.FC = () => {
       title: "B-BBEE Status",
       value: "Level 1 Contributor",
       detail: "100% Black-Owned Exempted Micro Enterprise (EME)",
-      contact: "Sworn Affidavit Available"
+      contact: "Certificate Available"
     },
     {
       icon: <Zap className="w-8 h-8 text-brand-gold" />,
