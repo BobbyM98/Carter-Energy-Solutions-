@@ -19,6 +19,7 @@ const Calculator = lazy(() => import('./components/Calculator').then(m => ({ def
 const LeadForm = lazy(() => import('./components/LeadForm').then(m => ({ default: m.LeadForm })));
 const InstallationSteps = lazy(() => import('./components/InstallationSteps').then(m => ({ default: m.InstallationSteps })));
 const SignUpSection = lazy(() => import('./components/SignUpSection').then(m => ({ default: m.SignUpSection })));
+const RentToOwn = lazy(() => import('./components/RentToOwn').then(m => ({ default: m.RentToOwn })));
 const CommercialBenefits = lazy(() => import('./components/CommercialBenefits').then(m => ({ default: m.CommercialBenefits })));
 const SideServices = lazy(() => import('./components/SideServices').then(m => ({ default: m.SideServices })));
 const Testimonials = lazy(() => import('./components/Testimonials').then(m => ({ default: m.Testimonials })));
@@ -115,6 +116,10 @@ const App: React.FC = () => {
 
           <Suspense fallback={<div className="h-64 bg-brand-gold/10" />}>
               <SignUpSection onSignUp={() => setIsSignUpOpen(true)} />
+          </Suspense>
+
+          <Suspense fallback={<SectionLoader />}>
+              <RentToOwn />
           </Suspense>
 
           <Suspense fallback={<SectionLoader />}>
