@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, FileText, Download, Shield, Wind, Zap, Scale, Anchor } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, FileText, Download, Shield, Wind, Zap, Scale, Anchor, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const MotionDiv = motion.div as any;
@@ -10,16 +10,22 @@ interface TechSpecsModalProps {
 }
 
 export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose }) => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
   if (!isOpen) return null;
 
   const specs = [
-    { label: "System Weight", value: "< 10 kg/m²", sub: "Includes panels & racking", icon: <Scale className="w-4 h-4" /> },
-    { label: "Wind Load", value: "Hurricane Rated", sub: "Up to 180 km/h", icon: <Wind className="w-4 h-4" /> },
-    { label: "Mounting Method", value: "Chemical Bond", sub: "No roof penetration", icon: <Anchor className="w-4 h-4" /> },
-    { label: "Module Type", value: "Bifacial Only", sub: "Glass-Glass / Framed", icon: <Zap className="w-4 h-4" /> },
-    { label: "Tilt Angle", value: "90° (Vertical)", sub: "Self-cleaning angle", icon: <Shield className="w-4 h-4" /> },
-    { label: "Warranty", value: "25 Years", sub: "Linear Performance", icon: <FileText className="w-4 h-4" /> },
+    { label: "System Weight", value: "< 10 kg/m²", sub: "Includes panels & racking, specifically designed to bypass structural loading limits of older warehouse roofs.", icon: <Scale className="w-4 h-4" /> },
+    { label: "Wind Load", value: "Hurricane Rated", sub: "Aerodynamic wind-tunnel tested up to 180 km/h with negative lift coefficients.", icon: <Wind className="w-4 h-4" /> },
+    { label: "Mounting Method", value: "Chemical Bond", sub: "Proprietary Sika® structural adhesive. Zero roof penetration ensuring 100% waterproofing warranty preservation.", icon: <Anchor className="w-4 h-4" /> },
+    { label: "Module Type", value: "Bifacial Only", sub: "Only compatible with high-yield Glass-Glass / Framed Bifacial N-Type modules.", icon: <Zap className="w-4 h-4" /> },
+    { label: "Tilt Angle", value: "90° (Vertical)", sub: "Self-cleaning angle practically eliminates soiling losses in dusty agricultural or industrial zones.", icon: <Shield className="w-4 h-4" /> },
+    { label: "Warranty", value: "25 Years", sub: "25-year linear performance warranty. 10-year defect warranty on all custom racking structural components.", icon: <FileText className="w-4 h-4" /> },
   ];
+
+  const handleToggle = (idx: number) => {
+    setOpenIndex(openIndex === idx ? null : idx);
+  };
 
   return (
     <AnimatePresence>
@@ -59,21 +65,49 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
               </div>
 
               {/* Content */}
-              <div className="p-8 overflow-y-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div className="p-0 overflow-y-auto">
+                <div className="border-b border-slate-100 dark:border-white/5">
                     {specs.map((spec, idx) => (
-                        <div key={idx} className="p-4 rounded-sm border border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-brand-charcoal hover:border-brand-gold/30 transition-colors">
-                            <div className="flex items-center gap-2 mb-2 text-brand-gold">
-                                {spec.icon}
-                                <span className="text-xs uppercase tracking-wider font-semibold">{spec.label}</span>
-                            </div>
-                            <div className="text-xl font-bold dark:text-white text-slate-900">{spec.value}</div>
-                            <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">{spec.sub}</div>
+                        <div key={idx} className="border-b border-slate-100 dark:border-white/5 last:border-b-0">
+                            <button
+                              onClick={() => handleToggle(idx)}
+                              className="w-full flex items-center justify-between p-5 md:p-6 bg-transparent hover:bg-slate-50 dark:hover:bg-white/5 transition-colors focus:outline-none"
+                            >
+                                <div className="flex items-center gap-3">
+                                    <div className="text-brand-gold shrink-0">
+                                        {spec.icon}
+                                    </div>
+                                    <span className="text-sm uppercase tracking-widest font-bold dark:text-white text-slate-900">{spec.label}</span>
+                                </div>
+                                <MotionDiv
+                                  animate={{ rotate: openIndex === idx ? 180 : 0 }}
+                                  transition={{ duration: 0.3 }}
+                                >
+                                  <ChevronDown className="w-5 h-5 text-slate-400" />
+                                </MotionDiv>
+                            </button>
+                            
+                            <AnimatePresence initial={false}>
+                                {openIndex === idx && (
+                                    <MotionDiv
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        className="overflow-hidden bg-slate-50 dark:bg-brand-charcoal/50"
+                                    >
+                                        <div className="px-5 md:px-6 pb-6 pt-2 ml-7">
+                                            <div className="text-2xl font-bold dark:text-brand-gold text-brand-gold-dark mb-2">{spec.value}</div>
+                                            <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{spec.sub}</div>
+                                        </div>
+                                    </MotionDiv>
+                                )}
+                            </AnimatePresence>
                         </div>
                     ))}
                 </div>
 
-                <div className="space-y-4">
+                <div className="p-6 md:p-8 space-y-4 bg-white dark:bg-brand-black">
                     <h3 className="text-sm font-bold uppercase tracking-widest text-slate-400 border-b border-slate-100 dark:border-white/10 pb-2 mb-4">Detailed Description</h3>
                     <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                         The Carter Vert-X Industrial system is engineered specifically for roofs that cannot support standard ballasted solar systems. By utilizing an aerodynamic vertical profile, we eliminate the need for heavy concrete blocks. The system is chemically bonded to the roof surface using Sika® structural adhesive, preserving the roof's waterproofing warranty by avoiding all penetrations.
@@ -89,7 +123,7 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
                  <div className="text-xs text-slate-400">
                     *Specifications subject to site engineering approval.
                  </div>
-                 <button className="flex items-center gap-2 px-6 py-3 bg-brand-gold text-brand-black font-bold rounded-sm hover:bg-white hover:text-brand-black transition-all text-sm w-full sm:w-auto justify-center">
+                 <button className="flex items-center gap-2 px-6 py-3 bg-brand-gold text-brand-black font-bold rounded-sm shadow-md hover:bg-white hover:text-brand-black transition-all text-sm w-full sm:w-auto justify-center">
                     <Download className="w-4 h-4" />
                     Download Full Datasheet (PDF)
                  </button>
