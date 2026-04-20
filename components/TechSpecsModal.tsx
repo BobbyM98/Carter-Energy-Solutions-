@@ -31,59 +31,65 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop - Deep iOS Frosted Blur */}
           <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
+            className="fixed inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-xl z-[60] flex items-center justify-center p-4 sm:p-6"
           >
-            {/* Modal */}
+            {/* Modal - Liquid Glass Panel */}
             <MotionDiv
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.5, type: "spring", bounce: 0.25 }}
               onClick={(e: React.MouseEvent) => e.stopPropagation()}
-              className="bg-white dark:bg-brand-black w-full max-w-2xl rounded-sm shadow-2xl border border-slate-200 dark:border-brand-gold/20 overflow-hidden relative flex flex-col max-h-[90vh]"
+              className="w-full max-w-2xl overflow-hidden relative flex flex-col max-h-[90vh] bg-white/80 dark:bg-[#111111]/80 backdrop-blur-2xl rounded-3xl shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] dark:shadow-[0_16px_48px_0_rgba(0,0,0,0.5)] border border-slate-200/50 dark:border-white/10"
             >
+              {/* Inner subtle glow for liquid feel */}
+              <div className="absolute inset-0 pointer-events-none rounded-3xl shadow-[inset_0_0_0_1px_rgba(255,255,255,0.4)] dark:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)]" />
+
               {/* Header */}
-              <div className="p-6 border-b border-slate-100 dark:border-white/10 flex justify-between items-start bg-slate-50 dark:bg-white/5">
+              <div className="p-6 relative z-10 flex justify-between items-start border-b border-black/[0.05] dark:border-white/[0.05]">
                 <div>
                     <div className="flex items-center gap-2 mb-2">
-                        <span className="px-2 py-1 bg-brand-gold text-brand-black text-xs font-bold uppercase tracking-widest rounded-sm">Industrial Series</span>
+                        <span className="px-3 py-1 bg-brand-gold/20 dark:bg-brand-gold/10 text-brand-gold-dark dark:text-brand-gold text-[10px] font-bold uppercase tracking-[0.2em] rounded-full backdrop-blur-sm border border-brand-gold/30">Industrial Series</span>
                     </div>
-                    <h2 className="text-2xl font-serif font-bold dark:text-white text-brand-black">Vert-X Industrial Specs</h2>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Technical datasheet for lightweight vertical racking.</p>
+                    <h2 className="text-2xl sm:text-3xl font-serif font-medium dark:text-white text-slate-900 tracking-tight">Vert-X Specs</h2>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-medium">Technical datasheet for lightweight vertical racking.</p>
                 </div>
                 <button 
                   onClick={onClose}
-                  className="p-2 text-slate-400 hover:text-brand-black dark:hover:text-white transition-colors bg-transparent hover:bg-slate-200 dark:hover:bg-white/10 rounded-full"
+                  aria-label="Close modal"
+                  className="p-2 text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 rounded-full backdrop-blur-md"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
               {/* Content */}
-              <div className="p-0 overflow-y-auto">
-                <div className="border-b border-slate-100 dark:border-white/5">
+              <div className="p-0 overflow-y-auto relative z-10 custom-scrollbar">
+                <div className="flex flex-col">
                     {specs.map((spec, idx) => (
-                        <div key={idx} className="border-b border-slate-100 dark:border-white/5 last:border-b-0">
+                        <div key={idx} className="border-b border-black/[0.05] dark:border-white/[0.05] last:border-b-0">
                             <button
                               onClick={() => handleToggle(idx)}
-                              className="w-full flex items-center justify-between p-5 md:p-6 bg-transparent hover:bg-slate-50 dark:hover:bg-white/5 transition-colors focus:outline-none"
+                              className="w-full flex items-center justify-between p-5 md:p-6 bg-transparent hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors focus:outline-none group"
                             >
-                                <div className="flex items-center gap-3">
-                                    <div className="text-brand-gold shrink-0">
+                                <div className="flex items-center gap-4">
+                                    <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-white/5 text-brand-gold-dark dark:text-brand-gold shadow-sm border border-black/5 dark:border-white/5 group-hover:scale-105 transition-transform">
                                         {spec.icon}
                                     </div>
-                                    <span className="text-sm uppercase tracking-widest font-bold dark:text-white text-slate-900">{spec.label}</span>
+                                    <span className="text-sm uppercase tracking-widest font-semibold dark:text-slate-200 text-slate-800">{spec.label}</span>
                                 </div>
                                 <MotionDiv
                                   animate={{ rotate: openIndex === idx ? 180 : 0 }}
-                                  transition={{ duration: 0.3 }}
+                                  transition={{ duration: 0.4, type: "spring", bounce: 0.3 }}
                                 >
-                                  <ChevronDown className="w-5 h-5 text-slate-400" />
+                                  <ChevronDown className={`w-5 h-5 ${openIndex === idx ? 'text-brand-gold' : 'text-slate-300 dark:text-slate-600'}`} />
                                 </MotionDiv>
                             </button>
                             
@@ -93,12 +99,12 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: "auto", opacity: 1 }}
                                         exit={{ height: 0, opacity: 0 }}
-                                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                                        className="overflow-hidden bg-slate-50 dark:bg-brand-charcoal/50"
+                                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                        className="overflow-hidden bg-black/[0.01] dark:bg-white/[0.01]"
                                     >
-                                        <div className="px-5 md:px-6 pb-6 pt-2 ml-7">
-                                            <div className="text-2xl font-bold dark:text-brand-gold text-brand-gold-dark mb-2">{spec.value}</div>
-                                            <div className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{spec.sub}</div>
+                                        <div className="px-5 md:px-[72px] pb-6 pt-1">
+                                            <div className="text-[22px] font-medium tracking-tight dark:text-white text-slate-900 mb-2">{spec.value}</div>
+                                            <div className="text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{spec.sub}</div>
                                         </div>
                                     </MotionDiv>
                                 )}
@@ -107,25 +113,25 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
                     ))}
                 </div>
 
-                <div className="p-6 md:p-8 space-y-4 bg-white dark:bg-brand-black">
-                    <h3 className="text-sm font-bold uppercase tracking-widest text-slate-400 border-b border-slate-100 dark:border-white/10 pb-2 mb-4">Detailed Description</h3>
-                    <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                <div className="p-6 md:p-8 space-y-4 bg-slate-50/50 dark:bg-black/20 mt-4 border-t border-black/[0.05] dark:border-white/[0.05]">
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-4">Detailed Description</h3>
+                    <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed font-medium">
                         The Carter Vert-X Industrial system is engineered specifically for roofs that cannot support standard ballasted solar systems. By utilizing an aerodynamic vertical profile, we eliminate the need for heavy concrete blocks. The system is chemically bonded to the roof surface using Sika® structural adhesive, preserving the roof's waterproofing warranty by avoiding all penetrations.
                     </p>
-                    <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                    <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed font-medium">
                         The vertical orientation prevents dust accumulation, making it ideal for industrial zones with high particulate fallout.
                     </p>
                 </div>
               </div>
 
               {/* Footer */}
-              <div className="p-6 border-t border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-brand-black flex flex-col sm:flex-row gap-4 justify-between items-center">
-                 <div className="text-xs text-slate-400">
-                    *Specifications subject to site engineering approval.
+              <div className="p-6 relative z-10 border-t border-black/[0.05] dark:border-white/[0.05] flex flex-col sm:flex-row gap-4 justify-between items-center bg-white/50 dark:bg-black/40 backdrop-blur-3xl">
+                 <div className="text-[11px] text-slate-400 font-medium uppercase tracking-wider text-center sm:text-left">
+                    *Engineering approval required
                  </div>
-                 <button className="flex items-center gap-2 px-6 py-3 bg-brand-gold text-brand-black font-bold rounded-sm shadow-md hover:bg-white hover:text-brand-black transition-all text-sm w-full sm:w-auto justify-center">
+                 <button className="flex items-center gap-2 px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-black font-semibold rounded-full shadow-[0_4px_14px_0_rgba(0,0,0,0.15)] dark:shadow-[0_4px_14px_0_rgba(255,255,255,0.15)] hover:scale-[1.02] active:scale-[0.98] hover:shadow-[0_6px_20px_rgba(0,0,0,0.2)] transition-all text-sm w-full sm:w-auto justify-center">
                     <Download className="w-4 h-4" />
-                    Download Full Datasheet (PDF)
+                    Download Datasheet
                  </button>
               </div>
             </MotionDiv>

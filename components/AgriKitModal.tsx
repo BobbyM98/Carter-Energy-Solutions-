@@ -50,6 +50,7 @@ export const AgriKitModal: React.FC<AgriKitModalProps> = ({ isOpen, onClose }) =
                 </div>
                 <button 
                   onClick={onClose}
+                  aria-label="Close modal"
                   className="p-2 text-slate-400 hover:text-brand-black dark:hover:text-white transition-colors bg-transparent hover:bg-slate-200 dark:hover:bg-white/10 rounded-full"
                 >
                   <X className="w-5 h-5" />
