@@ -151,14 +151,12 @@ export const ServicePillars: React.FC<ServicePillarsProps> = ({ onOpenAgriSpecs,
                 <ChevronLeft className="w-6 h-6" />
             </button>
             
-            <div className="flex gap-2" role="tablist" aria-label="Product Slideshow Controls">
+            <div className="flex gap-2">
                 {PRODUCTS.map((_, idx) => (
                 <button
                     key={idx}
-                    role="tab"
                     onClick={() => setCurrentIndex(idx)}
                     aria-label={`Go to product ${idx + 1}`}
-                    aria-selected={idx === currentIndex}
                     className={`h-2 rounded-full transition-all duration-300 ${
                     idx === currentIndex ? 'w-8 bg-brand-gold' : 'w-2 bg-slate-300 dark:bg-slate-700 hover:bg-brand-gold/50'
                     }`}

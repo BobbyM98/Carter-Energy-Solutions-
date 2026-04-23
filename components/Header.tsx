@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Zap, Menu, X, Sun, Moon, Calendar } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 // Cast motion components to any to resolve prop type mismatches
 const MotionHeader = motion.header as any;
@@ -222,19 +222,16 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
       </div>
 
       {/* Mobile Nav */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <MotionDiv 
-            id="mobile-menu"
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="md:hidden absolute top-[calc(100%+0.5rem)] left-4 right-4 dark:bg-[#111111]/80 bg-white/80 backdrop-blur-2xl border dark:border-white/10 border-slate-200/50 p-6 rounded-3xl shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] dark:shadow-[0_16px_48px_0_rgba(0,0,0,0.5)] origin-top"
-            role="region"
-            aria-label="Mobile Navigation"
-          >
-            <nav className="flex flex-col gap-6 text-center">
+      {isMobileMenuOpen && (
+        <MotionDiv 
+          id="mobile-menu"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="md:hidden absolute top-full left-0 right-0 dark:bg-brand-black bg-white border-b dark:border-white/10 border-slate-200 p-6 shadow-xl"
+          role="region"
+          aria-label="Mobile Navigation"
+        >
+          <nav className="flex flex-col gap-6 text-center">
              <a 
                href="#benefits" 
                onClick={(e) => scrollToSection(e, 'benefits')} 
@@ -304,8 +301,7 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
             </button>
           </nav>
         </MotionDiv>
-        )}
-      </AnimatePresence>
+      )}
     </MotionHeader>
   );
 };

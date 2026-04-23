@@ -90,8 +90,6 @@ export const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => 
           >
             {/* Modal */}
             <MotionDiv
-              role="dialog"
-              aria-modal="true"
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -100,7 +98,6 @@ export const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => 
             >
               <button 
                 onClick={onClose}
-                aria-label="Close modal"
                 className="absolute top-4 right-4 p-2 text-slate-400 hover:text-brand-black dark:hover:text-white transition-colors z-10"
               >
                 <X className="w-5 h-5" />
