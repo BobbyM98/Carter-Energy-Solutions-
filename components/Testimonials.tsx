@@ -118,12 +118,14 @@ export const Testimonials: React.FC = () => {
           </button>
 
           {/* Dots */}
-          <div className="flex justify-center gap-2 mt-8">
+          <div className="flex justify-center gap-2 mt-8" role="tablist" aria-label="Testimonial Slideshow Controls">
             {TESTIMONIAL_DATA.map((_, idx) => (
               <button
                 key={idx}
+                role="tab"
                 onClick={() => setCurrentIndex(idx)}
                 aria-label={`Go to testimonial ${idx + 1}`}
+                aria-selected={idx === currentIndex}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   idx === currentIndex ? 'w-8 bg-brand-gold' : 'w-2 bg-slate-300 dark:bg-slate-700 hover:bg-brand-gold/50'
                 }`}

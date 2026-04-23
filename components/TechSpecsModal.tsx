@@ -42,6 +42,8 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
           >
             {/* Modal - Liquid Glass Panel */}
             <MotionDiv
+              role="dialog"
+              aria-modal="true"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -76,7 +78,10 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
                     {specs.map((spec, idx) => (
                         <div key={idx} className="border-b border-black/[0.05] dark:border-white/[0.05] last:border-b-0">
                             <button
+                              id={`tech-specs-button-${idx}`}
                               onClick={() => handleToggle(idx)}
+                              aria-expanded={openIndex === idx}
+                              aria-controls={`tech-specs-panel-${idx}`}
                               className="w-full flex items-center justify-between p-5 md:p-6 bg-transparent hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors focus:outline-none group"
                             >
                                 <div className="flex items-center gap-4">
@@ -89,13 +94,16 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
                                   animate={{ rotate: openIndex === idx ? 180 : 0 }}
                                   transition={{ duration: 0.4, type: "spring", bounce: 0.3 }}
                                 >
-                                  <ChevronDown className={`w-5 h-5 ${openIndex === idx ? 'text-brand-gold' : 'text-slate-300 dark:text-slate-600'}`} />
+                                  <ChevronDown aria-hidden="true" className={`w-5 h-5 ${openIndex === idx ? 'text-brand-gold' : 'text-slate-300 dark:text-slate-600'}`} />
                                 </MotionDiv>
                             </button>
                             
                             <AnimatePresence initial={false}>
                                 {openIndex === idx && (
                                     <MotionDiv
+                                        id={`tech-specs-panel-${idx}`}
+                                        role="region"
+                                        aria-labelledby={`tech-specs-button-${idx}`}
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: "auto", opacity: 1 }}
                                         exit={{ height: 0, opacity: 0 }}

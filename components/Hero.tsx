@@ -292,12 +292,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
             >
                 <ChevronLeft className="w-5 h-5" />
             </button>
-            <div className="flex gap-2">
+            <div className="flex gap-2" role="tablist" aria-label="Slideshow Controls">
                 {SLIDES.map((_, idx) => (
                     <button
                         key={idx}
+                        role="tab"
                         onClick={() => setCurrentSlide(idx)}
                         aria-label={`Go to slide ${idx + 1}`}
+                        aria-selected={idx === currentSlide}
+                        aria-controls={`slide-${idx}`}
                         className={`h-2 rounded-full transition-all duration-300 ${
                             idx === currentSlide ? 'w-8 bg-brand-gold' : 'w-2 bg-white/20 hover:bg-brand-gold/50'
                         }`}
