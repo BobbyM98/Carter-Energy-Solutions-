@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUp } from 'lucide-react';
-import { motion, animate } from 'framer-motion';
+import { m as motion, animate } from 'framer-motion';
 
 const MotionButton = motion.button as any;
 

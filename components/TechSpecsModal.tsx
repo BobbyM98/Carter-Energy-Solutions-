@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, FileText, Download, Shield, Wind, Zap, Scale, Anchor, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 
 const MotionDiv = motion.div as any;
 

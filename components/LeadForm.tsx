@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Send, Check } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 
 const MotionDiv = motion.div as any;
 

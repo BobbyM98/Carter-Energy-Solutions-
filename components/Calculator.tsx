@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TrendingUp, Zap, Info, FileText, ShieldCheck } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 
 const MotionDiv = motion.div as any;
 

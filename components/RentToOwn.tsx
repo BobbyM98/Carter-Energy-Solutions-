@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { CheckCircle2, ChevronRight, Zap, Target, Factory, Building2, Store } from 'lucide-react';
 
 const MotionDiv = motion.div as any;

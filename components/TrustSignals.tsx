@@ -1,6 +1,6 @@
 import React from 'react';
 import { TrendingUp, Zap, Droplets, ShieldCheck, HardHat } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { optimizeImage } from '../src/utils/image';
 
 const MotionDiv = motion.div as any;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
+import { m as motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
 import { optimizeImage } from '../src/utils/image';
 
 // Cast motion components to any to resolve prop type mismatches
@@ -54,15 +54,27 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
   const isInView = useInView(containerRef, { margin: "0px 0px -200px 0px" });
 
   useEffect(() => {
-    // Preload the first image for LCP
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'image';
-    link.href = SLIDES[0].image;
-    document.head.appendChild(link);
+    // Preload the images for smooth transitions
+    const preloads: HTMLLinkElement[] = [];
+    
+    SLIDES.forEach((slide, index) => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = slide.image;
+      if (index === 0) {
+        link.fetchPriority = "high";
+      }
+      document.head.appendChild(link);
+      preloads.push(link);
+    });
 
     return () => {
-      document.head.removeChild(link);
+      preloads.forEach(link => {
+        if (document.head.contains(link)) {
+          document.head.removeChild(link);
+        }
+      });
     };
   }, []);
 

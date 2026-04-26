@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Zap, Menu, X, Sun, Moon, Calendar } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 
 // Cast motion components to any to resolve prop type mismatches
 const MotionHeader = motion.header as any;

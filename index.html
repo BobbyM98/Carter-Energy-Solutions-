@@ -36,43 +36,6 @@
     <meta name="twitter:description" content="Unlock the potential of weak roofs and farmland with South Africa’s first high-yield Vert-X Bifacial Systems." />
     <meta name="twitter:image" content="https://i.ibb.co/GfWMr0JQ/Gemini-Generated-Image-9c3aj9c3aj9c3aj9.png" />
 
-    <!-- Tailwind CSS & Custom Config -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              serif: ['Playfair Display', 'serif'],
-            },
-            colors: {
-              brand: {
-                gold: '#D4AF37',       // Classic Metallic Gold (Good on Dark)
-                'gold-light': '#F9E5B5',
-                'gold-dark': '#AA8C2C', // Darker Gold (Good on Light - AA Contrast)
-                black: '#050505',      // Rich Black
-                charcoal: '#0F0F0F'    // Off-black for cards
-              }
-            },
-            backgroundImage: {
-              'gold-gradient': 'linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #AA8C2C 100%)',
-            },
-            keyframes: {
-              marquee: {
-                '0%': { transform: 'translateX(0%)' },
-                '100%': { transform: 'translateX(-33.3333%)' },
-              }
-            },
-            animation: {
-              marquee: 'marquee 30s linear infinite',
-            }
-          }
-        }
-      }
-    </script>
-
     <!-- Google Fonts: Inter & Playfair Display -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
     
@@ -95,19 +58,21 @@
       }
     </style>
   </head>
-  <body class="bg-white dark:bg-brand-black text-slate-900 dark:text-slate-50 antialiased selection:bg-brand-gold selection:text-white">
+  <body class="bg-white dark:bg-brand-black text-slate-900 dark:text-slate-50 antialiased selection:bg-brand-gold selection:text-white" style="background-color: #050505; color: #f8fafc; margin: 0; min-height: 100vh;">
     <div id="root">
         <!-- Static fallback content shown before React loads -->
-        <header>
-            <h1 class="text-gold-gradient text-4xl font-serif my-6 text-center">Carter Energy Solutions</h1>
-            <p class="text-center mb-8">
-            Pioneering Vertical Bifacial Solar in South Africa.<br>
-            High-yield solar walls for farms and lightweight racking for industrial and commercial roofs.
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; font-family: 'Inter', sans-serif;">
+            <h1 class="text-gold-gradient" style="font-size: 2.5rem; margin-bottom: 24px; font-family: 'Playfair Display', serif; background: linear-gradient(135deg, #D4AF37 0%, #F9E5B5 50%, #AA8C2C 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Carter Energy Solutions</h1>
+            <p style="margin-bottom: 32px; color: #94a3b8; font-weight: 300;">
+            Pioneering Vertical Bifacial Solar in South Africa.
             </p>
-            <div class="flex justify-center mt-4">
-                 <div class="w-8 h-8 border-4 border-brand-gold border-t-transparent rounded-full animate-spin"></div>
+            <div style="display: flex; justify-content: center;">
+                 <div style="width: 40px; height: 40px; border: 3px solid rgba(212, 175, 55, 0.2); border-top-color: #D4AF37; border-radius: 50%; animation: spin 1s linear infinite;"></div>
             </div>
-        </header>
+            <style>
+              @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+            </style>
+        </div>
     </div>
     <script type="module" src="./index.tsx"></script>
   </body>

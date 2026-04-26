@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Zap, Lightbulb, Droplets, Ruler, Hammer, Settings, FileCheck, ShieldCheck } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 
 const MotionDiv = motion.div as any;
 
@@ -95,7 +95,12 @@ export const AgriKitModal: React.FC<AgriKitModalProps> = ({ isOpen, onClose }) =
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
-                            <h4 className="font-bold text-brand-gold mb-2 text-sm">Vert-X PV Modules</h4>
+                            <div className="relative group w-fit">
+                                <h4 className="font-bold text-brand-gold mb-2 text-sm cursor-help border-b border-dashed border-brand-gold/50 inline-block">Vert-X PV Modules</h4>
+                                <div className="absolute left-0 bottom-full mb-2 w-64 p-3 text-xs bg-brand-black dark:bg-white text-white dark:text-brand-black shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 rounded-sm">
+                                    Specifically selected for their high bifacial gain and N-type cell technology, optimized for vertical installations.
+                                </div>
+                            </div>
                             <ul className="list-disc list-inside text-sm text-slate-600 dark:text-slate-300 space-y-1">
                                 <li>Vert-X 570W+ Bifacial Series</li>
                                 <li>Double-Glass Framed Design</li>

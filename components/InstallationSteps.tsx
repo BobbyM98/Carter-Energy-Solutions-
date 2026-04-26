@@ -1,6 +1,6 @@
 import React from 'react';
 import { ClipboardCheck, PencilRuler, Truck, Hammer, Power } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 
 const MotionDiv = motion.div as any;
 
