@@ -16,7 +16,7 @@ const TESTIMONIAL_DATA: Testimonial[] = [
     {
       name: "Johan De Villiers",
       location: "Commercial Farm, WC",
-      quote: "Carter Energy's Vert-X system allowed us to generate 1.2MW of power without losing a single hectare of grazing land. The dual-peak generation perfectly matches our irrigation schedules.",
+      quote: "Carter Energy Solutions' Vert-X system allowed us to generate 1.2MW of power without losing a single hectare of grazing land. The dual-peak generation perfectly matches our irrigation schedules.",
       imageUrl: optimizeImage("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d", 200)
     },
     {

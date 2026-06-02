@@ -20,7 +20,7 @@ const SLIDES: SlideData[] = [
   {
     id: 0,
     title: <span>Power at the <span className="text-gold-gradient italic">Edge.</span></span>,
-    description: "The future of solar is the Carter Vert-X System. Unlock the potential of weak roofs and farmland with South Africa's first high-yield Vertical Bifacial Technology.",
+    description: "The future of solar is the Carter Energy Solutions Vert-X System. Unlock the potential of weak roofs and farmland with South Africa's first high-yield Vertical Bifacial Technology.",
     cta: "Request ESD/CSI Proposal",
     image: optimizeImage("https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png", 1200)
   },

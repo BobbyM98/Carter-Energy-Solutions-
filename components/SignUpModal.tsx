@@ -122,7 +122,7 @@ export const SignUpModal: React.FC<SignUpModalProps> = ({ isOpen, onClose }) => 
                   <div className="mb-8 text-center">
                     <h2 className="text-2xl md:text-3xl font-serif font-bold mb-2 dark:text-white text-brand-black">Create Account</h2>
                     <p className="text-slate-500 dark:text-slate-400 text-sm font-light">
-                      Join Carter Energy for exclusive yield reports and priority support.
+                      Join Carter Energy Solutions for exclusive yield reports and priority support.
                     </p>
                   </div>
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Zap, Menu, X, Sun, Moon, Calendar } from 'lucide-react';
+import { Zap, Menu, X, Sun, Moon, Calendar, Gift } from 'lucide-react';
 import { m as motion } from 'framer-motion';
 
 // Cast motion components to any to resolve prop type mismatches
@@ -11,9 +11,10 @@ interface HeaderProps {
   toggleTheme: () => void;
   onBookAppointment: () => void;
   onSignUp: () => void;
+  onReferFriend: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppointment, onSignUp }) => {
+export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppointment, onSignUp, onReferFriend }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -99,8 +100,8 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
                   <Zap className="h-5 w-5" strokeWidth={2} />
                 </div>
             </div>
-            <span className="text-xl md:text-2xl font-bold tracking-tight dark:text-white text-slate-900 font-serif">
-              Carter<span className="text-brand-gold-dark dark:text-brand-gold">Energy</span>
+            <span className="text-xl md:text-2xl font-bold tracking-tight dark:text-white text-slate-900 font-serif whitespace-nowrap">
+              Carter<span className="text-brand-gold-dark dark:text-brand-gold"> Energy Solutions</span>
             </span>
           </div>
 
@@ -176,6 +177,14 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
               {isDark ? <Sun className="h-4 w-4 text-brand-gold" aria-hidden="true" /> : <Moon className="h-4 w-4 text-slate-700" aria-hidden="true" />}
             </button>
             
+            <button 
+              onClick={onReferFriend}
+              className="hidden lg:flex items-center gap-1.5 text-brand-gold-dark dark:text-brand-gold px-3.5 py-2.5 rounded-sm border border-brand-gold/20 bg-brand-gold/5 dark:bg-brand-gold/5 font-semibold text-sm hover:bg-brand-gold hover:text-brand-black dark:hover:text-brand-black transition-all mr-2 focus:outline-none focus:ring-2 focus:ring-brand-gold min-h-[44px]"
+            >
+              <Gift className="w-4 h-4 text-brand-gold" />
+              <span>Refer & Earn</span>
+            </button>
+
             <button 
               onClick={onSignUp}
               className="hidden lg:flex items-center gap-2 text-brand-gold-dark dark:text-brand-gold px-3 py-2.5 rounded-sm font-semibold text-sm hover:text-brand-black dark:hover:text-white transition-all mr-2 focus:outline-none focus:ring-2 focus:ring-brand-gold min-h-[44px]"
@@ -273,6 +282,17 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
               Savings
             </a>
             
+            <button 
+              onClick={() => {
+                onReferFriend();
+                setIsMobileMenuOpen(false);
+              }}
+              className="font-serif text-lg text-brand-gold hover:text-brand-gold-light hover:underline focus:outline-none py-2 flex items-center justify-center gap-2 font-bold"
+            >
+              <Gift className="w-5 h-5 text-brand-gold" />
+              Refer & Earn R1000
+            </button>
+
             <button 
               onClick={() => {
                 onSignUp();

@@ -45,7 +45,7 @@ export const Footer: React.FC = () => {
                 </p>
                 <p>
                   <a href="https://wa.me/27602924523" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors block">
-                    WhatsApp: +27 60 292 4523
+                    WhatsApp: 060 292 4523
                   </a>
                 </p>
               </div>

@@ -30,6 +30,7 @@ const AppointmentModal = lazy(() => import('./components/AppointmentModal').then
 const TechSpecsModal = lazy(() => import('./components/TechSpecsModal').then(m => ({ default: m.TechSpecsModal })));
 const SignUpModal = lazy(() => import('./components/SignUpModal').then(m => ({ default: m.SignUpModal })));
 const AgriKitModal = lazy(() => import('./components/AgriKitModal').then(m => ({ default: m.AgriKitModal })));
+const ReferFriendModal = lazy(() => import('./components/ReferFriendModal').then(m => ({ default: m.ReferFriendModal })));
 
 // Minimal loader with better spacing
 const SectionLoader = ({ height = "min-h-[400px]" }: { height?: string }) => (
@@ -46,6 +47,7 @@ const App: React.FC = () => {
   const [isTechSpecsOpen, setIsTechSpecsOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
   const [isAgriKitOpen, setIsAgriKitOpen] = useState(false);
+  const [isReferFriendOpen, setIsReferFriendOpen] = useState(false);
 
   useEffect(() => {
     // Check system preference or default to dark
@@ -78,6 +80,7 @@ const App: React.FC = () => {
           toggleTheme={toggleTheme} 
           onBookAppointment={() => setIsAppointmentOpen(true)}
           onSignUp={() => setIsSignUpOpen(true)}
+          onReferFriend={() => setIsReferFriendOpen(true)}
         />
         <main className="flex-grow">
           <Hero onOpenTechSpecs={() => setIsTechSpecsOpen(true)} />
@@ -115,7 +118,7 @@ const App: React.FC = () => {
           </Suspense>
 
           <Suspense fallback={<div className="h-64 bg-brand-gold/10" />}>
-              <SignUpSection onSignUp={() => setIsSignUpOpen(true)} />
+              <SignUpSection onSignUp={() => setIsSignUpOpen(true)} onReferFriend={() => setIsReferFriendOpen(true)} />
           </Suspense>
 
           <Suspense fallback={<SectionLoader />}>
@@ -175,6 +178,7 @@ const App: React.FC = () => {
           <TechSpecsModal isOpen={isTechSpecsOpen} onClose={() => setIsTechSpecsOpen(false)} />
           <SignUpModal isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} />
           <AgriKitModal isOpen={isAgriKitOpen} onClose={() => setIsAgriKitOpen(false)} />
+          <ReferFriendModal isOpen={isReferFriendOpen} onClose={() => setIsReferFriendOpen(false)} />
         </Suspense>
       </div>
     </LazyMotion>

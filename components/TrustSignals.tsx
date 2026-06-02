@@ -52,7 +52,7 @@ export const TrustSignals: React.FC = () => {
               South African businesses and farms are crippled by load shedding, but traditional solar demands vast tracts of productive land or expensive roof reinforcements.
             </p>
             <p className="text-lg dark:text-slate-300 text-slate-700 font-light leading-relaxed mb-6">
-              <strong>Carter Energy Solutions</strong> is South Africa's first and only vertical bifacial solar installer. We mount panels upright on existing perimeters—solving the energy crisis without consuming your most valuable asset: land.
+              <strong>Carter Energy Solutions</strong> specializes in both high-density **Standard Flat/Tilted systems** and SA's signature **Vertical Bifacial layouts**. Whether optimizing standard north-facing warehouses or mounting panels upright on boundary lines to save valuable ground area, we engineer the optimal match for your premises.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 mt-8 border-t border-slate-200 dark:border-white/10 pt-6">
