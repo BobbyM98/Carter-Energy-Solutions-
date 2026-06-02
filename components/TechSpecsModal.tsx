@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, FileText, Download, Shield, Wind, Zap, Scale, Anchor, ChevronDown } from 'lucide-react';
 import { m as motion, AnimatePresence } from 'framer-motion';
+import { jsPDF } from 'jspdf';
 
 const MotionDiv = motion.div as any;
 
@@ -25,6 +26,106 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
 
   const handleToggle = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
+  };
+
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+
+    const drawDivider = (yPos: number, color: string = '#E2E8F0') => {
+      doc.setDrawColor(color);
+      doc.setLineWidth(0.3);
+      doc.line(20, yPos, 190, yPos);
+    };
+
+    // Top Accent Border Line
+    doc.setFillColor('#CCA43B');
+    doc.rect(0, 0, 210, 6, 'F');
+
+    // Header Branding Section
+    doc.setTextColor('#0F172A');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(18);
+    doc.text('CARTER ENERGY SOLUTIONS', 20, 24);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    doc.setTextColor('#64748B');
+    doc.text('Advanced Commercial & Industrial Solar Solutions', 20, 29);
+    doc.text('Tel: +27 60 292 4523 | Email: info@cenergys.space', 20, 34);
+
+    // Document Header Metadata (Right-Aligned)
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor('#0F172A');
+    doc.text('TECHNICAL DATASHEET', 190, 24, { align: 'right' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor('#64748B');
+    doc.text(`Generated: ${new Date().toLocaleDateString('en-ZA')}`, 190, 29, { align: 'right' });
+    doc.text('Series: VERT-X INDUSTRIAL RACKING', 190, 34, { align: 'right' });
+
+    drawDivider(40, '#CCA43B');
+
+    // Section 1: Product Overview
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor('#0F172A');
+    doc.text('1. VERT-X SYSTEM OVERVIEW', 20, 48);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor('#334155');
+    const introText = "The Carter Vert-X Industrial system is engineered specifically for roofs that cannot support standard ballasted solar systems. By utilizing an aerodynamic vertical profile, we eliminate the need for heavy concrete blocks. The system is chemically bonded to the roof surface using Sika® structural adhesive, preserving the roof's waterproofing warranty by avoiding all penetrations. The vertical orientation prevents dust accumulation, making it ideal for industrial zones with high particulate fallout.";
+    const splitIntro = doc.splitTextToSize(introText, 170);
+    doc.text(splitIntro, 20, 53);
+
+    drawDivider(82);
+
+    // Section 2: Technical Specifications
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor('#0F172A');
+    doc.text('2. TECHNICAL SPECIFICATIONS', 20, 90);
+
+    let yOffset = 98;
+    specs.forEach((spec) => {
+      doc.setFillColor('#F8FAFC');
+      doc.setDrawColor('#E2E8F0');
+      doc.setLineWidth(0.2);
+      doc.rect(20, yOffset, 170, 22, 'FD');
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor('#475569');
+      doc.text(spec.label.toUpperCase(), 25, yOffset + 6);
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor('#CCA43B');
+      doc.text(spec.value, 185, yOffset + 6, { align: 'right' });
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor('#475569');
+      const splitSub = doc.splitTextToSize(spec.sub, 160);
+      doc.text(splitSub, 25, yOffset + 12);
+
+      yOffset += 26;
+    });
+
+    // Back cover/disclaimer
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor('#94A3B8');
+    doc.text('* Specifications subject to site engineering approval. Installation must be conducted by certified team.', 20, 275);
+    doc.text('Level 1 B-BBEE Contributor | Certified Vertical Bifacial Engineering EPC | Gauteng & Vaal-Region SA', 20, 280);
+
+    // Save
+    doc.save('Carter-Vert-X-Industrial-Specs.pdf');
   };
 
   return (
@@ -123,7 +224,10 @@ export const TechSpecsModal: React.FC<TechSpecsModalProps> = ({ isOpen, onClose 
                  <div className="text-xs text-slate-400">
                     *Specifications subject to site engineering approval.
                  </div>
-                 <button className="flex items-center gap-2 px-6 py-3 bg-brand-gold text-brand-black font-bold rounded-sm shadow-md hover:bg-white hover:text-brand-black transition-all text-sm w-full sm:w-auto justify-center">
+                 <button 
+                   onClick={handleDownloadPDF}
+                   className="flex items-center gap-2 px-6 py-3 bg-brand-gold text-brand-black font-bold rounded-sm shadow-md hover:bg-white hover:text-brand-black transition-all text-sm w-full sm:w-auto justify-center cursor-pointer"
+                 >
                     <Download className="w-4 h-4" />
                     Download Full Datasheet (PDF)
                  </button>

@@ -11,7 +11,15 @@ import {
   Home as HomeIcon, 
   ShieldCheck, 
   ArrowRight,
-  Info
+  Info,
+  GraduationCap,
+  Store,
+  Utensils,
+  Warehouse,
+  Apple,
+  Heart,
+  Users,
+  Sun
 } from 'lucide-react';
 
 const MotionDiv = motion.div as any;
@@ -187,12 +195,60 @@ const BUSINESS_PACKAGES: SolarPackage[] = [
   }
 ];
 
+interface PremiseType {
+  label: string;
+  packageId: string;
+  segment: 'home' | 'business';
+  category: string;
+  iconName: 'home' | 'school' | 'utensils' | 'warehouse' | 'store' | 'heart' | 'apple' | 'building' | 'users' | 'sun';
+}
+
+const PREMISE_TYPES: PremiseType[] = [
+  // Home Segment
+  { label: 'Starter Townhouse', packageId: 'ces-core', segment: 'home', category: 'CES Classic Series', iconName: 'home' },
+  { label: 'Standard Family Home', packageId: 'ces-mini', segment: 'home', category: 'CES Classic Series', iconName: 'sun' },
+  { label: 'Large Extended House', packageId: 'ces-ultra', segment: 'home', category: 'CES Classic Series', iconName: 'building' },
+  { label: 'Premium 3-Phase Estate', packageId: 'ces-maxi-3ph', segment: 'home', category: 'CES Triple-Phase Series', iconName: 'users' },
+  { label: 'Off-Grid Mega Mansion', packageId: 'ces-mega', segment: 'home', category: 'CES Triple-Phase Series', iconName: 'building' },
+
+  // Business Segment - LUXE/MICRO Series
+  { label: 'Spaza Shop', packageId: 'ces-ultra-biz', segment: 'business', category: 'LUXE BIZ Series', iconName: 'store' },
+  { label: 'Local Tavern', packageId: 'ces-maxi-biz', segment: 'business', category: 'LUXE BIZ Series', iconName: 'store' },
+  { label: 'Boutique Retail / Cafes', packageId: 'ces-maxi-biz', segment: 'business', category: 'LUXE BIZ Series', iconName: 'utensils' },
+  { label: 'Medical Consulting Suite', packageId: 'ces-ultra-biz', segment: 'business', category: 'LUXE BIZ Series', iconName: 'heart' },
+
+  // Business Segment - RISE Series
+  { label: 'Sectional Cluster Dev', packageId: 'rise-series', segment: 'business', category: 'RISE Series', iconName: 'users' },
+  { label: 'Apartment Blocks', packageId: 'rise-series', segment: 'business', category: 'RISE Series', iconName: 'building' },
+
+  // Business Segment - LIFT Series
+  { label: 'Commercial Farm', packageId: 'lift-series', segment: 'business', category: 'LIFT Series', iconName: 'apple' },
+  { label: 'Industrial Factory', packageId: 'lift-series', segment: 'business', category: 'LIFT Series', iconName: 'warehouse' },
+  { label: 'Logistics Depot', packageId: 'ces-mega-biz', segment: 'business', category: 'LIFT Series', iconName: 'warehouse' },
+  { label: 'School / Academic Campus', packageId: 'lift-series', segment: 'business', category: 'LIFT Series', iconName: 'school' }
+];
+
 export const RentToOwn: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'home' | 'business'>('home');
   const [selectedPackageId, setSelectedPackageId] = useState<string>('ces-ultra');
   const [aiMode, setAiMode] = useState<boolean>(true);
   const [payMonthLater, setPayMonthLater] = useState<boolean>(false);
   const [setupType, setSetupType] = useState<'vertical' | 'normal'>('vertical');
+
+  const getPremiseIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'school': return <GraduationCap className="w-3.5 h-3.5" />;
+      case 'utensils': return <Utensils className="w-3.5 h-3.5" />;
+      case 'warehouse': return <Warehouse className="w-3.5 h-3.5" />;
+      case 'store': return <Store className="w-3.5 h-3.5" />;
+      case 'heart': return <Heart className="w-3.5 h-3.5 text-rose-500" />;
+      case 'apple': return <Apple className="w-3.5 h-3.5" />;
+      case 'building': return <Building2 className="w-3.5 h-3.5" />;
+      case 'users': return <Users className="w-3.5 h-3.5" />;
+      case 'sun': return <Sun className="w-3.5 h-3.5 text-amber-500" />;
+      default: return <HomeIcon className="w-3.5 h-3.5" />;
+    }
+  };
 
   // Switch tabs and reset active package appropriately
   const handleTabChange = (tab: 'home' | 'business') => {
@@ -504,6 +560,156 @@ export const RentToOwn: React.FC = () => {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Interactive Premise Type Quick Selector - Modeled after reference site */}
+        <div className="mt-12 mb-14 bg-slate-50/50 dark:bg-brand-charcoal/20 p-6 sm:p-8 rounded-2xl border border-slate-200/60 dark:border-white/5 text-center">
+          <h3 className="text-xs font-bold uppercase tracking-widest text-[#CCA43B] mb-2 font-mono">
+            Interactive Premise Selector
+          </h3>
+          <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 max-w-xl mx-auto font-light mb-8">
+            Select your specific property class below to instantly load the recommended bifacial package:
+          </p>
+
+          <div className="flex flex-col gap-6 text-left max-w-5xl mx-auto">
+            {activeTab === 'home' ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Home Classic Series */}
+                <div className="p-4 rounded-xl border border-slate-200/60 dark:border-white/5 bg-white/40 dark:bg-brand-black/20">
+                  <span className="text-[10px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 block mb-3 tracking-widest">
+                    CES Classic Series (Single Phase)
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {PREMISE_TYPES.filter(p => p.segment === 'home' && p.category === 'CES Classic Series').map((p) => {
+                      const isSelected = selectedPackageId === p.packageId;
+                      return (
+                        <button
+                          key={p.label}
+                          onClick={() => setSelectedPackageId(p.packageId)}
+                          className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all border ${
+                            isSelected
+                              ? 'bg-brand-gold text-brand-black border-brand-gold shadow-md shadow-brand-gold/15 font-bold scale-[1.02]'
+                              : 'bg-white dark:bg-brand-charcoal hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-350 border-slate-200 dark:border-white/5 hover:border-brand-gold/30'
+                          }`}
+                        >
+                          {getPremiseIcon(p.iconName)}
+                          <span>{p.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Home Triple-Phase Series */}
+                <div className="p-4 rounded-xl border border-slate-200/60 dark:border-white/5 bg-white/40 dark:bg-brand-black/20">
+                  <span className="text-[10px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 block mb-3 tracking-widest">
+                    CES Triple-Phase Series (3PH)
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {PREMISE_TYPES.filter(p => p.segment === 'home' && p.category === 'CES Triple-Phase Series').map((p) => {
+                      const isSelected = selectedPackageId === p.packageId;
+                      return (
+                        <button
+                          key={p.label}
+                          onClick={() => setSelectedPackageId(p.packageId)}
+                          className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all border ${
+                            isSelected
+                              ? 'bg-brand-gold text-brand-black border-brand-gold shadow-md shadow-brand-gold/15 font-bold scale-[1.02]'
+                              : 'bg-white dark:bg-brand-charcoal hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-350 border-slate-200 dark:border-white/5 hover:border-brand-gold/30'
+                          }`}
+                        >
+                          {getPremiseIcon(p.iconName)}
+                          <span>{p.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {/* Business LUXE BIZ Series */}
+                <div className="p-4 rounded-xl border border-slate-200/60 dark:border-white/5 bg-white/40 dark:bg-brand-black/20">
+                  <span className="text-[10px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 block mb-3 tracking-widest">
+                    LUXE BIZ / Micro Series (Boutique & Retail)
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {PREMISE_TYPES.filter(p => p.segment === 'business' && p.category === 'LUXE BIZ Series').map((p) => {
+                      const isSelected = selectedPackageId === p.packageId;
+                      return (
+                        <button
+                          key={p.label}
+                          onClick={() => setSelectedPackageId(p.packageId)}
+                          className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all border ${
+                            isSelected
+                              ? 'bg-brand-gold text-brand-black border-brand-gold shadow-md shadow-brand-gold/15 font-bold scale-[1.02]'
+                              : 'bg-white dark:bg-brand-charcoal hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-350 border-slate-200 dark:border-white/5 hover:border-brand-gold/30'
+                          }`}
+                        >
+                          {getPremiseIcon(p.iconName)}
+                          <span>{p.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Business RISE Series */}
+                  <div className="p-4 rounded-xl border border-slate-200/60 dark:border-white/5 bg-white/40 dark:bg-brand-black/20">
+                    <span className="text-[10px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 block mb-3 tracking-widest">
+                      RISE Series (Apartments & Estates)
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {PREMISE_TYPES.filter(p => p.segment === 'business' && p.category === 'RISE Series').map((p) => {
+                        const isSelected = selectedPackageId === p.packageId;
+                        return (
+                          <button
+                            key={p.label}
+                            onClick={() => setSelectedPackageId(p.packageId)}
+                            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all border ${
+                              isSelected
+                                ? 'bg-brand-gold text-brand-black border-brand-gold shadow-md shadow-brand-gold/15 font-bold scale-[1.02]'
+                                : 'bg-white dark:bg-brand-charcoal hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-350 border-slate-200 dark:border-white/5 hover:border-brand-gold/30'
+                            }`}
+                          >
+                            {getPremiseIcon(p.iconName)}
+                            <span>{p.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Business LIFT Series */}
+                  <div className="p-4 rounded-xl border border-slate-200/60 dark:border-white/5 bg-white/40 dark:bg-brand-black/20">
+                    <span className="text-[10px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 block mb-3 tracking-widest">
+                      LIFT Series (Industrial, Agriculture & Campuses)
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {PREMISE_TYPES.filter(p => p.segment === 'business' && p.category === 'LIFT Series').map((p) => {
+                        const isSelected = selectedPackageId === p.packageId;
+                        return (
+                          <button
+                            key={p.label}
+                            onClick={() => setSelectedPackageId(p.packageId)}
+                            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all border ${
+                              isSelected
+                                ? 'bg-brand-gold text-brand-black border-brand-gold shadow-md shadow-brand-gold/15 font-bold scale-[1.02]'
+                                : 'bg-white dark:bg-brand-charcoal hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-350 border-slate-200 dark:border-white/5 hover:border-brand-gold/30'
+                            }`}
+                          >
+                            {getPremiseIcon(p.iconName)}
+                            <span>{p.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

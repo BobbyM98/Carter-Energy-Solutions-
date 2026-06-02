@@ -218,16 +218,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
                exit="exit"
                variants={containerVariants}
              >
-                <MotionDiv 
-                  variants={childVariants}
-                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/30 text-brand-gold-dark dark:text-brand-gold text-sm font-medium tracking-wide mb-8"
-                >
-                <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-gold"></span>
-                </span>
-                B-BBEE LEVEL 1 | 100% BLACK-OWNED EME
-                </MotionDiv>
+
                 
                 <MotionH1 
                   variants={childVariants}
