@@ -88,6 +88,37 @@ const App: React.FC = () => {
           
           {/* Why Vertical / Education Section - Eager Loaded */}
           <TrustSignals />
+
+          {/* Core Pricing & Subscription Packages (Placed up top for customer ease) */}
+          <Suspense fallback={<SectionLoader />}>
+              <RentToOwn />
+          </Suspense>
+
+          {/* Feasibility & Audit (Calculator & ROI tools placed right below the packages) */}
+          <section id="get-quote" className="py-24 px-4 relative overflow-hidden transition-colors duration-500 dark:bg-brand-charcoal bg-slate-50">
+             {/* Decorative background elements */}
+             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-5">
+               <div className="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] rounded-full bg-brand-gold blur-[100px]"></div>
+               <div className="absolute -bottom-[20%] -left-[10%] w-[400px] h-[400px] rounded-full bg-brand-gold blur-[100px]"></div>
+             </div>
+
+            <div className="max-w-7xl mx-auto relative z-10">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white text-slate-900 font-serif">Feasibility & Audit</h2>
+                <div className="h-1 w-20 bg-brand-gold mx-auto"></div>
+                <p className="mt-4 text-slate-500 dark:text-slate-400">Calculate your Vertical Yield and book a site assessment.</p>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+                <Suspense fallback={<div className="h-[400px] w-full bg-slate-100 dark:bg-white/5 rounded-sm animate-pulse" />}>
+                  <Calculator />
+                </Suspense>
+                <Suspense fallback={<div className="h-[400px] w-full bg-slate-100 dark:bg-white/5 rounded-sm animate-pulse" />}>
+                  <LeadForm />
+                </Suspense>
+              </div>
+            </div>
+          </section>
           
           {/* Lazy load remaining sections */}
           <Suspense fallback={<SectionLoader height="min-h-[500px]" />}>
@@ -122,10 +153,6 @@ const App: React.FC = () => {
           </Suspense>
 
           <Suspense fallback={<SectionLoader />}>
-              <RentToOwn />
-          </Suspense>
-
-          <Suspense fallback={<SectionLoader />}>
               <CommercialBenefits />
           </Suspense>
 
@@ -136,32 +163,6 @@ const App: React.FC = () => {
           <Suspense fallback={<SectionLoader />}>
               <Testimonials />
           </Suspense>
-
-          {/* Concierge Section */}
-          <section id="get-quote" className="py-24 px-4 relative overflow-hidden transition-colors duration-500 dark:bg-brand-charcoal bg-slate-50">
-             {/* Decorative background elements */}
-             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-5">
-               <div className="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] rounded-full bg-brand-gold blur-[100px]"></div>
-               <div className="absolute -bottom-[20%] -left-[10%] w-[400px] h-[400px] rounded-full bg-brand-gold blur-[100px]"></div>
-             </div>
-
-            <div className="max-w-7xl mx-auto relative z-10">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 dark:text-white text-slate-900 font-serif">Feasibility & Audit</h2>
-                <div className="h-1 w-20 bg-brand-gold mx-auto"></div>
-                <p className="mt-4 text-slate-500 dark:text-slate-400">Calculate your Vertical Yield and book a site assessment.</p>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
-                <Suspense fallback={<div className="h-[400px] w-full bg-slate-100 dark:bg-white/5 rounded-sm animate-pulse" />}>
-                  <Calculator />
-                </Suspense>
-                <Suspense fallback={<div className="h-[400px] w-full bg-slate-100 dark:bg-white/5 rounded-sm animate-pulse" />}>
-                  <LeadForm />
-                </Suspense>
-              </div>
-            </div>
-          </section>
 
         </main>
         

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { TrendingUp, Zap, Info, FileText, ShieldCheck, Download } from 'lucide-react';
+import { TrendingUp, Zap, Info, FileText, ShieldCheck, Download, Sparkles } from 'lucide-react';
 import { m as motion } from 'framer-motion';
 import { jsPDF } from 'jspdf';
+import { RoiChart } from './RoiChart';
 
 const MotionDiv = motion.div as any;
 
@@ -10,6 +11,8 @@ export const Calculator: React.FC = () => {
   
   // Adjusted calculation logic to reflect higher efficiency of vertical/bifacial systems
   const monthlyBill = parseFloat(bill.replace(/[^0-9.]/g, '')) || 0;
+  const monthlySavings = (monthlyBill * 0.45).toFixed(0);
+  const remainingBill = (monthlyBill * 0.55).toFixed(0);
   const yearlySavings = (monthlyBill * 12 * 0.45).toFixed(0); // slightly higher yield factor for bifacial
   const tenYearSavings = (monthlyBill * 12 * 0.45 * 10 * 1.12).toFixed(0); // compounding tariff increase
 
@@ -265,7 +268,8 @@ export const Calculator: React.FC = () => {
 
         <div className="space-y-8">
           <div>
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
                 <label htmlFor="bill" className="block text-xs uppercase tracking-widest dark:text-brand-gold text-brand-gold-dark font-semibold">
                 Monthly Bill (ZAR)
                 </label>
@@ -277,9 +281,35 @@ export const Calculator: React.FC = () => {
                         <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
                     </div>
                 </div>
+              </div>
+              <span className="text-[10px] uppercase font-mono tracking-wider text-slate-400 dark:text-slate-500">Quick Presets</span>
+            </div>
+
+            {/* Interactive Presets for easy customer selections */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+              {[
+                { label: 'R2,500', value: '2500', desc: 'Typical Home' },
+                { label: 'R5,000', value: '5000', desc: 'Large Home' },
+                { label: 'R12,000', value: '12000', desc: 'Boutique/Office' },
+                { label: 'R35,000', value: '35000', desc: 'Farm / Factory' }
+              ].map((p) => (
+                <button
+                  key={p.value}
+                  type="button"
+                  onClick={() => setBill(p.value)}
+                  className={`py-2 px-3 rounded-md text-center transition-all border ${
+                    bill === p.value
+                      ? 'bg-brand-gold border-brand-gold text-brand-black shadow-md font-bold'
+                      : 'bg-slate-50 hover:bg-slate-100 dark:bg-white/5 dark:hover:bg-white/10 dark:text-slate-300 text-slate-700 border-slate-200 dark:border-white/5 text-xs'
+                  }`}
+                >
+                  <div className="font-semibold">{p.label}</div>
+                  <div className="text-[9px] opacity-80 font-normal leading-none mt-0.5">{p.desc}</div>
+                </button>
+              ))}
             </div>
             
-            <div className="relative group">
+            <div className="relative group mb-3">
               <span className="absolute left-4 top-1/2 -translate-y-1/2 dark:text-slate-400 text-slate-500 text-2xl font-light pointer-events-none group-focus-within:text-brand-gold transition-colors">R</span>
               <input
                 type="number"
@@ -290,15 +320,49 @@ export const Calculator: React.FC = () => {
                 className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg py-4 pl-12 pr-4 dark:text-white text-brand-black placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold text-3xl font-light transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
             </div>
+
+            {/* Dynamic System Match Box */}
+            {monthlyBill > 0 && (
+              <div className="py-2.5 px-3.5 bg-slate-50 dark:bg-brand-charcoal/40 rounded-lg border dark:border-white/5 border-slate-150 flex items-center justify-between text-xs transition-all animate-fade-in">
+                <span className="text-slate-500 dark:text-slate-400 font-sans">Matched System Bracket:</span>
+                <span className="font-mono font-bold text-brand-gold-dark dark:text-brand-gold">
+                  {monthlyBill > 7000 
+                    ? 'CES MEGA / LIFT SERIES (Commercial-Grid)' 
+                    : monthlyBill > 3500 
+                    ? 'CES MAXI 3PH / ULTRA BIZ' 
+                    : monthlyBill > 2000 
+                    ? 'CES ULTRA (Single Phase)' 
+                    : 'CES MINI / CORE System'}
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="space-y-6 pt-4">
+             {/* Customer Monthly Savings Overview */}
+             <div className="grid grid-cols-2 gap-4 pb-4 border-b border-slate-250 dark:border-white/10 text-left">
+                <div className="space-y-1">
+                   <span className="text-[10px] dark:text-brand-gold text-brand-gold-dark font-mono uppercase tracking-widest font-bold">Monthly Savings</span>
+                   <p className="text-2xl sm:text-3xl font-serif font-bold text-emerald-600 dark:text-emerald-400">
+                      R {monthlyBill > 0 ? Number(monthlySavings).toLocaleString() : '0'}
+                   </p>
+                   <span className="text-[9.5px] dark:text-slate-400 text-slate-500 block leading-tight">45% Bifacial Yield Shift</span>
+                </div>
+                <div className="space-y-1">
+                   <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono uppercase tracking-widest font-bold">New Utility Bill</span>
+                   <p className="text-2xl sm:text-3xl font-serif font-bold dark:text-white text-slate-800">
+                      R {monthlyBill > 0 ? Number(remainingBill).toLocaleString() : '0'}
+                   </p>
+                   <span className="text-[9.5px] dark:text-slate-400 text-slate-500 block leading-tight font-sans">Post-install utility net bill</span>
+                </div>
+             </div>
+
              <div className="flex items-center justify-between group/item">
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-brand-gold/10 rounded-full">
                         <TrendingUp className="w-5 h-5 text-brand-gold" />
                     </div>
-                    <span className="dark:text-slate-300 text-slate-600 font-light">Projected Annual Savings</span>
+                    <span className="dark:text-slate-300 text-slate-600 font-light font-sans">Projected Annual Savings</span>
                 </div>
                 <p className="text-3xl font-serif dark:text-white text-brand-black">
                     R {monthlyBill > 0 ? Number(yearlySavings).toLocaleString() : '0'}
@@ -309,7 +373,7 @@ export const Calculator: React.FC = () => {
 
              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <span className="dark:text-slate-300 text-slate-600 font-light">10-Year Value (Bifacial)</span>
+                    <span className="dark:text-slate-300 text-slate-600 font-light font-sans">10-Year Value (Bifacial)</span>
                     {/* Tooltip for 10-Year Value */}
                     <div className="group/tooltip relative">
                         <Info className="w-3.5 h-3.5 text-slate-400 cursor-help" />
@@ -323,6 +387,11 @@ export const Calculator: React.FC = () => {
                     R {monthlyBill > 0 ? Number(tenYearSavings).toLocaleString() : '0'}
                 </p>
              </div>
+          </div>
+
+          {/* Dynamic 20-Year D3 Investment & ROI Chart */}
+          <div className="border-t border-slate-200 dark:border-white/10 pt-6">
+             <RoiChart monthlyBill={monthlyBill} />
           </div>
           
           {/* Section 12B & 12L Tax Incentive Box */}

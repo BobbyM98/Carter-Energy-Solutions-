@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Check } from 'lucide-react';
+import { Send, Check, ChevronDown } from 'lucide-react';
 import { m as motion } from 'framer-motion';
 
 const MotionDiv = motion.div as any;
@@ -133,16 +133,19 @@ export const LeadForm: React.FC = () => {
                 required
                 value={formState.interestType}
                 onChange={handleChange}
-                className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg py-3 px-4 dark:text-white text-brand-black placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all appearance-none"
+                className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg py-3 pl-4 pr-10 dark:text-white text-brand-black placeholder-slate-400 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all appearance-none cursor-pointer"
             >
-                <option value="" disabled>Select Interest</option>
-                <option value="ESD">ESD — Enterprise & Supplier Development</option>
-                <option value="CSI">CSI — Corporate Social Investment</option>
-                <option value="Public Tender">Public Tender / Government</option>
-                <option value="Private Tender">Private Tender / Corporate</option>
-                <option value="Direct Commercial">Direct Commercial Installation</option>
-                <option value="DFI Funding">DFI / Investment Partnership</option>
+                <option value="" disabled className="dark:bg-brand-black dark:text-white text-slate-900 bg-white">Select Interest</option>
+                <option value="ESD" className="dark:bg-brand-black dark:text-white text-slate-900 bg-white">ESD — Enterprise & Supplier Development</option>
+                <option value="CSI" className="dark:bg-brand-black dark:text-white text-slate-900 bg-white">CSI — Corporate Social Investment</option>
+                <option value="Public Tender" className="dark:bg-brand-black dark:text-white text-slate-900 bg-white">Public Tender / Government</option>
+                <option value="Private Tender" className="dark:bg-brand-black dark:text-white text-slate-900 bg-white">Private Tender / Corporate</option>
+                <option value="Direct Commercial" className="dark:bg-brand-black dark:text-white text-slate-900 bg-white">Direct Commercial Installation</option>
+                <option value="DFI Funding" className="dark:bg-brand-black dark:text-white text-slate-900 bg-white">DFI / Investment Partnership</option>
             </select>
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-slate-400 dark:text-slate-500">
+              <ChevronDown className="w-5 h-5" />
+            </div>
           </div>
         </div>
 

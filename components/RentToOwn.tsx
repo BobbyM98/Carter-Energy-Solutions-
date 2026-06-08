@@ -234,6 +234,8 @@ export const RentToOwn: React.FC = () => {
   const [aiMode, setAiMode] = useState<boolean>(true);
   const [payMonthLater, setPayMonthLater] = useState<boolean>(false);
   const [setupType, setSetupType] = useState<'vertical' | 'normal'>('vertical');
+  const [financialModel, setFinancialModel] = useState<'subscription' | 'rent-to-own' | 'purchase'>('subscription');
+  const [systemStructure, setSystemStructure] = useState<'hybrid' | 'grid-tied'>('hybrid');
 
   const getPremiseIcon = (iconName: string) => {
     switch (iconName) {
@@ -262,6 +264,51 @@ export const RentToOwn: React.FC = () => {
 
   const currentPackages = activeTab === 'home' ? HOME_PACKAGES : BUSINESS_PACKAGES;
   const activePackage = currentPackages.find(p => p.id === selectedPackageId) || currentPackages[0];
+
+  // Helper to dynamically calculate customized prices based on selection
+  const getCustomizedPricing = () => {
+    let basePrice = activePackage.price;
+    let panels = activePackage.panelsCount;
+
+    // Grid-tied without battery has a massive 30% saving on the monthly price (no expensive battery costs!)
+    // If it's the backup tier (0 panels), grid-tied does not apply (it is a battery backup tier), so we fallback.
+    const hasBatterySaving = systemStructure === 'grid-tied' && panels > 0;
+    const priceWithStructure = hasBatterySaving ? Math.round(basePrice * 0.7) : basePrice;
+
+    let displayPrice = priceWithStructure;
+    let setupFee = "R0 Setup Fee";
+    let periodLabel = "/ Month";
+
+    if (financialModel === 'subscription') {
+      // Pure GoSolr style: 20% lower monthly rate, cancel anytime, but has once-off setup
+      displayPrice = Math.round(priceWithStructure * 0.82);
+      setupFee = panels > 0 ? "Once-off activation: R4,900" : "Once-off activation: R1,950";
+      periodLabel = "/ Month (Subscription)";
+    } else if (financialModel === 'rent-to-own') {
+      // Lease to own: higher monthly rate, R0 setup, own at month 60
+      displayPrice = priceWithStructure;
+      setupFee = "Once-off installation: R0 (Capitalized)";
+      periodLabel = "/ Month (60-mo Lease)";
+    } else {
+      // Outright cash purchase: high capex, R0 monthly
+      const inverterCost = activePackage.phase === 'Three Phase' ? 68000 : 38000;
+      const batteriesCount = activePackage.batteryCapacity.includes('15.3') ? 3 : activePackage.batteryCapacity.includes('10.2') ? 2 : 1;
+      const batteryCost = systemStructure === 'grid-tied' ? 0 : batteriesCount * 18000;
+      const panelCost = panels * 3900;
+      displayPrice = inverterCost + batteryCost + panelCost;
+      setupFee = "Continuous Free Maintenance (1 year)";
+      periodLabel = " Once-off Cash";
+    }
+
+    return {
+      price: displayPrice,
+      setupFee,
+      periodLabel,
+      hasBatterySaving
+    };
+  };
+
+  const pricingDetails = getCustomizedPricing();
 
   const scrollToContact = () => {
     const element = document.getElementById('get-quote');
@@ -870,23 +917,122 @@ export const RentToOwn: React.FC = () => {
                   
                   <div className="text-left sm:text-right">
                     <span className="text-[10px] dark:text-slate-500 text-slate-400 font-bold uppercase tracking-widest block">
-                      {activePackage.isCustomPrice ? 'Bespoke Quote' : 'Monthly Rent'}
+                      {financialModel === 'purchase' ? 'Cash Price' : (financialModel === 'subscription' ? 'Monthly Sub' : 'Monthly Rent')}
                     </span>
                     <div className="flex items-baseline gap-1 mt-0.5">
-                      {activePackage.isCustomPrice ? (
+                      {activePackage.isCustomPrice && financialModel !== 'purchase' ? (
                         <span className="text-2xl sm:text-3xl font-serif font-black text-brand-gold-dark dark:text-brand-gold uppercase tracking-tight">
                           Custom Pricing
                         </span>
                       ) : (
                         <>
                           <span className="text-4xl font-serif font-black text-brand-gold-dark dark:text-brand-gold">
-                            R {activePackage.price.toLocaleString()}
+                            R {pricingDetails.price.toLocaleString()}
                           </span>
-                          <span className="text-xs dark:text-slate-400 text-slate-500 font-bold text-brand-black">/ Month</span>
+                          <span className="text-xs dark:text-slate-400 text-slate-500 font-bold text-brand-black">{pricingDetails.periodLabel}</span>
                         </>
                       )}
                     </div>
+                    <span className="text-[10.5px] font-mono text-brand-gold-dark dark:text-brand-gold block mt-1 animate-pulse">
+                      {pricingDetails.setupFee}
+                    </span>
                   </div>
+                </div>
+
+                {/* GoSolr-Style Interactive Configurator Panel */}
+                <div className="mb-8 p-5 rounded-xl border dark:border-white/5 border-slate-200 bg-slate-100/50 dark:bg-brand-black/20 space-y-6">
+                  <div>
+                    <span className="text-[10.5px] dark:text-slate-400 text-slate-500 font-bold uppercase tracking-widest block mb-3 font-mono">
+                      1. Finance Structure Selection
+                    </span>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setFinancialModel('subscription')}
+                        className={`p-3 rounded-lg border text-left transition-all ${
+                          financialModel === 'subscription'
+                            ? 'bg-brand-black dark:bg-brand-gold text-brand-gold dark:text-brand-black border-brand-gold shadow-lg shadow-brand-gold/15'
+                            : 'bg-white dark:bg-brand-charcoal text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/5 hover:border-brand-gold/20'
+                        }`}
+                      >
+                        <div className="text-xs font-bold uppercase tracking-wider mb-0.5">Subscription</div>
+                        <div className="text-[10px] opacity-80 leading-snug font-light">GoSolr Style. Cancel anytime. 20% lower rate. Activation fee.</div>
+                      </button>
+                      
+                      <button
+                        type="button"
+                        onClick={() => setFinancialModel('rent-to-own')}
+                        className={`p-3 rounded-lg border text-left transition-all ${
+                          financialModel === 'rent-to-own'
+                            ? 'bg-brand-black dark:bg-brand-gold text-brand-gold dark:text-brand-black border-brand-gold shadow-lg shadow-brand-gold/15'
+                            : 'bg-white dark:bg-brand-charcoal text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/5 hover:border-brand-gold/20'
+                        }`}
+                      >
+                        <div className="text-xs font-bold uppercase tracking-wider mb-0.5">Rent-to-Own</div>
+                        <div className="text-[10px] opacity-80 leading-snug font-light">Own after 60-months. R0 installation setup. Fixed term ease.</div>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setFinancialModel('purchase')}
+                        className={`p-3 rounded-lg border text-left transition-all ${
+                          financialModel === 'purchase'
+                            ? 'bg-brand-black dark:bg-brand-gold text-brand-gold dark:text-brand-black border-brand-gold shadow-lg shadow-brand-gold/15'
+                            : 'bg-white dark:bg-brand-charcoal text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/5 hover:border-brand-gold/20'
+                        }`}
+                      >
+                        <div className="text-xs font-bold uppercase tracking-wider mb-0.5">Cash CAPEX</div>
+                        <div className="text-[10px] opacity-80 leading-snug font-light">100% upfront discount. Zero monthly costs. Immediate transfer.</div>
+                      </button>
+                    </div>
+                  </div>
+
+                  {activePackage.panelsCount > 0 && (
+                    <div>
+                      <span className="text-[10.5px] dark:text-slate-400 text-slate-500 font-bold uppercase tracking-widest block mb-3 font-mono">
+                        2. Battery Storage Configuration
+                      </span>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setSystemStructure('hybrid')}
+                          className={`p-3 rounded-lg border text-left transition-all flex items-start gap-2.5 ${
+                            systemStructure === 'hybrid'
+                              ? 'border-brand-gold bg-brand-gold/10 text-slate-900 dark:text-white'
+                              : 'bg-white dark:bg-brand-charcoal text-slate-600 dark:text-slate-450 border-slate-200 dark:border-white/5 hover:border-brand-gold/10'
+                          }`}
+                        >
+                          <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center mt-0.5 ${systemStructure === 'hybrid' ? 'border-brand-gold text-brand-gold' : 'border-slate-300 bg-white dark:bg-transparent'}`}>
+                            {systemStructure === 'hybrid' && <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />}
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold uppercase tracking-wider">Full Hybrid Backup System</div>
+                            <div className="text-[10px] mt-0.5 opacity-80 font-light leading-snug font-sans">Continuous load-shedding protection. Solar + active battery storage.</div>
+                          </div>
+                        </button>
+                        
+                        <button
+                          type="button"
+                          onClick={() => setSystemStructure('grid-tied')}
+                          className={`p-3 rounded-lg border text-left transition-all flex items-start gap-2.5 ${
+                            systemStructure === 'grid-tied'
+                              ? 'border-brand-gold bg-brand-gold/10 text-slate-900 dark:text-white'
+                              : 'bg-white dark:bg-brand-charcoal text-slate-600 dark:text-slate-450 border-slate-200 dark:border-white/5 hover:border-brand-gold/10'
+                          }`}
+                        >
+                          <div className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center mt-0.5 ${systemStructure === 'grid-tied' ? 'border-brand-gold text-brand-gold' : 'border-slate-300 bg-white dark:bg-transparent'}`}>
+                            {systemStructure === 'grid-tied' && <span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />}
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold uppercase tracking-wider flex items-center gap-1 font-sans">
+                              Daylight Solar Only <span className="text-[8px] bg-brand-gold/25 text-brand-gold-dark dark:text-brand-gold px-1 rounded-sm uppercase tracking-normal font-sans">Save 30%</span>
+                            </div>
+                            <div className="text-[10px] mt-0.5 opacity-80 font-light leading-snug font-sans">No batteries. Grid-tied architecture. Ideal for daytime-only commercial hours.</div>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Included Pills Spec List */}
@@ -922,7 +1068,9 @@ export const RentToOwn: React.FC = () => {
                       </div>
                       <div className="text-xs">
                         <div className="dark:text-slate-400 text-slate-500 font-medium font-sans">Storage Battery</div>
-                        <div className="font-bold dark:text-white text-slate-800">{activePackage.batteryCapacity}</div>
+                        <div className="font-bold dark:text-white text-slate-800">
+                          {systemStructure === 'grid-tied' && activePackage.panelsCount > 0 ? "0kWh (Daylight Solar Only)" : activePackage.batteryCapacity}
+                        </div>
                       </div>
                     </div>
 
@@ -992,31 +1140,73 @@ export const RentToOwn: React.FC = () => {
           <div>
             <span className="text-xs font-bold text-brand-gold uppercase tracking-widest">Carter Assurance</span>
             <h4 className="text-xl font-serif font-bold text-slate-900 dark:text-white mt-1">Guaranteed Performance</h4>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-light leading-relaxed">
-              Every CES series unit includes real-time remote monitoring, active Gauteng-wide engineering support, and full 24/7 warranty coverage. 
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-light leading-relaxed font-sans">
+              {financialModel === 'subscription' 
+                ? "Our subscription includes round-the-clock remote monitoring, weather-based automated power mapping, free lifetime equipment upgrades, and lightning/storm repair insurance covered fully by Carter."
+                : "Every active lease includes real-time remote monitoring, active Gauteng-wide engineering support, and full 24/7 warranty coverage built directly into your monthly rate."}
             </p>
           </div>
 
           <div className="md:col-span-2">
-            <h5 className="text-[10.5px] font-bold text-brand-gold uppercase tracking-widest mb-4 flex items-center gap-2">
-              <Calendar className="w-3.5 h-3.5" /> Ownership Journey — 60-Month Rent-To-Own Lease
-            </h5>
-            
-            <div className="flex items-center h-2.5 w-full rounded-full bg-slate-200 dark:bg-brand-black overflow-hidden mb-3">
-               <div className="h-full bg-brand-gold/40 border-r border-[#1a1a1a] w-1/5" />
-               <div className="h-full bg-brand-gold/60 border-r border-[#1a1a1a] w-1/5" />
-               <div className="h-full bg-brand-gold/75 border-r border-[#1a1a1a] w-1/5" />
-               <div className="h-full bg-brand-gold/90 border-r border-[#1a1a1a] w-1/5" />
-               <div className="h-full bg-brand-gold w-1/5 shadow-[0_0_8px_rgba(212,175,55,0.4)]" />
-            </div>
-            
-            <div className="flex justify-between text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              <span>Year 1</span>
-              <span>Year 2</span>
-              <span>Year 3</span>
-              <span>Year 4</span>
-              <span className="text-brand-gold-dark dark:text-brand-gold">Year 5 (Fully Yours)</span>
-            </div>
+            {financialModel === 'subscription' ? (
+              <>
+                <h5 className="text-[10.5px] font-bold text-brand-gold uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <Calendar className="w-3.5 h-3.5" /> GoSolr-Style Continuous Subscription Lifecycle
+                </h5>
+                
+                <div className="flex items-center h-2.5 w-full rounded-full bg-slate-200 dark:bg-brand-black overflow-hidden mb-3">
+                   <div className="h-full bg-brand-gold w-1/4 border-r border-[#1a1a1a]" />
+                   <div className="h-full bg-brand-gold w-1/4 border-r border-[#1a1a1a]" />
+                   <div className="h-full bg-brand-gold w-1/4 border-r border-[#1a1a1a]" />
+                   <div className="h-full bg-brand-gold w-1/4 shadow-[0_0_8px_rgba(212,175,55,0.4)]" />
+                </div>
+                
+                <div className="flex justify-between text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">
+                  <span>Activation & Install</span>
+                  <span>Unlimited Maintenance</span>
+                  <span>Continuous Tech Swaps</span>
+                  <span className="text-brand-gold-dark dark:text-brand-gold">Flexible Cancellation</span>
+                </div>
+              </>
+            ) : financialModel === 'rent-to-own' ? (
+              <>
+                <h5 className="text-[10.5px] font-bold text-brand-gold uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <Calendar className="w-3.5 h-3.5" /> Lease-to-Own Journey — 60-Month Rent-To-Own Path
+                </h5>
+                
+                <div className="flex items-center h-2.5 w-full rounded-full bg-slate-200 dark:bg-brand-black overflow-hidden mb-3">
+                   <div className="h-full bg-brand-gold/40 border-r border-[#1a1a1a] w-1/5" />
+                   <div className="h-full bg-brand-gold/60 border-r border-[#1a1a1a] w-1/5" />
+                   <div className="h-full bg-brand-gold/75 border-r border-[#1a1a1a] w-1/5" />
+                   <div className="h-full bg-brand-gold/90 border-r border-[#1a1a1a] w-1/5" />
+                   <div className="h-full bg-brand-gold w-1/5 shadow-[0_0_8px_rgba(212,175,55,0.4)]" />
+                </div>
+                
+                <div className="flex justify-between text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">
+                  <span>Year 1</span>
+                  <span>Year 2</span>
+                  <span>Year 3</span>
+                  <span>Year 4</span>
+                  <span className="text-brand-gold-dark dark:text-brand-gold font-bold">Year 5 (100% Yours)</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <h5 className="text-[10.5px] font-bold text-brand-gold uppercase tracking-widest mb-4 flex items-center gap-2">
+                  <Calendar className="w-3.5 h-3.5" /> Cash Purchase Milestones
+                </h5>
+                
+                <div className="flex items-center h-2.5 w-full rounded-full bg-slate-200 dark:bg-brand-black overflow-hidden mb-3">
+                   <div className="h-full bg-brand-gold w-1/2 border-r border-[#1a1a1a]" />
+                   <div className="h-full bg-brand-gold w-1/2 shadow-[0_0_8px_rgba(212,175,55,0.4)]" />
+                </div>
+                
+                <div className="flex justify-between text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">
+                  <span>Immediate Capital Cost Savings</span>
+                  <span className="text-brand-gold-dark dark:text-brand-gold font-bold">100% Asset Ownership Day-1</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
