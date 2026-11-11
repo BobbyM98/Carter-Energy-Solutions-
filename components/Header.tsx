@@ -93,9 +93,6 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <MotionHeader
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-brand-ivory/95 dark:bg-brand-black/95 backdrop-blur-md border-b border-brand-charcoal/10 dark:border-brand-sage/15 py-3.5 shadow-sm'

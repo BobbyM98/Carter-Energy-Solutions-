@@ -4,52 +4,23 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { CredentialBar } from './components/CredentialBar';
 import { TrustSignals } from './components/TrustSignals';
+import { ServicePillars } from './components/ServicePillars';
+import { ComparisonTable } from './components/ComparisonTable';
+import { RentToOwn } from './components/RentToOwn';
+import { Calculator } from './components/Calculator';
+import { LeadForm } from './components/LeadForm';
+import { Testimonials } from './components/Testimonials';
+import { CommercialBenefits } from './components/CommercialBenefits';
+import { RevenueStreams } from './components/RevenueStreams';
+import { TendersAndProcurement } from './components/TendersAndProcurement';
+import { Credentials } from './components/Credentials';
+import { InstallationSteps } from './components/InstallationSteps';
+import { SideServices } from './components/SideServices';
+import { SignUpSection } from './components/SignUpSection';
+import { Footer } from './components/Footer';
+import { ScrollToTop } from './components/ScrollToTop';
 
-const Footer = lazy(() => import('./components/Footer').then((m) => ({ default: m.Footer })));
-const ComparisonTable = lazy(() =>
-  import('./components/ComparisonTable').then((m) => ({ default: m.ComparisonTable }))
-);
-const RevenueStreams = lazy(() =>
-  import('./components/RevenueStreams').then((m) => ({ default: m.RevenueStreams }))
-);
-const TendersAndProcurement = lazy(() =>
-  import('./components/TendersAndProcurement').then((m) => ({ default: m.TendersAndProcurement }))
-);
-const Credentials = lazy(() =>
-  import('./components/Credentials').then((m) => ({ default: m.Credentials }))
-);
-const ServicePillars = lazy(() =>
-  import('./components/ServicePillars').then((m) => ({ default: m.ServicePillars }))
-);
-const Calculator = lazy(() =>
-  import('./components/Calculator').then((m) => ({ default: m.Calculator }))
-);
-const LeadForm = lazy(() =>
-  import('./components/LeadForm').then((m) => ({ default: m.LeadForm }))
-);
-const InstallationSteps = lazy(() =>
-  import('./components/InstallationSteps').then((m) => ({ default: m.InstallationSteps }))
-);
-const SignUpSection = lazy(() =>
-  import('./components/SignUpSection').then((m) => ({ default: m.SignUpSection }))
-);
-const RentToOwn = lazy(() =>
-  import('./components/RentToOwn').then((m) => ({ default: m.RentToOwn }))
-);
-const CommercialBenefits = lazy(() =>
-  import('./components/CommercialBenefits').then((m) => ({ default: m.CommercialBenefits }))
-);
-const SideServices = lazy(() =>
-  import('./components/SideServices').then((m) => ({ default: m.SideServices }))
-);
-const Testimonials = lazy(() =>
-  import('./components/Testimonials').then((m) => ({ default: m.Testimonials }))
-);
-const ScrollToTop = lazy(() =>
-  import('./components/ScrollToTop').then((m) => ({ default: m.ScrollToTop }))
-);
-
-// Modals
+// Only modals (hidden until user interaction) are lazy-loaded
 const AppointmentModal = lazy(() =>
   import('./components/AppointmentModal').then((m) => ({ default: m.AppointmentModal }))
 );
@@ -64,12 +35,6 @@ const AgriKitModal = lazy(() =>
 );
 const ReferFriendModal = lazy(() =>
   import('./components/ReferFriendModal').then((m) => ({ default: m.ReferFriendModal }))
-);
-
-const SectionLoader = ({ height = 'min-h-[400px]' }: { height?: string }) => (
-  <div className={`py-24 flex justify-center items-center w-full ${height}`}>
-    <div className="w-10 h-10 border-2 border-brand-gold border-t-transparent rounded-full animate-spin" />
-  </div>
 );
 
 const App: React.FC = () => {
@@ -138,22 +103,16 @@ const App: React.FC = () => {
           <TrustSignals />
 
           {/* Vert-X Systems & Vert-X Walls Product Experience */}
-          <Suspense fallback={<SectionLoader height="min-h-[600px]" />}>
-            <ServicePillars
-              onOpenAgriSpecs={() => setIsAgriKitOpen(true)}
-              onOpenTechSpecs={() => setIsTechSpecsOpen(true)}
-            />
-          </Suspense>
+          <ServicePillars
+            onOpenAgriSpecs={() => setIsAgriKitOpen(true)}
+            onOpenTechSpecs={() => setIsTechSpecsOpen(true)}
+          />
 
           {/* Engineering Comparison Matrix */}
-          <Suspense fallback={<SectionLoader height="min-h-[500px]" />}>
-            <ComparisonTable />
-          </Suspense>
+          <ComparisonTable />
 
           {/* Core Pricing & Subscription Packages */}
-          <Suspense fallback={<SectionLoader />}>
-            <RentToOwn />
-          </Suspense>
+          <RentToOwn />
 
           {/* Feasibility & Audit (Calculator & Proposal Form directly below packages) */}
           <section
@@ -176,84 +135,62 @@ const App: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-                <Suspense
-                  fallback={
-                    <div className="h-[520px] w-full bg-slate-100 dark:bg-white/5 rounded-sm animate-pulse" />
-                  }
-                >
-                  <Calculator />
-                </Suspense>
-                <Suspense
-                  fallback={
-                    <div className="h-[520px] w-full bg-slate-100 dark:bg-white/5 rounded-sm animate-pulse" />
-                  }
-                >
-                  <LeadForm />
-                </Suspense>
+                <Calculator />
+                <LeadForm />
               </div>
             </div>
           </section>
 
-          {/* Verified Institutional Endorsement & Field Profiles (#projects) */}
-          <Suspense fallback={<SectionLoader />}>
-            <Testimonials />
-          </Suspense>
+          {/* 4K Field Architecture & Deployment Profiles (#projects) */}
+          <Testimonials />
 
-          <Suspense fallback={<SectionLoader />}>
-            <CommercialBenefits />
-          </Suspense>
+          <CommercialBenefits />
 
-          <Suspense fallback={<SectionLoader height="min-h-[500px]" />}>
-            <RevenueStreams />
-          </Suspense>
+          <RevenueStreams />
 
-          <Suspense fallback={<SectionLoader height="min-h-[500px]" />}>
-            <TendersAndProcurement />
-          </Suspense>
+          <TendersAndProcurement />
 
-          <Suspense fallback={<SectionLoader height="min-h-[500px]" />}>
-            <Credentials />
-          </Suspense>
+          <Credentials />
 
-          <Suspense fallback={<SectionLoader />}>
-            <InstallationSteps />
-          </Suspense>
+          <InstallationSteps />
 
-          <Suspense fallback={<SectionLoader />}>
-            <SideServices />
-          </Suspense>
+          <SideServices />
 
-          <Suspense fallback={<div className="h-64 bg-brand-gold/10" />}>
-            <SignUpSection
-              onSignUp={() => setIsSignUpOpen(true)}
-              onReferFriend={() => setIsReferFriendOpen(true)}
-            />
-          </Suspense>
+          <SignUpSection
+            onSignUp={() => setIsSignUpOpen(true)}
+            onReferFriend={() => setIsReferFriendOpen(true)}
+          />
         </main>
 
-        <Suspense fallback={<div className="h-64 bg-brand-forest" />}>
-          <Footer />
-        </Suspense>
+        <Footer />
+
+        <ScrollToTop />
 
         <Suspense fallback={null}>
-          <ScrollToTop />
-        </Suspense>
-
-        <Suspense fallback={null}>
-          <AppointmentModal
-            isOpen={isAppointmentOpen}
-            onClose={() => setIsAppointmentOpen(false)}
-          />
-          <TechSpecsModal
-            isOpen={isTechSpecsOpen}
-            onClose={() => setIsTechSpecsOpen(false)}
-          />
-          <SignUpModal isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} />
-          <AgriKitModal isOpen={isAgriKitOpen} onClose={() => setIsAgriKitOpen(false)} />
-          <ReferFriendModal
-            isOpen={isReferFriendOpen}
-            onClose={() => setIsReferFriendOpen(false)}
-          />
+          {isAppointmentOpen && (
+            <AppointmentModal
+              isOpen={isAppointmentOpen}
+              onClose={() => setIsAppointmentOpen(false)}
+            />
+          )}
+          {isTechSpecsOpen && (
+            <TechSpecsModal
+              isOpen={isTechSpecsOpen}
+              onClose={() => setIsTechSpecsOpen(false)}
+            />
+          )}
+          {isSignUpOpen && (
+            <SignUpModal isOpen={isSignUpOpen} onClose={() => setIsSignUpOpen(false)} />
+          )}
+          {isAgriKitOpen && (
+            <AgriKitModal isOpen={isAgriKitOpen} onClose={() => setIsAgriKitOpen(false)} />
+          )}
+          {isReferFriendOpen && (
+            <ReferFriendModal
+              isOpen={isReferFriendOpen}
+              onClose={() => setIsReferFriendOpen(false)}
+            />
+          )}
         </Suspense>
       </div>
     </LazyMotion>

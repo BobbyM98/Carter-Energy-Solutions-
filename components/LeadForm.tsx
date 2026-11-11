@@ -126,7 +126,7 @@ export const LeadForm: React.FC = () => {
 
   return (
     <MotionDiv
-      initial={{ opacity: 0, x: 20 }}
+      initial={{ opacity: 1, x: 0 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.7 }}

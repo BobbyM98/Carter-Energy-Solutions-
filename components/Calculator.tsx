@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { TrendingUp, Zap, Info, FileText, ShieldCheck, Download, Compass } from 'lucide-react';
-import { m as motion } from 'framer-motion';
-import { jsPDF } from 'jspdf';
 import { RoiChart } from './RoiChart';
-
-const MotionDiv = motion.div as any;
 
 export const Calculator: React.FC = () => {
   const [bill, setBill] = useState<string>('12000');
@@ -23,9 +19,10 @@ export const Calculator: React.FC = () => {
   const recommendedKwp = monthlyBill > 0 ? Math.max(4.55, Number((estimatedOffsetKwh / 150).toFixed(1))) : 0;
   const estimatedPanels = monthlyBill > 0 ? Math.max(8, Math.ceil((recommendedKwp * 1000) / 550)) : 0;
 
-  const exportToPDF = () => {
+  const exportToPDF = async () => {
     if (monthlyBill <= 0) return;
 
+    const { jsPDF } = await import('jspdf');
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
@@ -234,12 +231,8 @@ export const Calculator: React.FC = () => {
   };
 
   return (
-    <MotionDiv
+    <div
       id="calculator"
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7 }}
       className="dark:bg-brand-charcoal/80 bg-white p-8 md:p-10 rounded-sm border dark:border-white/10 border-brand-forest/15 shadow-xl relative overflow-hidden group"
     >
       <div className="absolute top-0 right-0 p-8 opacity-[0.04] pointer-events-none">
@@ -505,6 +498,6 @@ export const Calculator: React.FC = () => {
           </p>
         </div>
       </div>
-    </MotionDiv>
+    </div>
   );
 };

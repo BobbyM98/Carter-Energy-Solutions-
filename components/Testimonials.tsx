@@ -30,7 +30,7 @@ const VERIFIED_PROFILES: EngineeringProfile[] = [
       { label: 'Irrigation Drive', value: '0.5 HP – 1.5 HP+ Solar VFD' },
       { label: 'Albedo Boost', value: '+20% to +30% (Kalahari Sand)' }
     ],
-    imageUrl: '/images/vertx-borehole-vfd-4k.jpg'
+    imageUrl: 'images/vertx-borehole-vfd-4k.jpg'
   },
   {
     id: 'industrial-roof-profile',
@@ -46,7 +46,7 @@ const VERIFIED_PROFILES: EngineeringProfile[] = [
       { label: 'Wind Load Rating', value: 'Up to 180 km/h (Aerodynamic)' },
       { label: 'Capital Allowance', value: '100% SARS Section 12B (< 1 MW)' }
     ],
-    imageUrl: '/images/vertx-warehouse-roof-4k.jpg'
+    imageUrl: 'images/vertx-warehouse-roof-4k.jpg'
   },
   {
     id: 'commercial-hybrid-profile',
@@ -62,7 +62,7 @@ const VERIFIED_PROFILES: EngineeringProfile[] = [
       { label: 'Safety Governance', value: 'CETA ID: PSBE/ROY/20/100' },
       { label: 'Electrical Sign-Off', value: 'SANS 10142-1 COC Issued' }
     ],
-    imageUrl: '/images/vertx-commercial-estate-4k.jpg'
+    imageUrl: 'images/vertx-commercial-estate-4k.jpg'
   },
   {
     id: 'green-roof-profile',
@@ -78,7 +78,7 @@ const VERIFIED_PROFILES: EngineeringProfile[] = [
       { label: 'Canopy Access', value: 'Full Walkable Botanical Corridors' },
       { label: 'Dual-Sided Yield', value: 'N-Type Double-Glass Bifacial' }
     ],
-    imageUrl: '/images/vertx-green-roof-4k.jpg'
+    imageUrl: 'images/vertx-green-roof-4k.jpg'
   }
 ];
 
@@ -155,13 +155,13 @@ export const Testimonials: React.FC = () => {
 
         {/* Main Showcase Card */}
         <div className="relative bg-white dark:bg-brand-charcoal/60 border border-brand-forest/10 dark:border-white/10 rounded-sm overflow-hidden shadow-xl">
-          <AnimatePresence mode="wait">
+          <AnimatePresence initial={false} mode="wait">
             <MotionDiv
               key={activeProfile.id}
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
               className="grid grid-cols-1 lg:grid-cols-12"
             >
               {/* Visual Column */}

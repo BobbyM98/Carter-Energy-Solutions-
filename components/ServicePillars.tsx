@@ -52,7 +52,7 @@ const PRODUCTS: ProductPillar[] = [
       { parameter: 'Bifacial Albedo Gain', value: 'Up to 20% – 30% (Surface Dependent)' },
       { parameter: 'Compliance', value: 'SANS 10142-1 COC & NDB Grant Ready' },
     ],
-    imageUrl: '/images/vertx-agri-fence-4k.jpg',
+    imageUrl: 'images/vertx-agri-fence-4k.jpg',
   },
   {
     id: 'vertx-industrial',
@@ -81,7 +81,7 @@ const PRODUCTS: ProductPillar[] = [
       { parameter: 'Performance Warranty', value: '25-Year Linear Module / 10-Year Racking' },
       { parameter: 'Tax Incentive Eligibility', value: 'SARS Section 12B (100% Year-1) & 12L' },
     ],
-    imageUrl: '/images/vertx-warehouse-roof-4k.jpg',
+    imageUrl: 'images/vertx-warehouse-roof-4k.jpg',
   },
   {
     id: 'vertx-estate',
@@ -110,7 +110,7 @@ const PRODUCTS: ProductPillar[] = [
       { parameter: 'Electrical Certification', value: 'SANS 10142-1 COC Issued per Installation' },
       { parameter: 'Maintenance Access', value: 'Full Walkable Corridor Clearance' },
     ],
-    imageUrl: '/images/vertx-green-roof-4k.jpg',
+    imageUrl: 'images/vertx-green-roof-4k.jpg',
   },
 ];
 
@@ -201,13 +201,13 @@ export const ServicePillars: React.FC<ServicePillarsProps> = ({
         </div>
 
         {/* Dedicated Product Showcase Panel */}
-        <AnimatePresence mode="wait">
+        <AnimatePresence initial={false} mode="wait">
           <MotionDiv
             key={currentProduct.id}
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -14 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch mb-24"
           >
             {/* Left Column: Visual Asset + Installation & Performance Notes */}

@@ -31,7 +31,7 @@ const SLIDES: SlideData[] = [
       'Precision vertical bifacial solar architecture and high-yield monocrystalline engineering. Deploy Carter Vert-X Systems and Vert-X Walls designed for South African industry, commercial estates, and agriculture.',
     cta: 'Request Engineering Proposal',
     secondaryCta: 'Explore Vert-X Systems',
-    image: '/images/vertx-hero-perimeter-4k.jpg',
+    image: 'images/vertx-hero-perimeter-4k.jpg',
     imageAlt: '4K architectural view of Carter Energy Solutions Vert-X vertical solar perimeter installation at sunrise',
   },
   {
@@ -46,7 +46,7 @@ const SLIDES: SlideData[] = [
       'Vert-X Walls integrate 90° vertical N-Type bifacial arrays directly along farm boundaries and perimeter fence lines—preserving 100% of grazing and arable land while harvesting dual morning and afternoon peaks.',
     cta: 'Explore Vert-X Walls',
     secondaryCta: 'Calculate Site Yield',
-    image: '/images/vertx-agri-fence-4k.jpg',
+    image: 'images/vertx-agri-fence-4k.jpg',
     imageAlt: '4K view of Carter Vert-X Walls vertical bifacial solar fence on South African cattle farm',
   },
   {
@@ -61,7 +61,7 @@ const SLIDES: SlideData[] = [
       'Ultra-lightweight aerodynamic vertical racking (<10 kg/m²) chemically bonded with Sika® structural adhesive. Zero concrete ballast and zero roof membrane penetrations for industrial warehouses and malls.',
     cta: 'Inspect Technical Datasheet',
     secondaryCta: 'Download Compliance Pack',
-    image: '/images/vertx-warehouse-roof-4k.jpg',
+    image: 'images/vertx-warehouse-roof-4k.jpg',
     imageAlt: '4K view of Carter Vert-X Industrial lightweight vertical solar racking on warehouse roof',
   },
   {
@@ -76,7 +76,7 @@ const SLIDES: SlideData[] = [
       'Matte-black anodized vertical bifacial arrays integrated into indigenous living green roofs and luxury estate boundary walls—combining evaporative botanical cooling with morning and evening peak generation.',
     cta: 'Request Site Assessment',
     secondaryCta: 'Explore Vert-X Systems',
-    image: '/images/vertx-green-roof-4k.jpg',
+    image: 'images/vertx-green-roof-4k.jpg',
     imageAlt: '4K view of Carter Vert-X Estate vertical solar array integrated into an indigenous South African green roof',
   },
 ];
@@ -156,20 +156,19 @@ export const Hero: React.FC<HeroProps> = ({
       className="relative min-h-[92vh] flex flex-col justify-between pt-28 pb-12 overflow-hidden bg-brand-black text-brand-ivory"
     >
       {/* Cinematic Architectural Background */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence initial={false} mode="wait">
         <MotionDiv
           key={`bg-${currentSlide}`}
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 0.85 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.1 }}
+          transition={{ duration: 0.6 }}
           className="absolute inset-0 z-0"
         >
           {!failedImages[currentSlide] ? (
             <img
               src={SLIDES[currentSlide].image}
               alt={SLIDES[currentSlide].imageAlt}
-              referrerPolicy="no-referrer"
               className="w-full h-full object-cover object-center opacity-50"
               loading={currentSlide === 0 ? 'eager' : 'lazy'}
               decoding="async"
@@ -195,13 +194,13 @@ export const Hero: React.FC<HeroProps> = ({
       {/* Main Editorial Content Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto py-12">
         <div className="max-w-4xl">
-          <AnimatePresence mode="wait">
+          <AnimatePresence initial={false} mode="wait">
             <MotionDiv
               key={currentSlide}
-              initial={{ opacity: 0, y: 18 }}
+              initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Unboxed Editorial Kicker (Zero-Pill Discipline) */}
               <div className="text-xs font-mono uppercase tracking-[0.22em] text-brand-gold mb-6 flex flex-wrap items-center gap-2">

@@ -45,7 +45,7 @@ export const TrustSignals: React.FC = () => {
         {/* Editorial Section Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch mb-20">
           <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 1, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -100,7 +100,7 @@ export const TrustSignals: React.FC = () => {
 
           {/* Right Column: Interactive Dual-Peak Irradiance & Albedo Diagram + Approved Visual */}
           <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 1, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
@@ -250,7 +250,7 @@ export const TrustSignals: React.FC = () => {
               <div className="aspect-[16/10] rounded-sm overflow-hidden border border-brand-charcoal/10 dark:border-brand-sage/15 relative group bg-brand-forest">
                 {!imgFailed ? (
                   <img
-                    src="/images/vertx-dual-peak-4k.jpg"
+                    src="images/vertx-dual-peak-4k.jpg"
                     alt="4K close-up of 90-degree vertical N-Type bifacial solar cells and Sika chemical-bond rail"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
@@ -273,7 +273,7 @@ export const TrustSignals: React.FC = () => {
 
               <div className="aspect-[16/10] rounded-sm overflow-hidden border border-brand-charcoal/10 dark:border-brand-sage/15 relative group bg-brand-forest">
                 <img
-                  src="/images/vertx-agri-fence-4k.jpg"
+                  src="images/vertx-agri-fence-4k.jpg"
                   alt="4K view of Carter Vert-X Walls agrivoltaic perimeter fence with grazing livestock"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
@@ -297,7 +297,7 @@ export const TrustSignals: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {signals.map((signal, index) => (
             <MotionDiv
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.12, duration: 0.5 }}
