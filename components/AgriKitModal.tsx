@@ -112,7 +112,7 @@ export const AgriKitModal: React.FC<AgriKitModalProps> = ({ isOpen, onClose }) =
                             <p className="text-sm text-slate-600 dark:text-slate-300 mb-2">
                                 <strong>Solar VFD</strong> required. Takes DC power to "soft start" the pump.
                             </p>
-                            <div className="text-xs p-3 bg-slate-100 dark:bg-white/5 rounded-sm border-l-2 border-brand-gold dark:text-slate-400 space-y-2">
+                            <div className="text-xs p-3 bg-slate-100 dark:bg-white/5 rounded-sm border border-brand-gold/30 dark:text-slate-400 space-y-2">
                                 <p>
                                     <strong className="block text-slate-700 dark:text-slate-200">Critical Requirement:</strong> 
                                     Must have a wide MPPT Voltage Range to handle vertical voltage drops at noon without tripping.
@@ -216,7 +216,14 @@ export const AgriKitModal: React.FC<AgriKitModalProps> = ({ isOpen, onClose }) =
                  <div className="text-xs text-slate-400">
                     *Pilot Kit available: 4x Vert-X 555W Bifacial + 2.2kW VFD + Mounting.
                  </div>
-                 <button className="px-8 py-3 bg-brand-gold text-brand-black font-bold rounded-sm hover:bg-white hover:text-brand-black transition-all text-sm w-full sm:w-auto shadow-lg">
+                 <button
+                    type="button"
+                    onClick={() => {
+                      onClose();
+                      document.getElementById('get-quote')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="px-8 py-3 bg-brand-gold text-brand-black font-bold rounded-sm hover:bg-white hover:text-brand-black transition-all text-sm w-full sm:w-auto shadow-lg"
+                 >
                     Order Pilot Kit
                  </button>
               </div>

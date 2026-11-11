@@ -1,88 +1,100 @@
 import React from 'react';
-import { Footprints, Feather, Clock, Sprout, ShoppingBag } from 'lucide-react';
+import { Footprints, Feather, Clock, Sprout } from 'lucide-react';
 import { m as motion } from 'framer-motion';
 
 const MotionDiv = motion.div as any;
 
 const BENEFITS = [
   {
-    icon: <Footprints className="w-6 h-6" />,
-    title: "The 'HVAC Alley' Access",
-    description: "Standard solar blocks walking paths. Vert-X systems create clear corridors, allowing maintenance crews to service AC units without stepping on panels."
+    index: '01',
+    icon: <Footprints className="w-5 h-5" />,
+    title: 'Unobstructed HVAC Maintenance Corridors',
+    description:
+      'Conventional horizontal arrays blanket roof surfaces and block service walkways. Vert-X vertical rows create clear architectural corridors, enabling technicians to service chillers and HVAC plant safely.',
   },
   {
-    icon: <Feather className="w-6 h-6" />,
-    title: "Safe for Big Box Roofs",
-    description: "Malls often can't support the 25kg/m² of ballasted solar. Our aerodynamic Vert-X systems weigh just 11kg/m², unlocking roof real estate you thought was unusable."
+    index: '02',
+    icon: <Feather className="w-5 h-5" />,
+    title: 'Engineered for Big-Box & Warehouse Roofs',
+    description:
+      'Retail centers and older industrial roofs frequently cannot support 25 kg/m² of ballasted solar. Our aerodynamic Vert-X systems weigh under 10–11 kg/m², unlocking roof real estate without structural steel reinforcement.',
   },
   {
-    icon: <Clock className="w-6 h-6" />,
-    title: "The 6 PM Shopping Rush",
-    description: "Malls peak in energy use during late afternoon. West-facing Vert-X panels generate their maximum power exactly when you need it most—matching the evening shopper footfall."
+    index: '03',
+    icon: <Clock className="w-5 h-5" />,
+    title: 'Aligned with the 16:00–19:00 Retail Demand Peak',
+    description:
+      'Shopping centers experience high HVAC and lighting loads during late afternoon footfall. West-facing Vert-X bifacial faces generate their secondary power peak precisely when evening tariff rates spike.',
   },
   {
-    icon: <Sprout className="w-6 h-6" />,
-    title: "Green Roof Compatible",
-    description: "Don't kill your eco-friendly aesthetics. Vert-X units allow sunlight and rain to reach the soil, keeping your green roof alive while generating power."
-  }
+    index: '04',
+    icon: <Sprout className="w-5 h-5" />,
+    title: 'Living Green-Roof & Architectural Compatibility',
+    description:
+      'Preserve indigenous rooftop landscaping. Vertical row geometry allows overhead sunlight and rainfall to reach the substrate below while generating clean power above.',
+  },
 ];
 
 export const CommercialBenefits: React.FC = () => {
   return (
-    <section className="py-24 bg-slate-50 dark:bg-brand-charcoal/20 border-y border-slate-200 dark:border-white/5 relative overflow-hidden transition-colors duration-500">
+    <section className="py-24 bg-brand-ivory dark:bg-brand-charcoal/30 border-b border-brand-charcoal/10 dark:border-brand-sage/10 relative overflow-hidden transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
         <div className="flex flex-col lg:flex-row gap-16 items-start">
-            {/* Left Column: Text & Context */}
-            <div className="lg:w-1/3 sticky top-24">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/10 text-brand-gold text-xs font-bold tracking-widest uppercase mb-6">
-                   <ShoppingBag className="w-4 h-4" />
-                   Retail & Commercial
-                </div>
-                <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 dark:text-white text-slate-900 leading-tight">
-                    The Mall <span className="text-brand-gold italic">Advantage.</span>
-                </h2>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8 font-light">
-                    Vertical PV solves three specific headaches facility managers struggle with. We don't just sell solar; we sell accessible roof real estate.
-                </p>
-                
-                <div className="p-8 bg-white dark:bg-brand-black border-l-4 border-brand-gold rounded-r-sm shadow-xl">
-                    <p className="italic text-slate-700 dark:text-slate-300 font-serif text-lg mb-6 leading-relaxed">
-                        "We structure assets to maximize <strong className="text-brand-gold-dark dark:text-brand-gold not-italic">Section 12B</strong> (100% Year 1 write-off) and the extended <strong className="text-brand-gold-dark dark:text-brand-gold not-italic">Section 12L</strong> (2030). The fiscal framework for renewables is stable and aggressive."
-                    </p>
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-brand-gold/20 flex items-center justify-center font-bold text-brand-gold">
-                            CE
-                        </div>
-                        <div className="text-xs">
-                            <span className="block font-bold dark:text-white text-slate-900 uppercase tracking-wide">Carter Strategy</span>
-                            <span className="text-brand-gold">Financial Insight</span>
-                        </div>
-                    </div>
-                </div>
+          {/* Left Column: Text & Fiscal Context */}
+          <div className="lg:w-1/3 lg:sticky lg:top-28">
+            <div className="text-xs font-mono uppercase tracking-[0.2em] text-brand-gold-dark dark:text-brand-gold mb-3">
+              COMMERCIAL &amp; RETAIL INFRASTRUCTURE
             </div>
+            <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-6 text-brand-forest dark:text-brand-ivory leading-tight">
+              The Commercial Roof <span className="text-brand-gold-dark dark:text-brand-gold italic">Advantage.</span>
+            </h2>
+            <p className="text-brand-charcoal/80 dark:text-brand-sage/85 leading-relaxed mb-8 font-light text-sm sm:text-base">
+              Vertical photovoltaics resolve the core structural and operational constraints faced by commercial property portfolios, logistics hubs, and retail centers.
+            </p>
 
-            {/* Right Column: Grid of Benefits */}
-            <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
-                {BENEFITS.map((benefit, idx) => (
-                    <MotionDiv
-                        key={idx}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: idx * 0.1, duration: 0.5 }}
-                        className="p-8 rounded-sm border border-slate-200 dark:border-white/10 hover:border-brand-gold dark:hover:border-brand-gold/50 bg-white dark:bg-brand-black transition-all group hover:shadow-2xl hover:shadow-brand-gold/5"
-                    >
-                        <div className="w-12 h-12 bg-brand-gold/10 rounded-full flex items-center justify-center text-brand-gold mb-6 group-hover:bg-brand-gold group-hover:text-brand-black transition-colors duration-300">
-                            {benefit.icon}
-                        </div>
-                        <h3 className="text-xl font-bold dark:text-white text-slate-900 mb-3 font-serif group-hover:text-brand-gold transition-colors">{benefit.title}</h3>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-light">
-                            {benefit.description}
-                        </p>
-                    </MotionDiv>
-                ))}
+            <div className="p-7 bg-white dark:bg-brand-black border border-brand-gold/35 rounded-sm shadow-sm">
+              <p className="italic text-brand-forest dark:text-brand-ivory font-serif text-lg mb-5 leading-relaxed">
+                &ldquo;We structure commercial solar assets to leverage <strong className="text-brand-gold-dark dark:text-brand-gold not-italic">SARS Section 12B</strong> (100% Year-1 capital allowance for systems &lt;1MW) and extended <strong className="text-brand-gold-dark dark:text-brand-gold not-italic">Section 12L</strong> energy-efficiency incentives.&rdquo;
+              </p>
+              <div className="pt-4 border-t border-brand-charcoal/10 dark:border-brand-sage/15 flex items-center justify-between text-xs font-mono">
+                <span className="text-brand-forest dark:text-brand-ivory font-semibold uppercase tracking-wider">
+                  Carter Energy Solutions
+                </span>
+                <span className="text-brand-gold-dark dark:text-brand-gold">
+                  Commercial Structuring
+                </span>
+              </div>
             </div>
+          </div>
+
+          {/* Right Column: Grid of Benefits */}
+          <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {BENEFITS.map((benefit, idx) => (
+              <MotionDiv
+                key={benefit.index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, duration: 0.5 }}
+                className="p-8 rounded-sm border border-brand-charcoal/10 dark:border-brand-sage/15 hover:border-brand-gold/60 bg-white dark:bg-brand-black transition-colors group"
+              >
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-xs font-mono text-brand-gold-dark dark:text-brand-gold tracking-widest">
+                    {benefit.index} · APPLICATION
+                  </span>
+                  <div className="text-brand-gold-dark dark:text-brand-gold">
+                    {benefit.icon}
+                  </div>
+                </div>
+                <h3 className="text-2xl font-semibold text-brand-forest dark:text-brand-ivory mb-3 font-serif">
+                  {benefit.title}
+                </h3>
+                <p className="text-sm text-brand-charcoal/75 dark:text-brand-sage/85 leading-relaxed font-light">
+                  {benefit.description}
+                </p>
+              </MotionDiv>
+            ))}
+          </div>
         </div>
       </div>
     </section>

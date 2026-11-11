@@ -1,18 +1,25 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: "Inter", "sans-serif";
-  --font-serif: "Playfair Display", "serif";
-  
-  --color-brand-gold: #D4AF37;
-  --color-brand-gold-light: #F9E5B5;
-  --color-brand-gold-dark: #AA8C2C;
-  --color-brand-black: #050505;
-  --color-brand-charcoal: #0F0F0F;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-mono: "JetBrains Mono", monospace;
 
-  --background-image-gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #AA8C2C 100%);
+  /* CENERGYS — ENERGY FUTURES 2.0 PALETTE */
+  --color-brand-forest: #102C26;
+  --color-brand-ivory: #F5F3EB;
+  --color-brand-gold: #D6BE82;
+  --color-brand-gold-light: #E8D9B5;
+  --color-brand-gold-dark: #9E8348;
+  --color-brand-sage: #BBC9C1;
+  --color-brand-charcoal: #162421;
+  --color-brand-surface: #222B2A;
+  --color-brand-black: #0A1815;
+
+  --background-image-gold-gradient: linear-gradient(135deg, #D6BE82 0%, #EFE4C8 50%, #A68B4B 100%);
   
-  --animate-marquee: marquee 30s linear infinite;
+  --animate-marquee: marquee 36s linear infinite;
   
   @keyframes marquee {
     0% { transform: translateX(0%); }
@@ -20,18 +27,41 @@
   }
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 body {
-  font-family: 'Inter', sans-serif;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  font-family: var(--font-sans);
+  transition: background-color 0.35s ease, color 0.35s ease;
+  overflow-x: hidden;
 }
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-serif);
+  text-wrap: balance;
 }
+
 .text-gold-gradient {
-  background: linear-gradient(135deg, #D4AF37 0%, #F9E5B5 50%, #AA8C2C 100%);
+  background: linear-gradient(135deg, #D6BE82 0%, #EFE4C8 50%, #A68B4B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
 }
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+

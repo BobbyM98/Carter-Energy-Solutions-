@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Zap, Menu, X, Sun, Moon, Calendar, Gift } from 'lucide-react';
+import { Menu, X, Sun, Moon, Calendar, Gift, UserCheck, ArrowUpRight } from 'lucide-react';
 import { m as motion } from 'framer-motion';
 
-// Cast motion components to any to resolve prop type mismatches
 const MotionHeader = motion.header as any;
 const MotionDiv = motion.div as any;
 
@@ -14,18 +13,37 @@ interface HeaderProps {
   onReferFriend: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppointment, onSignUp, onReferFriend }) => {
+const NAV_ITEMS = [
+  { label: 'Home', id: 'top' },
+  { label: 'Technology', id: 'benefits' },
+  { label: 'Solutions', id: 'service-pillars' },
+  { label: 'Projects', id: 'projects' },
+  { label: 'About', id: 'credentials' },
+  { label: 'Contact', id: 'get-quote' },
+];
+
+export const Header: React.FC<HeaderProps> = ({
+  isDark,
+  toggleTheme,
+  onBookAppointment,
+  onSignUp,
+  onReferFriend,
+}) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('top');
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 24);
 
-      // ScrollSpy logic to determine active section
-      const sections = ['benefits', 'calculator', 'get-quote'];
-      const scrollPosition = window.scrollY + 120; // Offset for header + a bit of breathing room
+      if (window.scrollY < 200) {
+        setActiveSection('top');
+        return;
+      }
+
+      const sections = ['benefits', 'service-pillars', 'packages', 'projects', 'credentials', 'tenders', 'calculator', 'get-quote'];
+      const scrollPosition = window.scrollY + 140;
 
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -34,291 +52,212 @@ export const Header: React.FC<HeaderProps> = ({ isDark, toggleTheme, onBookAppoi
           const offsetHeight = element.offsetHeight;
 
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
+            if (section === 'packages') {
+              setActiveSection('service-pillars');
+            } else if (section === 'tenders') {
+              setActiveSection('credentials');
+            } else if (section === 'calculator') {
+              setActiveSection('get-quote');
+            } else {
+              setActiveSection(section);
+            }
           }
         }
       }
     };
-    
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>, id: string) => {
     e.preventDefault();
+    if (id === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setIsMobileMenuOpen(false);
+      return;
+    }
     const element = document.getElementById(id);
     if (element) {
-      const headerOffset = 80;
+      const headerOffset = 84;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
       setIsMobileMenuOpen(false);
     }
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleLogoKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      scrollToTop();
-    }
-  };
-
   return (
-    <MotionHeader 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
+    <MotionHeader
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/95 dark:bg-brand-black/95 backdrop-blur-md border-b border-slate-200 dark:border-white/10 py-4 shadow-sm' 
-          : 'bg-transparent py-6'
+        isScrolled
+          ? 'bg-brand-ivory/95 dark:bg-brand-black/95 backdrop-blur-md border-b border-brand-charcoal/10 dark:border-brand-sage/15 py-3.5 shadow-sm'
+          : 'bg-gradient-to-b from-brand-black/75 via-brand-black/35 to-transparent py-5'
       }`}
       role="banner"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <div 
-            className="flex items-center gap-3 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-gold rounded-lg p-1" 
-            onClick={scrollToTop}
-            onKeyDown={handleLogoKeyDown}
-            role="button"
-            tabIndex={0}
-            aria-label="Carter Energy Solutions Home - Scroll to top"
+        {/* Strict 3-Zone Architectural Top Bar */}
+        <div className="flex items-center justify-between gap-8">
+          {/* Zone 1: Single-line Brand Wordmark */}
+          <a
+            href="#top"
+            onClick={(e) => scrollToSection(e, 'top')}
+            className={`text-xl md:text-2xl font-serif font-semibold tracking-wider whitespace-nowrap shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded-sm transition-colors ${
+              isScrolled ? 'text-brand-forest dark:text-brand-ivory' : 'text-brand-ivory'
+            }`}
+            aria-label="Cenergys — Carter Energy Solutions Home"
           >
-            <div className="relative" aria-hidden="true">
-                <div className="absolute inset-0 bg-brand-gold blur-sm opacity-50 rounded-full"></div>
-                <div className="relative bg-gradient-to-br from-brand-gold to-brand-gold-dark p-2 rounded-lg text-white">
-                  <Zap className="h-5 w-5" strokeWidth={2} />
-                </div>
-            </div>
-            <span className="text-xl md:text-2xl font-bold tracking-tight dark:text-white text-slate-900 font-serif whitespace-nowrap">
-              Carter<span className="text-brand-gold-dark dark:text-brand-gold"> Energy Solutions</span>
-            </span>
-          </div>
+            CENERGYS <span className="text-brand-gold font-normal">· Carter Energy</span>
+          </a>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6" aria-label="Main Navigation">
-            <a 
-              href="#benefits" 
-              onClick={(e) => scrollToSection(e, 'benefits')}
-              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
-                activeSection === 'benefits' 
-                  ? 'text-brand-gold-dark dark:text-brand-gold' 
-                  : 'dark:text-slate-300 text-slate-700 hover:text-brand-gold-dark dark:hover:text-brand-gold'
-              }`}
-              aria-current={activeSection === 'benefits' ? 'true' : undefined}
-            >
-              Expertise
-            </a>
-            <a 
-              href="#services" 
-              onClick={(e) => scrollToSection(e, 'services')}
-              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
-                activeSection === 'services' 
-                  ? 'text-brand-gold-dark dark:text-brand-gold' 
-                  : 'dark:text-slate-300 text-slate-700 hover:text-brand-gold-dark dark:hover:text-brand-gold'
-              }`}
-              aria-current={activeSection === 'services' ? 'true' : undefined}
-            >
-              Services
-            </a>
-            <a 
-              href="#tenders" 
-              onClick={(e) => scrollToSection(e, 'tenders')}
-              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
-                activeSection === 'tenders' 
-                  ? 'text-brand-gold-dark dark:text-brand-gold' 
-                  : 'dark:text-slate-300 text-slate-700 hover:text-brand-gold-dark dark:hover:text-brand-gold'
-              }`}
-              aria-current={activeSection === 'tenders' ? 'true' : undefined}
-            >
-              Tenders
-            </a>
-            <a 
-              href="#credentials" 
-              onClick={(e) => scrollToSection(e, 'credentials')}
-              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
-                activeSection === 'credentials' 
-                  ? 'text-brand-gold-dark dark:text-brand-gold' 
-                  : 'dark:text-slate-300 text-slate-700 hover:text-brand-gold-dark dark:hover:text-brand-gold'
-              }`}
-              aria-current={activeSection === 'credentials' ? 'true' : undefined}
-            >
-              Credentials
-            </a>
-            <a 
-              href="#calculator" 
-              onClick={(e) => scrollToSection(e, 'calculator')}
-              className={`text-sm font-medium transition-colors focus:outline-none focus:text-brand-gold focus:underline py-2 ${
-                activeSection === 'calculator' 
-                  ? 'text-brand-gold-dark dark:text-brand-gold' 
-                  : 'dark:text-slate-300 text-slate-700 hover:text-brand-gold-dark dark:hover:text-brand-gold'
-              }`}
-              aria-current={activeSection === 'calculator' ? 'true' : undefined}
-            >
-              Savings
-            </a>
-            
-            {/* Theme Toggle */}
-            <button 
-              onClick={toggleTheme}
-              className="p-3 rounded-full dark:bg-white/5 bg-slate-100 dark:hover:bg-white/10 hover:bg-slate-200 transition-colors mr-2 focus:outline-none focus:ring-2 focus:ring-brand-gold min-w-[44px] min-h-[44px] flex items-center justify-center"
-              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {isDark ? <Sun className="h-4 w-4 text-brand-gold" aria-hidden="true" /> : <Moon className="h-4 w-4 text-slate-700" aria-hidden="true" />}
-            </button>
-            
-            <button 
-              onClick={onReferFriend}
-              className="hidden lg:flex items-center gap-1.5 text-brand-gold-dark dark:text-brand-gold px-3.5 py-2.5 rounded-sm border border-brand-gold/20 bg-brand-gold/5 dark:bg-brand-gold/5 font-semibold text-sm hover:bg-brand-gold hover:text-brand-black dark:hover:text-brand-black transition-all mr-2 focus:outline-none focus:ring-2 focus:ring-brand-gold min-h-[44px]"
-            >
-              <Gift className="w-4 h-4 text-brand-gold" />
-              <span>Refer & Earn</span>
-            </button>
-
-            <button 
-              onClick={onSignUp}
-              className="hidden lg:flex items-center gap-2 text-brand-gold-dark dark:text-brand-gold px-3 py-2.5 rounded-sm font-semibold text-sm hover:text-brand-black dark:hover:text-white transition-all mr-2 focus:outline-none focus:ring-2 focus:ring-brand-gold min-h-[44px]"
-            >
-              Sign Up
-            </button>
-
-            <button 
-              onClick={onBookAppointment}
-              className="hidden lg:flex items-center gap-2 border border-brand-gold-dark dark:border-brand-gold text-brand-gold-dark dark:text-brand-gold px-5 py-2.5 rounded-sm font-semibold text-sm hover:bg-brand-gold hover:text-brand-black transition-all focus:outline-none focus:ring-2 focus:ring-brand-gold min-h-[44px]"
-            >
-              <Calendar className="w-4 h-4" aria-hidden="true" />
-              <span>Book Appointment</span>
-            </button>
-
-            <button 
-              onClick={(e) => scrollToSection(e, 'get-quote')}
-              className="bg-brand-gold hover:bg-brand-gold-light text-brand-black px-6 py-2.5 rounded-sm font-semibold text-sm transition-all shadow-[0_0_20px_-5px_rgba(212,175,55,0.4)] focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 dark:focus:ring-offset-brand-black min-h-[44px]"
-            >
-              Get a Quote
-            </button>
+          {/* Zone 2: Minimal Single-Line Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-7" aria-label="Primary Navigation">
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <a
+                  key={item.id}
+                  href={item.id === 'top' ? '#top' : `#${item.id}`}
+                  onClick={(e) => scrollToSection(e, item.id)}
+                  className={`text-sm font-medium whitespace-nowrap shrink-0 py-1.5 border-b-2 transition-colors focus:outline-none focus-visible:text-brand-gold ${
+                    isActive
+                      ? 'border-brand-gold text-brand-gold'
+                      : isScrolled
+                      ? 'border-transparent text-brand-charcoal/80 dark:text-brand-sage/85 hover:text-brand-forest dark:hover:text-brand-ivory hover:border-brand-gold/50'
+                      : 'border-transparent text-brand-ivory/85 hover:text-brand-ivory hover:border-brand-gold/50'
+                  }`}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
           </nav>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-4 md:hidden">
-            <button 
-              onClick={toggleTheme}
-              className="p-3 rounded-full dark:bg-white/5 bg-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-gold min-w-[44px] min-h-[44px] flex items-center justify-center"
-              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          {/* Zone 3: Primary Action (Desktop) & Mobile Menu Trigger */}
+          <div className="flex items-center gap-3 shrink-0">
+            <button
+              onClick={(e) => scrollToSection(e, 'get-quote')}
+              className="hidden md:inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold-light text-brand-forest px-5 py-2.5 rounded-sm font-semibold text-xs uppercase tracking-widest transition-colors whitespace-nowrap shrink-0 min-h-[42px] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
             >
-              {isDark ? <Sun className="h-4 w-4 text-brand-gold" aria-hidden="true" /> : <Moon className="h-4 w-4 text-slate-700" aria-hidden="true" />}
+              <span>Request a Quote</span>
+              <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
-            <button 
-              className="dark:text-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-gold p-2 rounded-md min-w-[44px] min-h-[44px] flex items-center justify-center"
+
+            <button
+              className={`lg:hidden p-2.5 rounded-sm min-w-[44px] min-h-[44px] flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold ${
+                isScrolled ? 'text-brand-forest dark:text-brand-ivory' : 'text-brand-ivory'
+              }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label={isMobileMenuOpen ? "Close main menu" : "Open main menu"}
+              aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
             >
-              {isMobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+              {isMobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Nav */}
+      {/* Mobile & Utility Drawer */}
       {isMobileMenuOpen && (
-        <MotionDiv 
+        <MotionDiv
           id="mobile-menu"
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="md:hidden absolute top-full left-0 right-0 dark:bg-brand-black bg-white border-b dark:border-white/10 border-slate-200 p-6 shadow-xl"
+          transition={{ duration: 0.2 }}
+          className="lg:hidden absolute top-full left-0 right-0 bg-brand-ivory dark:bg-brand-black border-b border-brand-charcoal/15 dark:border-brand-sage/15 px-6 py-8 shadow-2xl max-h-[85vh] overflow-y-auto"
           role="region"
           aria-label="Mobile Navigation"
         >
-          <nav className="flex flex-col gap-6 text-center">
-             <a 
-               href="#benefits" 
-               onClick={(e) => scrollToSection(e, 'benefits')} 
-               className={`font-serif text-lg py-2 ${activeSection === 'benefits' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-700'}`}
-               aria-current={activeSection === 'benefits' ? 'true' : undefined}
-             >
-               Expertise
-             </a>
-             <a 
-               href="#services" 
-               onClick={(e) => scrollToSection(e, 'services')} 
-               className={`font-serif text-lg py-2 ${activeSection === 'services' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-700'}`}
-               aria-current={activeSection === 'services' ? 'true' : undefined}
-             >
-               Services
-             </a>
-             <a 
-               href="#tenders" 
-               onClick={(e) => scrollToSection(e, 'tenders')} 
-               className={`font-serif text-lg py-2 ${activeSection === 'tenders' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-700'}`}
-               aria-current={activeSection === 'tenders' ? 'true' : undefined}
-             >
-               Tenders
-             </a>
-             <a 
-               href="#credentials" 
-               onClick={(e) => scrollToSection(e, 'credentials')} 
-               className={`font-serif text-lg py-2 ${activeSection === 'credentials' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-700'}`}
-               aria-current={activeSection === 'credentials' ? 'true' : undefined}
-             >
-               Credentials
-             </a>
-            <a 
-              href="#calculator" 
-              onClick={(e) => scrollToSection(e, 'calculator')} 
-              className={`font-serif text-lg py-2 ${activeSection === 'calculator' ? 'text-brand-gold' : 'dark:text-slate-300 text-slate-700'}`}
-              aria-current={activeSection === 'calculator' ? 'true' : undefined}
-            >
-              Savings
-            </a>
-            
-            <button 
-              onClick={() => {
-                onReferFriend();
-                setIsMobileMenuOpen(false);
-              }}
-              className="font-serif text-lg text-brand-gold hover:text-brand-gold-light hover:underline focus:outline-none py-2 flex items-center justify-center gap-2 font-bold"
-            >
-              <Gift className="w-5 h-5 text-brand-gold" />
-              Refer & Earn R1000
-            </button>
+          <nav className="flex flex-col gap-4">
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item.id}
+                href={item.id === 'top' ? '#top' : `#${item.id}`}
+                onClick={(e) => scrollToSection(e, item.id)}
+                className={`font-serif text-2xl py-2 border-b border-brand-charcoal/10 dark:border-white/5 flex items-center justify-between ${
+                  activeSection === item.id
+                    ? 'text-brand-gold-dark dark:text-brand-gold font-semibold'
+                    : 'text-brand-forest dark:text-brand-ivory'
+                }`}
+              >
+                <span>{item.label}</span>
+                <ArrowUpRight className="w-4 h-4 opacity-60" />
+              </a>
+            ))}
 
-            <button 
-              onClick={() => {
-                onSignUp();
-                setIsMobileMenuOpen(false);
-              }}
-              className="font-serif text-lg dark:text-white text-slate-900 hover:text-brand-gold focus:outline-none focus:text-brand-gold py-2"
-            >
-              Sign Up
-            </button>
+            <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                onClick={(e) => scrollToSection(e, 'get-quote')}
+                className="bg-brand-gold text-brand-forest px-5 py-3.5 rounded-sm font-semibold text-xs uppercase tracking-widest w-full min-h-[44px] flex items-center justify-center gap-2"
+              >
+                <span>Request a Quote</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
 
-            <button 
-              onClick={() => {
-                onBookAppointment();
-                setIsMobileMenuOpen(false);
-              }}
-              className="border border-brand-gold text-brand-gold px-5 py-4 rounded-sm font-bold w-full flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-brand-gold min-h-[44px]"
-            >
-              <Calendar className="w-5 h-5" aria-hidden="true" />
-              Book Appointment
-            </button>
-            <button 
-              onClick={(e) => scrollToSection(e, 'get-quote')}
-              className="bg-brand-gold text-brand-black px-5 py-4 rounded-sm font-bold w-full focus:outline-none focus:ring-2 focus:ring-brand-gold focus:ring-offset-2 dark:focus:ring-offset-brand-black min-h-[44px]"
-            >
-              Get a Quote
-            </button>
+              <button
+                onClick={() => {
+                  onBookAppointment();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="border border-brand-gold text-brand-forest dark:text-brand-gold px-5 py-3.5 rounded-sm font-semibold text-xs uppercase tracking-widest w-full min-h-[44px] flex items-center justify-center gap-2"
+              >
+                <Calendar className="w-4 h-4" aria-hidden="true" />
+                <span>Schedule Consultation</span>
+              </button>
+            </div>
+
+            <div className="pt-4 border-t border-brand-charcoal/10 dark:border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-brand-charcoal/80 dark:text-brand-sage">
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => {
+                    onSignUp();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="inline-flex items-center gap-1.5 hover:text-brand-gold transition-colors py-2"
+                >
+                  <UserCheck className="w-4 h-4 text-brand-gold" />
+                  <span>Client Portal</span>
+                </button>
+                <button
+                  onClick={() => {
+                    onReferFriend();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="inline-flex items-center gap-1.5 hover:text-brand-gold transition-colors py-2"
+                >
+                  <Gift className="w-4 h-4 text-brand-gold" />
+                  <span>Refer & Earn</span>
+                </button>
+              </div>
+
+              <button
+                onClick={toggleTheme}
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-sm border border-brand-charcoal/15 dark:border-white/15 hover:border-brand-gold transition-colors min-h-[40px]"
+                aria-label={isDark ? 'Switch to Warm Ivory light mode' : 'Switch to Deep Forest dark mode'}
+              >
+                {isDark ? (
+                  <>
+                    <Sun className="w-4 h-4 text-brand-gold" />
+                    <span>Light Theme</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-4 h-4 text-brand-forest" />
+                    <span>Dark Theme</span>
+                  </>
+                )}
+              </button>
+            </div>
           </nav>
         </MotionDiv>
       )}

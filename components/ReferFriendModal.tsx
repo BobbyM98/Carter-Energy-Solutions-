@@ -36,6 +36,7 @@ export const ReferFriendModal: React.FC<ReferFriendModalProps> = ({ isOpen, onCl
   const [referralCode, setReferralCode] = useState('');
   const [optionalMessage, setOptionalMessage] = useState('');
   const [agreed, setAgreed] = useState(false);
+  const [agreementError, setAgreementError] = useState('');
 
   // Focus and Blur states for inputs
   const [activeInput, setActiveInput] = useState<string | null>(null);
@@ -90,7 +91,7 @@ export const ReferFriendModal: React.FC<ReferFriendModalProps> = ({ isOpen, onCl
     }
 
     if (!agreed) {
-      alert("You must agree to the terms and conditions to proceed.");
+      setAgreementError('Please agree to the terms and conditions to proceed.');
       return;
     }
 
@@ -207,7 +208,7 @@ export const ReferFriendModal: React.FC<ReferFriendModalProps> = ({ isOpen, onCl
                       >
                         <div className="flex justify-between items-center w-full">
                           <div className={`p-2.5 rounded-sm shrink-0 ${reward === 'airfryer' ? 'bg-brand-gold text-brand-black' : 'bg-white/5 text-slate-400'}`}>
-                            <Flame className="w-5 h-5 animate-pulse" />
+                            <Flame className="w-5 h-5" />
                           </div>
                           <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 ${
                             reward === 'airfryer' ? 'border-brand-gold bg-brand-gold text-brand-black' : 'border-white/20'
@@ -529,18 +530,26 @@ export const ReferFriendModal: React.FC<ReferFriendModalProps> = ({ isOpen, onCl
                     </div>
 
                     {/* Legal Checkbox info */}
-                    <div className="pt-2 flex items-start gap-3">
-                      <input
-                        type="checkbox"
-                        id="agree-checkbox"
-                        required
-                        checked={agreed}
-                        onChange={(e) => setAgreed(e.target.checked)}
-                        className="mt-1 w-4 h-4 bg-brand-charcoal border border-white/15 text-brand-gold focus:ring-brand-gold focus:ring-0 cursor-pointer rounded-sm"
-                      />
-                      <label htmlFor="agree-checkbox" className="text-slate-400 text-xs leading-normal select-none cursor-pointer">
-                        I agree to the <a href="#" className="underline text-brand-gold hover:text-brand-gold-light">terms and conditions</a>. The information given above is true and correct, and I agree to abide by the terms.
-                      </label>
+                    <div className="pt-2 space-y-1.5">
+                      <div className="flex items-start gap-3">
+                        <input
+                          type="checkbox"
+                          id="agree-checkbox"
+                          required
+                          checked={agreed}
+                          onChange={(e) => {
+                            setAgreed(e.target.checked);
+                            if (agreementError) setAgreementError('');
+                          }}
+                          className="mt-1 w-4 h-4 bg-brand-charcoal border border-white/15 text-brand-gold focus:ring-brand-gold focus:ring-0 cursor-pointer rounded-sm"
+                        />
+                        <label htmlFor="agree-checkbox" className="text-slate-400 text-xs leading-normal select-none cursor-pointer">
+                          I agree to the terms and conditions. The information given above is true and correct, and I consent to POPIA-compliant processing for this referral.
+                        </label>
+                      </div>
+                      {agreementError && (
+                        <p className="text-[11px] text-red-400 font-medium ml-7">{agreementError}</p>
+                      )}
                     </div>
 
                   </div>

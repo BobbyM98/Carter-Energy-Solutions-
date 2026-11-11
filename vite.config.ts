@@ -11,7 +11,7 @@ export default defineConfig({
   // Explicit base path matches your GitHub Pages repository URL
   base: '/', 
   build: {
-    target: 'esnext',
+    target: 'es2020',
     minify: 'esbuild',
     rollupOptions: {
       output: {

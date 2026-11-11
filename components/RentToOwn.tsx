@@ -280,7 +280,7 @@ export const RentToOwn: React.FC = () => {
     let periodLabel = "/ Month";
 
     if (financialModel === 'subscription') {
-      // Pure GoSolr style: 20% lower monthly rate, cancel anytime, but has once-off setup
+      // Flexible subscription model: 20% lower monthly rate, cancel anytime, but has once-off setup
       displayPrice = Math.round(priceWithStructure * 0.82);
       setupFee = panels > 0 ? "Once-off activation: R4,900" : "Once-off activation: R1,950";
       periodLabel = "/ Month (Subscription)";
@@ -603,7 +603,7 @@ export const RentToOwn: React.FC = () => {
                       : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                 >
-                  Standard Flat/Tilted
+                  Standard Flat/Tilted (Mono)
                 </button>
               </div>
             </div>
@@ -616,7 +616,7 @@ export const RentToOwn: React.FC = () => {
             Interactive Premise Selector
           </h3>
           <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 max-w-xl mx-auto font-light mb-8">
-            Select your specific property class below to instantly load the recommended bifacial package:
+            Select your specific property class below to instantly load the recommended solar configurations:
           </p>
 
           <div className="flex flex-col gap-6 text-left max-w-5xl mx-auto">
@@ -939,7 +939,7 @@ export const RentToOwn: React.FC = () => {
                   </div>
                 </div>
 
-                {/* GoSolr-Style Interactive Configurator Panel */}
+                {/* Interactive Financing Configurator Panel */}
                 <div className="mb-8 p-5 rounded-xl border dark:border-white/5 border-slate-200 bg-slate-100/50 dark:bg-brand-black/20 space-y-6">
                   <div>
                     <span className="text-[10.5px] dark:text-slate-400 text-slate-500 font-bold uppercase tracking-widest block mb-3 font-mono">
@@ -956,7 +956,7 @@ export const RentToOwn: React.FC = () => {
                         }`}
                       >
                         <div className="text-xs font-bold uppercase tracking-wider mb-0.5">Subscription</div>
-                        <div className="text-[10px] opacity-80 leading-snug font-light">GoSolr Style. Cancel anytime. 20% lower rate. Activation fee.</div>
+                        <div className="text-[10px] opacity-80 leading-snug font-light">Flexible continuous subscription. Cancel anytime. 20% lower rate. Activation fee.</div>
                       </button>
                       
                       <button
@@ -1151,7 +1151,7 @@ export const RentToOwn: React.FC = () => {
             {financialModel === 'subscription' ? (
               <>
                 <h5 className="text-[10.5px] font-bold text-brand-gold uppercase tracking-widest mb-4 flex items-center gap-2">
-                  <Calendar className="w-3.5 h-3.5" /> GoSolr-Style Continuous Subscription Lifecycle
+                  <Calendar className="w-3.5 h-3.5" /> Continuous Carter Subscription Lifecycle
                 </h5>
                 
                 <div className="flex items-center h-2.5 w-full rounded-full bg-slate-200 dark:bg-brand-black overflow-hidden mb-3">

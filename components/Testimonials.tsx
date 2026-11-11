@@ -1,135 +1,245 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ShieldCheck, Building2, Sprout, Factory, CheckCircle2, ArrowUpRight } from 'lucide-react';
 import { m as motion, AnimatePresence } from 'framer-motion';
 import { optimizeImage } from '../src/utils/image';
 
 const MotionDiv = motion.div as any;
 
-interface Testimonial {
-  name: string;
-  location: string;
-  quote: string;
+interface EngineeringProfile {
+  id: string;
+  category: string;
+  title: string;
+  locationOrEntity: string;
+  verificationBadge: string;
+  summary: string;
+  specifications: { label: string; value: string }[];
   imageUrl: string;
 }
 
-const TESTIMONIAL_DATA: Testimonial[] = [
-    {
-      name: "Johan De Villiers",
-      location: "Commercial Farm, WC",
-      quote: "Carter Energy Solutions' Vert-X system allowed us to generate 1.2MW of power without losing a single hectare of grazing land. The dual-peak generation perfectly matches our irrigation schedules.",
-      imageUrl: optimizeImage("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d", 200)
-    },
-    {
-      name: "Lindiwe Mazibuko",
-      location: "Logistics Hub, JHB",
-      quote: "Our warehouse roof couldn't support traditional ballasted solar. Carter's lightweight vertical racking solved a 3-year headache. Plus, the B-BBEE Level 1 spend was a massive bonus for our scorecard.",
-      imageUrl: optimizeImage("https://images.unsplash.com/photo-1573496359142-b8d87734a5a2", 200)
-    },
-    {
-      name: "David Cohen",
-      location: "Retail Center, Cape Town",
-      quote: "The evening generation peak of the Vert-X system aligns perfectly with our 6 PM shopping rush. The installation was fast, clean, and fully compliant with our strict insurance requirements.",
-      imageUrl: optimizeImage("https://images.unsplash.com/photo-1500648767791-00dcc994a43e", 200)
-    }
+const VERIFIED_PROFILES: EngineeringProfile[] = [
+  {
+    id: 'agrivoltaic-profile',
+    category: 'APPLICATION ARCHITECTURE 01',
+    title: 'Vert-X Walls — Agrivoltaic Perimeter & Solar VFD Borehole Systems',
+    locationOrEntity: 'Gauteng · Vaal Region · Kalahari Agricultural Belt',
+    verificationBadge: 'Verified Engineering Specification',
+    summary:
+      'Engineered for commercial agriculture and livestock perimeters. Vertical 90° bifacial arrays integrate directly along farm boundaries and irrigation lines with 600 mm to 1.2 m+ ground clearance—preserving 100% of grazing and arable land while driving 0.5 HP to 1.5 HP+ Three-Phase Solar VFD borehole pumps.',
+    specifications: [
+      { label: 'Arable Land Loss', value: '0% (Boundary-Integrated)' },
+      { label: 'Ground Clearance', value: '600 mm – 1.2 m+ Livestock Safe' },
+      { label: 'Irrigation Drive', value: '0.5 HP – 1.5 HP+ Solar VFD' },
+      { label: 'Soiling Mitigation', value: 'Gravity-Assisted Dry Shedding' }
+    ],
+    imageUrl: optimizeImage('https://i.ibb.co/Nnypf28k/unnamed-7.png', 1000)
+  },
+  {
+    id: 'industrial-roof-profile',
+    category: 'APPLICATION ARCHITECTURE 02',
+    title: 'Vert-X Industrial — Load-Limited Warehouse & Logistics Roofs',
+    locationOrEntity: 'Commercial & Industrial Corridors, South Africa',
+    verificationBadge: 'Verified Structural Specification',
+    summary:
+      'Designed specifically for South African steel IBR and Klip-Lok factory roofs that cannot carry standard 25 kg/m² ballasted arrays. Using an ultra-lightweight (< 10 kg/m²) aerodynamic sub-frame and Sika® structural chemical bonding, the array eliminates roof penetrations while capturing morning and late-afternoon peak tariffs.',
+    specifications: [
+      { label: 'Distributed Dead Load', value: '< 10 kg/m² (Ultra-Lightweight)' },
+      { label: 'Roof Attachment', value: 'Sika® Chemical Bond / Non-Penetrating' },
+      { label: 'Wind Load Rating', value: 'Up to 160 km/h (Aerodynamic)' },
+      { label: 'Capital Allowance', value: '100% SARS Section 12B (< 1 MW)' }
+    ],
+    imageUrl: optimizeImage('https://i.ibb.co/xK679kyV/unnamed.png', 1000)
+  },
+  {
+    id: 'commercial-hybrid-profile',
+    category: 'APPLICATION ARCHITECTURE 03',
+    title: 'Vert-X Estate & Commercial — Dual-Peak Hybrid Storage Architecture',
+    locationOrEntity: 'Residential Estates & Commercial Precincts, SA',
+    verificationBadge: 'SANS 10142-1 Compliant Architecture',
+    summary:
+      'Combines East-West vertical bifacial boundary walls or high-efficiency monocrystalline roof arrays with LiFePO4 battery storage (5 kWh to 60 kWh+). Engineered to offset expensive morning and evening Time-of-Use (TOU) utility peaks while delivering seamless sub-10ms switchover during grid interruptions.',
+    specifications: [
+      { label: 'Generation Profile', value: 'Dual-Peak (Morning & Evening)' },
+      { label: 'Storage Chemistry', value: 'Tier-1 LiFePO4 (6,000+ Cycles)' },
+      { label: 'Safety Governance', value: 'CETA ID: PSBE/ROY/20/100' },
+      { label: 'Electrical Sign-Off', value: 'SANS 10142-1 COC Issued' }
+    ],
+    imageUrl: optimizeImage('https://i.ibb.co/VWf3353d/unnamed-5.png', 1000)
+  }
 ];
 
 export const Testimonials: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const next = () => {
-    setCurrentIndex((prev) => (prev + 1) % TESTIMONIAL_DATA.length);
+    setCurrentIndex((prev) => (prev + 1) % VERIFIED_PROFILES.length);
   };
-  
+
   const prev = () => {
-    setCurrentIndex((prev) => (prev - 1 + TESTIMONIAL_DATA.length) % TESTIMONIAL_DATA.length);
+    setCurrentIndex((prev) => (prev - 1 + VERIFIED_PROFILES.length) % VERIFIED_PROFILES.length);
+  };
+
+  const activeProfile = VERIFIED_PROFILES[currentIndex];
+
+  const getCategoryIcon = (id: string) => {
+    if (id === 'agrivoltaic-profile') return <Sprout className="w-5 h-5 text-brand-gold" />;
+    if (id === 'industrial-roof-profile') return <Factory className="w-5 h-5 text-brand-gold" />;
+    return <Building2 className="w-5 h-5 text-brand-gold" />;
   };
 
   return (
-    <section className="py-24 border-t dark:border-white/5 border-slate-100 transition-colors duration-500 dark:bg-brand-black bg-white relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[300px] bg-brand-gold opacity-[0.03] blur-[100px] rounded-full pointer-events-none"></div>
-
+    <section
+      id="projects"
+      className="py-24 border-t dark:border-white/10 border-brand-forest/10 transition-colors duration-500 dark:bg-brand-black bg-brand-ivory relative overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 dark:text-white text-slate-900">Voices of Independence</h2>
-           <div className="h-0.5 w-16 bg-brand-gold mx-auto mb-4"></div>
-           <p className="text-slate-600 dark:text-slate-400 font-light">Join the families who have already secured their power.</p>
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6 border-b border-brand-forest/10 dark:border-white/10 pb-8">
+          <div>
+            <span className="font-mono text-xs uppercase tracking-[0.25em] text-brand-gold-dark dark:text-brand-gold block mb-3">
+              FIELD ARCHITECTURE &amp; DEPLOYMENT PROFILES
+            </span>
+            <h2 className="text-3xl md:text-5xl font-serif font-medium dark:text-brand-ivory text-brand-forest tracking-tight">
+              Engineered Deployment Configurations
+            </h2>
+          </div>
+          <p className="text-sm text-slate-600 dark:text-brand-sage max-w-md font-light leading-relaxed">
+            Explore documented structural and electrical configurations for agricultural perimeters, load-limited industrial roofs, and commercial hybrid estates.
+          </p>
         </div>
 
-        <div className="relative max-w-4xl mx-auto">
-            <div className="relative min-h-[400px] flex items-center">
-              <AnimatePresence mode="wait">
-                <MotionDiv
-                  key={currentIndex}
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
-                  transition={{ duration: 0.5, ease: "circOut" }}
-                  className="w-full"
-                >
-                  <div className="flex flex-col items-center text-center">
-                     <div className="relative mb-8 group">
-                        <div className="absolute inset-0 bg-brand-gold blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full"></div>
-                        <div className="w-24 h-24 rounded-full p-1 border border-brand-gold/30 relative z-10 bg-brand-black">
-                           <img 
-                             src={TESTIMONIAL_DATA[currentIndex].imageUrl} 
-                             alt={TESTIMONIAL_DATA[currentIndex].name} 
-                             className="w-full h-full rounded-full object-cover"
-                             loading="lazy"
-                           />
-                        </div>
-                        <div className="absolute -bottom-2 -right-2 bg-brand-gold text-brand-black p-1.5 rounded-full">
-                           <Quote className="w-3 h-3 fill-current" />
-                        </div>
-                     </div>
-
-                     <div className="flex gap-1 text-brand-gold mb-6">
-                        {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 fill-current" />)}
-                     </div>
-
-                     <blockquote className="text-xl md:text-2xl font-serif italic leading-relaxed mb-8 dark:text-slate-200 text-slate-700 max-w-2xl">
-                       "{TESTIMONIAL_DATA[currentIndex].quote}"
-                     </blockquote>
-
-                     <div>
-                       <h3 className="text-lg font-bold dark:text-white text-brand-black tracking-wide">{TESTIMONIAL_DATA[currentIndex].name}</h3>
-                       <p className="text-sm dark:text-brand-gold text-brand-gold-dark uppercase tracking-widest mt-1">{TESTIMONIAL_DATA[currentIndex].location}</p>
-                     </div>
-                  </div>
-                </MotionDiv>
-              </AnimatePresence>
-            </div>
-
-          {/* Navigation Buttons */}
-          <button 
-            onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full border border-slate-200 dark:border-white/10 text-slate-400 hover:text-brand-gold hover:border-brand-gold transition-all dark:bg-brand-charcoal bg-white shadow-lg z-20 min-w-[44px] min-h-[44px] flex items-center justify-center"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          
-          <button 
-            onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full border border-slate-200 dark:border-white/10 text-slate-400 hover:text-brand-gold hover:border-brand-gold transition-all dark:bg-brand-charcoal bg-white shadow-lg z-20 min-w-[44px] min-h-[44px] flex items-center justify-center"
-            aria-label="Next testimonial"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-
-          {/* Dots */}
-          <div className="flex justify-center gap-2 mt-8">
-            {TESTIMONIAL_DATA.map((_, idx) => (
+        {/* Selector Tabs */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-10">
+          {VERIFIED_PROFILES.map((profile, idx) => {
+            const isActive = idx === currentIndex;
+            return (
               <button
-                key={idx}
+                key={profile.id}
+                type="button"
                 onClick={() => setCurrentIndex(idx)}
-                aria-label={`Go to testimonial ${idx + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  idx === currentIndex ? 'w-8 bg-brand-gold' : 'w-2 bg-slate-300 dark:bg-slate-700 hover:bg-brand-gold/50'
+                className={`text-left p-5 rounded-sm border transition-all ${
+                  isActive
+                    ? 'bg-brand-forest text-brand-ivory border-brand-gold shadow-lg'
+                    : 'bg-white dark:bg-brand-charcoal/50 text-slate-700 dark:text-brand-sage border-brand-forest/10 dark:border-white/10 hover:border-brand-gold/50'
                 }`}
-              />
-            ))}
-          </div>
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-brand-gold">
+                    {profile.category}
+                  </span>
+                  {getCategoryIcon(profile.id)}
+                </div>
+                <p className={`font-serif text-base font-medium line-clamp-1 ${isActive ? 'text-brand-ivory' : 'text-brand-forest dark:text-white'}`}>
+                  {profile.title}
+                </p>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Main Showcase Card */}
+        <div className="relative bg-white dark:bg-brand-charcoal/60 border border-brand-forest/10 dark:border-white/10 rounded-sm overflow-hidden shadow-xl">
+          <AnimatePresence mode="wait">
+            <MotionDiv
+              key={activeProfile.id}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="grid grid-cols-1 lg:grid-cols-12"
+            >
+              {/* Visual Column */}
+              <div className="lg:col-span-5 relative min-h-[300px] lg:min-h-[440px] bg-brand-forest overflow-hidden">
+                <img
+                  src={activeProfile.imageUrl}
+                  alt={activeProfile.title}
+                  className="w-full h-full object-cover opacity-85"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/30 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-brand-gold mb-2">
+                    <ShieldCheck className="w-4 h-4" />
+                    {activeProfile.verificationBadge}
+                  </div>
+                  <p className="text-sm text-brand-ivory/90 font-medium">
+                    {activeProfile.locationOrEntity}
+                  </p>
+                </div>
+              </div>
+
+              {/* Specification & Narrative Column */}
+              <div className="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between gap-4 mb-4">
+                    <span className="font-mono text-xs uppercase tracking-[0.2em] text-brand-gold-dark dark:text-brand-gold">
+                      {activeProfile.category}
+                    </span>
+                    <span className="font-mono text-xs text-slate-400 dark:text-brand-sage/60 tabular-nums">
+                      0{currentIndex + 1} / 0{VERIFIED_PROFILES.length}
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl md:text-3xl font-serif font-medium text-brand-forest dark:text-brand-ivory mb-4 leading-snug">
+                    {activeProfile.title}
+                  </h3>
+
+                  <p className="text-slate-600 dark:text-brand-sage font-light leading-relaxed mb-8 text-base">
+                    {activeProfile.summary}
+                  </p>
+
+                  {/* Spec Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 border-t border-brand-forest/10 dark:border-white/10">
+                    {activeProfile.specifications.map((spec) => (
+                      <div
+                        key={spec.label}
+                        className="p-3.5 bg-brand-ivory/60 dark:bg-brand-black/50 border border-brand-forest/10 dark:border-white/5 rounded-sm"
+                      >
+                        <span className="block font-mono text-[10px] uppercase tracking-widest text-slate-500 dark:text-brand-sage/70 mb-1">
+                          {spec.label}
+                        </span>
+                        <span className="font-mono text-xs sm:text-sm font-semibold text-brand-forest dark:text-brand-ivory flex items-center gap-1.5 tabular-nums">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-brand-gold shrink-0" />
+                          {spec.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Footer Controls */}
+                <div className="mt-8 pt-6 border-t border-brand-forest/10 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <a
+                      href="#get-quote"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-brand-forest dark:text-brand-gold hover:underline"
+                    >
+                      Request Site-Specific Engineering Pack
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+
+                  <div className="flex items-center gap-2 self-end sm:self-auto">
+                    <button
+                      type="button"
+                      onClick={prev}
+                      className="p-2.5 rounded-sm border border-brand-forest/15 dark:border-white/15 text-brand-forest dark:text-brand-ivory hover:border-brand-gold hover:text-brand-gold transition-colors min-w-[42px] min-h-[42px] flex items-center justify-center"
+                      aria-label="Previous profile"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={next}
+                      className="p-2.5 rounded-sm border border-brand-forest/15 dark:border-white/15 text-brand-forest dark:text-brand-ivory hover:border-brand-gold hover:text-brand-gold transition-colors min-w-[42px] min-h-[42px] flex items-center justify-center"
+                      aria-label="Next profile"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </MotionDiv>
+          </AnimatePresence>
         </div>
       </div>
     </section>

@@ -1,138 +1,128 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { m as motion, AnimatePresence, useScroll, useTransform, useInView } from 'framer-motion';
+import { ArrowRight, ChevronLeft, ChevronRight, FileText, Calendar, Sun, Moon } from 'lucide-react';
+import { m as motion, AnimatePresence, useInView } from 'framer-motion';
 import { optimizeImage } from '../src/utils/image';
 
-// Cast motion components to any to resolve prop type mismatches
 const MotionDiv = motion.div as any;
 const MotionH1 = motion.h1 as any;
 const MotionP = motion.p as any;
 
 interface SlideData {
   id: number;
+  kicker: string;
   title: React.ReactNode;
   description: string;
   cta: string;
+  secondaryCta: string;
   image: string;
+  imageAlt: string;
 }
 
 const SLIDES: SlideData[] = [
   {
     id: 0,
-    title: <span>Power at the <span className="text-gold-gradient italic">Edge.</span></span>,
-    description: "The future of solar is the Carter Energy Solutions Vert-X System. Unlock the potential of weak roofs and farmland with South Africa's first high-yield Vertical Bifacial Technology.",
-    cta: "Request ESD/CSI Proposal",
-    image: optimizeImage("https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png", 1200)
+    kicker: 'CENERGYS · CARTER ENERGY SOLUTIONS (PTY) LTD · SOUTH AFRICA',
+    title: (
+      <span>
+        The Future of Energy Has a <span className="text-gold-gradient italic">New Dimension.</span>
+      </span>
+    ),
+    description:
+      'Precision vertical bifacial solar architecture and high-yield monocrystalline engineering. Deploy Carter Vert-X Systems and Vert-X Walls designed for South African industry, commercial estates, and agriculture.',
+    cta: 'Request Engineering Proposal',
+    secondaryCta: 'Explore Vert-X Systems',
+    image: optimizeImage('https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png', 1400),
+    imageAlt: 'Carter Energy Solutions Vert-X vertical solar architectural installation',
   },
   {
     id: 1,
-    title: <span>Zero <span className="text-gold-gradient italic">Land Loss.</span></span>,
-    description: "Vert-X Walls allow for grazing, crops, and wind protection while generating power. Turn your fences into power plants.",
-    cta: "Add Us to Your Vendor Database",
-    image: optimizeImage("https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png", 1200)
+    kicker: 'VERT-X WALLS · AGRIVOLTAIC PERIMETER INFRASTRUCTURE',
+    title: (
+      <span>
+        Zero Productive <span className="text-gold-gradient italic">Land Loss.</span>
+      </span>
+    ),
+    description:
+      'Vert-X Walls integrate 90° vertical N-Type bifacial arrays directly along farm boundaries and perimeter fence lines—preserving 100% of grazing and arable land while harvesting dual morning and afternoon peaks.',
+    cta: 'Explore Vert-X Walls',
+    secondaryCta: 'Calculate Site Yield',
+    image: optimizeImage('https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png', 1400),
+    imageAlt: 'Carter Vert-X Walls vertical bifacial solar fence installation on South African farmland',
   },
   {
     id: 2,
-    title: <span>The Solution for <span className="text-gold-gradient italic">Weak Roofs.</span></span>,
-    description: "Ultra-lightweight Vert-X racking (<10kg/m²) for industrial sites. No ballast required. Aerodynamic and bond-mounted.",
-    cta: "Download Our Compliance Pack",
-    image: optimizeImage("https://i.ibb.co/j98GM2hY/Gemini-Generated-Image-vapyvdvapyvdvapy.png", 1200)
-  }
+    kicker: 'VERT-X INDUSTRIAL · LIGHTWEIGHT CHEMICAL-BOND RACKING',
+    title: (
+      <span>
+        Engineered for <span className="text-gold-gradient italic">Load-Limited Roofs.</span>
+      </span>
+    ),
+    description:
+      'Ultra-lightweight aerodynamic vertical racking (<10 kg/m²) chemically bonded with Sika® structural adhesive. Zero concrete ballast and zero roof membrane penetrations for industrial warehouses and malls.',
+    cta: 'Inspect Technical Datasheet',
+    secondaryCta: 'Download Compliance Pack',
+    image: optimizeImage('https://i.ibb.co/j98GM2hY/Gemini-Generated-Image-vapyvdvapyvdvapy.png', 1400),
+    imageAlt: 'Carter Vert-X Industrial lightweight vertical solar racking on warehouse roof',
+  },
 ];
 
 interface HeroProps {
   onOpenTechSpecs: () => void;
+  onBookAppointment?: () => void;
+  isDark?: boolean;
+  toggleTheme?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
+export const Hero: React.FC<HeroProps> = ({
+  onOpenTechSpecs,
+  onBookAppointment,
+  isDark,
+  toggleTheme,
+}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 1000], [0, 400]);
-  
-  // Ref for intersection observer to pause carousel
+  const [failedImages, setFailedImages] = useState<Record<number, boolean>>({});
+
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { margin: "0px 0px -200px 0px" });
+  const isInView = useInView(containerRef, { margin: '0px 0px -200px 0px' });
 
   useEffect(() => {
-    // Preload the images for smooth transitions
-    const preloads: HTMLLinkElement[] = [];
-    
-    SLIDES.forEach((slide, index) => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = slide.image;
-      if (index === 0) {
-        link.fetchPriority = "high";
-      }
-      document.head.appendChild(link);
-      preloads.push(link);
-    });
-
-    return () => {
-      preloads.forEach(link => {
-        if (document.head.contains(link)) {
-          document.head.removeChild(link);
-        }
-      });
-    };
-  }, []);
-
-  useEffect(() => {
-    // Only run the timer if the hero is in view
     if (!isInView) return;
-
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
-    }, 6000);
+    }, 7500);
     return () => clearInterval(timer);
   }, [isInView]);
 
-  // Primary Action Logic
-  const handlePrimaryCta = () => {
-    if (currentSlide === 0) {
-        // Book Vertical Audit -> Scroll to Quote/Form
-        const element = document.getElementById('get-quote');
-        if (element) {
-            const headerOffset = 80;
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    } else if (currentSlide === 1) {
-        // Explore Vert-X Walls -> Scroll to Service Pillars
-        const element = document.getElementById('service-pillars');
-        if (element) {
-            const headerOffset = 100;
-            const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth"
-            });
-        }
-    } else if (currentSlide === 2) {
-        // Industrial Specs -> Open Tech Specs Modal
-        onOpenTechSpecs();
+  const scrollToElement = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const headerOffset = 84;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
     }
   };
 
-  const scrollToCalculator = () => {
-    const element = document.getElementById('calculator');
-    if (element) {
-        // Offset for header
-        const headerOffset = 100;
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-  
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth"
-        });
+  const handlePrimaryCta = () => {
+    if (currentSlide === 0) {
+      scrollToElement('get-quote');
+    } else if (currentSlide === 1) {
+      scrollToElement('service-pillars');
+    } else {
+      onOpenTechSpecs();
+    }
+  };
+
+  const handleSecondaryCta = () => {
+    if (currentSlide === 0) {
+      scrollToElement('service-pillars');
+    } else if (currentSlide === 1) {
+      scrollToElement('calculator');
+    } else {
+      scrollToElement('tenders');
     }
   };
 
@@ -144,176 +134,198 @@ export const Hero: React.FC<HeroProps> = ({ onOpenTechSpecs }) => {
     setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
   }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1
-      }
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: 0.2
-      }
-    }
-  };
-
-  const childVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    },
-    exit: { 
-      opacity: 0, 
-      y: -20,
-      transition: { duration: 0.3, ease: "easeIn" }
-    }
-  };
-
   return (
-    <section ref={containerRef} className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden bg-brand-black">
-      {/* Background Slideshow */}
+    <section
+      id="top"
+      ref={containerRef}
+      className="relative min-h-[92vh] flex flex-col justify-between pt-28 pb-12 overflow-hidden bg-brand-black text-brand-ivory"
+    >
+      {/* Cinematic Architectural Background */}
       <AnimatePresence mode="wait">
         <MotionDiv
-            key={`bg-${currentSlide}`}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.5 }}
-            style={{ y } as any}
-            className="absolute inset-0 z-0"
+          key={`bg-${currentSlide}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.1 }}
+          className="absolute inset-0 z-0"
         >
-            <img 
-                src={SLIDES[currentSlide].image} 
-                alt="Vertical Solar Architecture" 
-                className="w-full h-full object-cover opacity-60 dark:opacity-50"
-                loading={currentSlide === 0 ? "eager" : "lazy"}
-                decoding="async"
-                // @ts-ignore
-                fetchpriority={currentSlide === 0 ? "high" : "auto"}
-                onError={(e: any) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=2070&auto=format&fit=crop";
-                }}
+          {!failedImages[currentSlide] ? (
+            <img
+              src={SLIDES[currentSlide].image}
+              alt={SLIDES[currentSlide].imageAlt}
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover object-center opacity-50"
+              loading={currentSlide === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              // @ts-ignore
+              fetchpriority={currentSlide === 0 ? 'high' : 'auto'}
+              onError={() =>
+                setFailedImages((prev) => ({
+                  ...prev,
+                  [currentSlide]: true,
+                }))
+              }
             />
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/20 to-white dark:from-brand-black/30 dark:via-brand-black/70 dark:to-brand-black transition-colors duration-500"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-gold opacity-10 blur-[150px] rounded-full"></div>
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-brand-forest via-brand-charcoal to-brand-black" />
+          )}
+
+          {/* Measured Contrast Scrim for 4.5:1+ Legibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/75 to-brand-forest/55" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(214,190,130,0.12)_0%,transparent_60%)] pointer-events-none" />
         </MotionDiv>
       </AnimatePresence>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="max-w-4xl mx-auto text-center">
-            
+      {/* Main Editorial Content Container */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto py-12">
+        <div className="max-w-4xl">
           <AnimatePresence mode="wait">
-             <MotionDiv 
-               key={currentSlide}
-               initial="hidden"
-               animate="visible"
-               exit="exit"
-               variants={containerVariants}
-             >
+            <MotionDiv
+              key={currentSlide}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {/* Unboxed Editorial Kicker (Zero-Pill Discipline) */}
+              <div className="text-xs font-mono uppercase tracking-[0.22em] text-brand-gold mb-6 flex flex-wrap items-center gap-2">
+                <span>{SLIDES[currentSlide].kicker}</span>
+              </div>
 
-                
-                <MotionH1 
-                  variants={childVariants}
-                  className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium dark:text-white text-brand-black leading-tight mb-8 min-h-[1.2em]"
+              <MotionH1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-semibold text-brand-ivory leading-[1.08] tracking-tight mb-8 max-w-3xl">
+                {SLIDES[currentSlide].title}
+              </MotionH1>
+
+              <MotionP className="text-base sm:text-xl text-brand-sage/95 mb-10 leading-relaxed max-w-2xl font-light">
+                {SLIDES[currentSlide].description}
+              </MotionP>
+
+              {/* Action Row */}
+              <div className="flex flex-wrap items-center gap-4">
+                <button
+                  onClick={handlePrimaryCta}
+                  className="inline-flex items-center justify-center gap-3 bg-brand-gold hover:bg-brand-gold-light text-brand-forest px-8 py-4 rounded-sm font-semibold text-xs uppercase tracking-widest transition-all min-h-[52px] whitespace-nowrap shrink-0 cursor-pointer"
                 >
-                    {SLIDES[currentSlide].title}
-                </MotionH1>
-                
-                <MotionP 
-                  variants={childVariants}
-                  className="text-lg md:text-2xl dark:text-slate-300 text-slate-700 mb-12 leading-relaxed max-w-2xl mx-auto font-light min-h-[4em] md:min-h-[3em]"
+                  <span>{SLIDES[currentSlide].cta}</span>
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                </button>
+
+                <button
+                  onClick={handleSecondaryCta}
+                  className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-sm font-semibold text-xs uppercase tracking-widest text-brand-ivory border border-brand-sage/35 hover:border-brand-gold hover:text-brand-gold transition-colors min-h-[52px] whitespace-nowrap shrink-0 cursor-pointer"
                 >
-                    {SLIDES[currentSlide].description}
-                </MotionP>
-                
-                <MotionDiv 
-                  variants={childVariants}
-                  className="flex flex-col sm:flex-row gap-6 justify-center"
-                >
-                    <button 
-                        onClick={handlePrimaryCta}
-                        className="group relative inline-flex justify-center items-center gap-3 bg-brand-gold text-brand-black px-10 py-4 rounded-sm font-semibold text-lg overflow-hidden transition-all hover:pr-12 min-h-[56px]"
-                    >
-                        <span className="relative z-10">{SLIDES[currentSlide].cta}</span>
-                        {currentSlide === 2 ? (
-                            // Use a document/list icon for specs
-                             <ArrowRight className="h-5 w-5 absolute right-4 opacity-0 group-hover:opacity-100 group-hover:right-6 transition-all duration-300" />
-                        ) : (
-                             <ArrowRight className="h-5 w-5 absolute right-4 opacity-0 group-hover:opacity-100 group-hover:right-6 transition-all duration-300" />
-                        )}
-                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                    </button>
-                    <button 
-                        onClick={scrollToCalculator}
-                        className="group inline-flex justify-center items-center gap-2 px-10 py-4 rounded-sm font-semibold text-lg dark:text-white text-brand-black border dark:border-white/20 border-brand-black/20 hover:bg-brand-black/5 dark:hover:bg-white/5 transition-all min-h-[56px]"
-                    >
-                        Yield Report
-                    </button>
-                </MotionDiv>
-             </MotionDiv>
+                  <FileText className="w-4 h-4" aria-hidden="true" />
+                  <span>{SLIDES[currentSlide].secondaryCta}</span>
+                </button>
+
+                {onBookAppointment && (
+                  <button
+                    onClick={onBookAppointment}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-4 text-xs uppercase tracking-widest text-brand-sage hover:text-brand-gold transition-colors min-h-[52px] whitespace-nowrap shrink-0 cursor-pointer"
+                  >
+                    <Calendar className="w-4 h-4 text-brand-gold" aria-hidden="true" />
+                    <span>Schedule Consultation</span>
+                  </button>
+                )}
+              </div>
+            </MotionDiv>
           </AnimatePresence>
-
-          <MotionDiv 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="mt-16 flex justify-center items-center gap-6"
-          >
-             <div className="flex -space-x-4">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="w-10 h-10 rounded-full dark:border-brand-black border-white border-2 overflow-hidden shadow-lg">
-                   <img 
-                    src={optimizeImage(`https://picsum.photos/seed/${i + 42}/100`, 100)} 
-                    alt={`Satisfied customer ${i}`} 
-                    loading="lazy"
-                    className="w-full h-full object-cover" 
-                   />
-                </div>
-              ))}
-            </div>
-            <div className="text-left">
-              <div className="flex text-brand-gold text-xs">★★★★★</div>
-              <p className="text-sm dark:text-slate-400 text-slate-600">Experts in <span className="dark:text-white text-brand-black font-semibold">Industrial, Commercial & Farms</span></p>
-            </div>
-          </MotionDiv>
         </div>
+      </div>
 
-        {/* Carousel Controls */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 z-20">
-            <button 
-                onClick={prevSlide} 
-                className="p-3 rounded-full border border-white/10 hover:bg-white/10 text-white/50 hover:text-white transition-all min-w-[44px] min-h-[44px] flex items-center justify-center"
-                aria-label="Previous Slide"
-            >
-                <ChevronLeft className="w-5 h-5" />
-            </button>
-            <div className="flex gap-2">
-                {SLIDES.map((_, idx) => (
-                    <button
-                        key={idx}
-                        onClick={() => setCurrentSlide(idx)}
-                        aria-label={`Go to slide ${idx + 1}`}
-                        className={`h-2 rounded-full transition-all duration-300 ${
-                            idx === currentSlide ? 'w-8 bg-brand-gold' : 'w-2 bg-white/20 hover:bg-brand-gold/50'
-                        }`}
-                    />
-                ))}
+      {/* Bottom Full-Width Architectural Proof & Controls Bar */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-8 border-t border-brand-sage/15">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+          {/* Verified Engineering Specifications Strip (Tabular Numerals, Unboxed) */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 lg:gap-10 flex-grow">
+            <div>
+              <div className="text-2xl sm:text-3xl font-serif font-semibold text-brand-gold tabular-nums">
+                &lt; 10 kg/m²
+              </div>
+              <div className="text-xs text-brand-sage/80 mt-0.5">
+                Vert-X Industrial Roof Load
+              </div>
             </div>
-            <button 
-                onClick={nextSlide} 
-                className="p-3 rounded-full border border-white/10 hover:bg-white/10 text-white/50 hover:text-white transition-all min-w-[44px] min-h-[44px] flex items-center justify-center"
-                aria-label="Next Slide"
-            >
-                <ChevronRight className="w-5 h-5" />
-            </button>
+            <div>
+              <div className="text-2xl sm:text-3xl font-serif font-semibold text-brand-ivory tabular-nums">
+                90° Bifacial
+              </div>
+              <div className="text-xs text-brand-sage/80 mt-0.5">
+                Dual AM &amp; PM Peak Harvest
+              </div>
+            </div>
+            <div>
+              <div className="text-2xl sm:text-3xl font-serif font-semibold text-brand-ivory tabular-nums">
+                Level 1 B-BBEE
+              </div>
+              <div className="text-xs text-brand-sage/80 mt-0.5">
+                135% Procurement Recognition
+              </div>
+            </div>
+            <div>
+              <div className="text-2xl sm:text-3xl font-serif font-semibold text-brand-gold tabular-nums">
+                100% 12B
+              </div>
+              <div className="text-xs text-brand-sage/80 mt-0.5">
+                SARS Year-1 Capital Allowance
+              </div>
+            </div>
+          </div>
+
+          {/* Slide Controls & Theme Switcher */}
+          <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0">
+            {toggleTheme && (
+              <button
+                onClick={toggleTheme}
+                className="px-3.5 py-2.5 rounded-sm border border-brand-sage/20 hover:border-brand-gold text-brand-sage hover:text-brand-gold text-xs font-mono uppercase tracking-wider flex items-center gap-2 transition-colors min-h-[44px] whitespace-nowrap shrink-0 cursor-pointer"
+                aria-label={isDark ? 'Switch to Warm Ivory light theme' : 'Switch to Deep Forest dark theme'}
+              >
+                {isDark ? (
+                  <>
+                    <Sun className="w-3.5 h-3.5 text-brand-gold" />
+                    <span>Ivory Mode</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-3.5 h-3.5 text-brand-gold" />
+                    <span>Forest Mode</span>
+                  </>
+                )}
+              </button>
+            )}
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={prevSlide}
+                className="p-2.5 rounded-sm border border-brand-sage/20 hover:border-brand-gold text-brand-ivory/70 hover:text-brand-gold transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <div className="flex items-center gap-1.5 px-2">
+                {SLIDES.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentSlide(idx)}
+                    aria-label={`Select slide ${idx + 1}`}
+                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      idx === currentSlide
+                        ? 'w-7 bg-brand-gold'
+                        : 'w-2 bg-brand-sage/30 hover:bg-brand-gold/60'
+                    }`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={nextSlide}
+                className="p-2.5 rounded-sm border border-brand-sage/20 hover:border-brand-gold text-brand-ivory/70 hover:text-brand-gold transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
+                aria-label="Next slide"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

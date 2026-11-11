@@ -10,7 +10,6 @@ export const TendersAndProcurement: React.FC = () => {
     "CIPC Certificate of Incorporation (2025/852718/07)",
     "SARS Tax Clearance / Registration (9218382282)",
     "B-BBEE Level 1 Certificate",
-    "DLO Energy Resources Group Recommendation Letter",
     "CETA Accredited Working on Heights Certificate",
     "Subcontractor Agreement with registered ECB electrician",
     "ESD/CSI Proposal template"
@@ -32,9 +31,9 @@ export const TendersAndProcurement: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/10 border border-brand-gold/20 text-brand-gold text-xs font-bold tracking-widest uppercase mb-6">
+            <div className="inline-flex items-center gap-2 font-mono text-brand-gold text-xs font-semibold tracking-[0.2em] uppercase mb-5">
                <Building className="w-4 h-4" />
-               Public & Private Procurement
+               Public &amp; Private Procurement
             </div>
             
             <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">
