@@ -245,33 +245,49 @@ export const TrustSignals: React.FC = () => {
               </div>
             </div>
 
-            {/* Approved Company Visual Asset */}
-            <div className="aspect-[16/7] rounded-sm overflow-hidden border border-brand-charcoal/10 dark:border-brand-sage/15 relative group">
-              {!imgFailed ? (
+            {/* 4K UHD Engineering Visual Assets */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="aspect-[16/10] rounded-sm overflow-hidden border border-brand-charcoal/10 dark:border-brand-sage/15 relative group bg-brand-forest">
+                {!imgFailed ? (
+                  <img
+                    src="/images/vertx-dual-peak-4k.jpg"
+                    alt="4K close-up of 90-degree vertical N-Type bifacial solar cells and Sika chemical-bond rail"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                    onError={() => setImgFailed(true)}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-r from-brand-forest to-brand-charcoal" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/30 to-transparent" />
+                <div className="absolute bottom-3.5 left-4 right-4 text-brand-ivory">
+                  <p className="text-[10px] font-mono text-brand-gold uppercase tracking-widest">
+                    4K DETAIL · SIKA® CHEMICAL-BOND RAIL
+                  </p>
+                  <p className="font-serif text-base italic mt-0.5">
+                    Double-Glass 90° East-West Bifacial Array
+                  </p>
+                </div>
+              </div>
+
+              <div className="aspect-[16/10] rounded-sm overflow-hidden border border-brand-charcoal/10 dark:border-brand-sage/15 relative group bg-brand-forest">
                 <img
-                  src="/images/vertx-agri-walls.webp"
-                  alt="Carter Vert-X System installed along agricultural perimeter"
+                  src="/images/vertx-agri-fence-4k.jpg"
+                  alt="4K view of Carter Vert-X Walls agrivoltaic perimeter fence with grazing livestock"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                   decoding="async"
-                  onError={() => setImgFailed(true)}
                 />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-r from-brand-forest to-brand-charcoal" />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/40 to-transparent" />
-              <div className="absolute bottom-4 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2 text-brand-ivory">
-                <div>
-                  <p className="font-serif text-xl italic">
-                    &ldquo;Zero productive agricultural land consumed.&rdquo;
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/30 to-transparent" />
+                <div className="absolute bottom-3.5 left-4 right-4 text-brand-ivory">
+                  <p className="text-[10px] font-mono text-brand-gold uppercase tracking-widest">
+                    4K DETAIL · ZERO ARABLE LAND LOSS
                   </p>
-                  <p className="text-[11px] font-mono text-brand-gold uppercase tracking-widest mt-0.5">
-                    Carter Vert-X Perimeter Architecture
+                  <p className="font-serif text-base italic mt-0.5">
+                    Elevated 1.2m+ Agrivoltaic Grazing Clearance
                   </p>
                 </div>
-                <span className="text-xs font-mono text-brand-sage tabular-nums">
-                  Up to +20–30% Albedo Bifacial Gain
-                </span>
               </div>
             </div>
           </MotionDiv>

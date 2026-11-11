@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, ShieldCheck, Building2, Sprout, Factory, CheckCircle2, ArrowUpRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ShieldCheck, Building2, Sprout, Factory, Sun, CheckCircle2, ArrowUpRight } from 'lucide-react';
 import { m as motion, AnimatePresence } from 'framer-motion';
-import { optimizeImage } from '../src/utils/image';
 
 const MotionDiv = motion.div as any;
 
@@ -22,48 +21,64 @@ const VERIFIED_PROFILES: EngineeringProfile[] = [
     category: 'APPLICATION ARCHITECTURE 01',
     title: 'Vert-X Walls — Agrivoltaic Perimeter & Solar VFD Borehole Systems',
     locationOrEntity: 'Gauteng · Vaal Region · Kalahari Agricultural Belt',
-    verificationBadge: 'Verified Engineering Specification',
+    verificationBadge: '4K Engineering Specification',
     summary:
-      'Engineered for commercial agriculture and livestock perimeters. Vertical 90° bifacial arrays integrate directly along farm boundaries and irrigation lines with 600 mm to 1.2 m+ ground clearance—preserving 100% of grazing and arable land while driving 0.5 HP to 1.5 HP+ Three-Phase Solar VFD borehole pumps.',
+      'Engineered for commercial agriculture and livestock perimeters. Vertical 90° bifacial arrays integrate directly along farm boundaries and high-albedo sand corridors with 600 mm to 1.2 m+ ground clearance—preserving 100% of grazing land while driving 0.5 HP to 1.5 HP+ Three-Phase Solar VFD borehole pumps.',
     specifications: [
       { label: 'Arable Land Loss', value: '0% (Boundary-Integrated)' },
       { label: 'Ground Clearance', value: '600 mm – 1.2 m+ Livestock Safe' },
       { label: 'Irrigation Drive', value: '0.5 HP – 1.5 HP+ Solar VFD' },
-      { label: 'Soiling Mitigation', value: 'Gravity-Assisted Dry Shedding' }
+      { label: 'Albedo Boost', value: '+20% to +30% (Kalahari Sand)' }
     ],
-    imageUrl: '/images/vertx-industrial-roof.webp'
+    imageUrl: '/images/vertx-borehole-vfd-4k.jpg'
   },
   {
     id: 'industrial-roof-profile',
     category: 'APPLICATION ARCHITECTURE 02',
     title: 'Vert-X Industrial — Load-Limited Warehouse & Logistics Roofs',
     locationOrEntity: 'Commercial & Industrial Corridors, South Africa',
-    verificationBadge: 'Verified Structural Specification',
+    verificationBadge: '4K Structural Specification',
     summary:
       'Designed specifically for South African steel IBR and Klip-Lok factory roofs that cannot carry standard 25 kg/m² ballasted arrays. Using an ultra-lightweight (< 10 kg/m²) aerodynamic sub-frame and Sika® structural chemical bonding, the array eliminates roof penetrations while capturing morning and late-afternoon peak tariffs.',
     specifications: [
       { label: 'Distributed Dead Load', value: '< 10 kg/m² (Ultra-Lightweight)' },
       { label: 'Roof Attachment', value: 'Sika® Chemical Bond / Non-Penetrating' },
-      { label: 'Wind Load Rating', value: 'Up to 160 km/h (Aerodynamic)' },
+      { label: 'Wind Load Rating', value: 'Up to 180 km/h (Aerodynamic)' },
       { label: 'Capital Allowance', value: '100% SARS Section 12B (< 1 MW)' }
     ],
-    imageUrl: '/images/vertx-warehouse-roof.jpg'
+    imageUrl: '/images/vertx-warehouse-roof-4k.jpg'
   },
   {
     id: 'commercial-hybrid-profile',
     category: 'APPLICATION ARCHITECTURE 03',
-    title: 'Vert-X Estate & Commercial — Dual-Peak Hybrid Storage Architecture',
+    title: 'Vert-X Estate & Commercial — Architectural Boundary & Hybrid Storage',
     locationOrEntity: 'Residential Estates & Commercial Precincts, SA',
     verificationBadge: 'SANS 10142-1 Compliant Architecture',
     summary:
-      'Combines East-West vertical bifacial boundary walls or high-efficiency monocrystalline roof arrays with LiFePO4 battery storage (5 kWh to 60 kWh+). Engineered to offset expensive morning and evening Time-of-Use (TOU) utility peaks while delivering seamless sub-10ms switchover during grid interruptions.',
+      'Combines East-West vertical bifacial architectural boundary walls and high-efficiency monocrystalline arrays with LiFePO4 battery storage (5 kWh to 60 kWh+). Engineered to offset expensive morning and evening Time-of-Use (TOU) utility peaks while delivering seamless sub-10ms switchover during grid interruptions.',
     specifications: [
       { label: 'Generation Profile', value: 'Dual-Peak (Morning & Evening)' },
       { label: 'Storage Chemistry', value: 'Tier-1 LiFePO4 (6,000+ Cycles)' },
       { label: 'Safety Governance', value: 'CETA ID: PSBE/ROY/20/100' },
       { label: 'Electrical Sign-Off', value: 'SANS 10142-1 COC Issued' }
     ],
-    imageUrl: '/images/vertx-commercial-estate.jpg'
+    imageUrl: '/images/vertx-commercial-estate-4k.jpg'
+  },
+  {
+    id: 'green-roof-profile',
+    category: 'APPLICATION ARCHITECTURE 04',
+    title: 'Vert-X Living Canopies — Indigenous Green Roof & Eco-Estate Arrays',
+    locationOrEntity: 'Corporate Campuses & Luxury Eco-Estates, SA',
+    verificationBadge: '4K Architectural Specification',
+    summary:
+      'Matte-black anodized vertical bifacial arrays spaced across living indigenous fynbos and succulent rooftops. Unlike flat panels that smother vegetation, 90° vertical arrays allow overhead sunlight and rainwater to sustain plant life while evaporative plant cooling boosts afternoon photovoltaic cell efficiency.',
+    specifications: [
+      { label: 'Frame Finish', value: 'Anodized Architectural Matte Black' },
+      { label: 'Thermal Synergy', value: 'Evaporative Plant Microclimate Cooling' },
+      { label: 'Canopy Access', value: 'Full Walkable Botanical Corridors' },
+      { label: 'Dual-Sided Yield', value: 'N-Type Double-Glass Bifacial' }
+    ],
+    imageUrl: '/images/vertx-green-roof-4k.jpg'
   }
 ];
 
@@ -84,6 +99,7 @@ export const Testimonials: React.FC = () => {
   const getCategoryIcon = (id: string) => {
     if (id === 'agrivoltaic-profile') return <Sprout className="w-5 h-5 text-brand-gold" />;
     if (id === 'industrial-roof-profile') return <Factory className="w-5 h-5 text-brand-gold" />;
+    if (id === 'green-roof-profile') return <Sun className="w-5 h-5 text-brand-gold" />;
     return <Building2 className="w-5 h-5 text-brand-gold" />;
   };
 
@@ -97,19 +113,19 @@ export const Testimonials: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6 border-b border-brand-forest/10 dark:border-white/10 pb-8">
           <div>
             <span className="font-mono text-xs uppercase tracking-[0.25em] text-brand-gold-dark dark:text-brand-gold block mb-3">
-              FIELD ARCHITECTURE &amp; DEPLOYMENT PROFILES
+              4K UHD FIELD ARCHITECTURE &amp; DEPLOYMENT PROFILES
             </span>
             <h2 className="text-3xl md:text-5xl font-serif font-medium dark:text-brand-ivory text-brand-forest tracking-tight">
               Engineered Deployment Configurations
             </h2>
           </div>
           <p className="text-sm text-slate-600 dark:text-brand-sage max-w-md font-light leading-relaxed">
-            Explore documented structural and electrical configurations for agricultural perimeters, load-limited industrial roofs, and commercial hybrid estates.
+            Explore documented structural and electrical configurations for agricultural borehole perimeters, load-limited industrial roofs, commercial estates, and living green roofs.
           </p>
         </div>
 
         {/* Selector Tabs */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
           {VERIFIED_PROFILES.map((profile, idx) => {
             const isActive = idx === currentIndex;
             return (
@@ -149,13 +165,14 @@ export const Testimonials: React.FC = () => {
               className="grid grid-cols-1 lg:grid-cols-12"
             >
               {/* Visual Column */}
-              <div className="lg:col-span-5 relative min-h-[300px] lg:min-h-[440px] bg-brand-forest overflow-hidden">
+              <div className="lg:col-span-6 relative min-h-[320px] lg:min-h-[460px] bg-brand-forest overflow-hidden">
                 {!failedImages[activeProfile.id] ? (
                   <img
                     src={activeProfile.imageUrl}
                     alt={activeProfile.title}
-                    className="w-full h-full object-cover opacity-90"
+                    className="w-full h-full object-cover"
                     loading="lazy"
+                    decoding="async"
                     onError={() =>
                       setFailedImages((prev) => ({ ...prev, [activeProfile.id]: true }))
                     }
@@ -165,7 +182,7 @@ export const Testimonials: React.FC = () => {
                     {activeProfile.title}
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/25 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-brand-gold mb-2">
                     <ShieldCheck className="w-4 h-4" />
@@ -178,7 +195,7 @@ export const Testimonials: React.FC = () => {
               </div>
 
               {/* Specification & Narrative Column */}
-              <div className="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between">
+              <div className="lg:col-span-6 p-8 md:p-12 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between gap-4 mb-4">
                     <span className="font-mono text-xs uppercase tracking-[0.2em] text-brand-gold-dark dark:text-brand-gold">

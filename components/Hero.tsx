@@ -31,8 +31,8 @@ const SLIDES: SlideData[] = [
       'Precision vertical bifacial solar architecture and high-yield monocrystalline engineering. Deploy Carter Vert-X Systems and Vert-X Walls designed for South African industry, commercial estates, and agriculture.',
     cta: 'Request Engineering Proposal',
     secondaryCta: 'Explore Vert-X Systems',
-    image: '/images/vertx-hero-1.webp',
-    imageAlt: 'Carter Energy Solutions Vert-X vertical solar architectural installation',
+    image: '/images/vertx-hero-perimeter-4k.jpg',
+    imageAlt: '4K architectural view of Carter Energy Solutions Vert-X vertical solar perimeter installation at sunrise',
   },
   {
     id: 1,
@@ -46,8 +46,8 @@ const SLIDES: SlideData[] = [
       'Vert-X Walls integrate 90° vertical N-Type bifacial arrays directly along farm boundaries and perimeter fence lines—preserving 100% of grazing and arable land while harvesting dual morning and afternoon peaks.',
     cta: 'Explore Vert-X Walls',
     secondaryCta: 'Calculate Site Yield',
-    image: '/images/vertx-estate-hybrid.webp',
-    imageAlt: 'Carter Vert-X Walls vertical bifacial solar fence installation on South African farmland',
+    image: '/images/vertx-agri-fence-4k.jpg',
+    imageAlt: '4K view of Carter Vert-X Walls vertical bifacial solar fence on South African cattle farm',
   },
   {
     id: 2,
@@ -61,8 +61,23 @@ const SLIDES: SlideData[] = [
       'Ultra-lightweight aerodynamic vertical racking (<10 kg/m²) chemically bonded with Sika® structural adhesive. Zero concrete ballast and zero roof membrane penetrations for industrial warehouses and malls.',
     cta: 'Inspect Technical Datasheet',
     secondaryCta: 'Download Compliance Pack',
-    image: '/images/vertx-warehouse-roof.jpg',
-    imageAlt: 'Carter Vert-X Industrial lightweight vertical solar racking on warehouse roof',
+    image: '/images/vertx-warehouse-roof-4k.jpg',
+    imageAlt: '4K view of Carter Vert-X Industrial lightweight vertical solar racking on warehouse roof',
+  },
+  {
+    id: 3,
+    kicker: 'VERT-X ESTATE · ARCHITECTURAL GREEN ROOFS & COMMERCIAL PRECINCTS',
+    title: (
+      <span>
+        Architectural Harmony Meets <span className="text-gold-gradient italic">Peak Yield.</span>
+      </span>
+    ),
+    description:
+      'Matte-black anodized vertical bifacial arrays integrated into indigenous living green roofs and luxury estate boundary walls—combining evaporative botanical cooling with morning and evening peak generation.',
+    cta: 'Request Site Assessment',
+    secondaryCta: 'Explore Vert-X Systems',
+    image: '/images/vertx-green-roof-4k.jpg',
+    imageAlt: '4K view of Carter Vert-X Estate vertical solar array integrated into an indigenous South African green roof',
   },
 ];
 
