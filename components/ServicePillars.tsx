@@ -52,7 +52,7 @@ const PRODUCTS: ProductPillar[] = [
       { parameter: 'Bifacial Albedo Gain', value: 'Up to 20% – 30% (Surface Dependent)' },
       { parameter: 'Compliance', value: 'SANS 10142-1 COC & NDB Grant Ready' },
     ],
-    imageUrl: optimizeImage('https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png', 1100),
+    imageUrl: '/images/vertx-estate-hybrid.webp',
   },
   {
     id: 'vertx-industrial',
@@ -81,7 +81,7 @@ const PRODUCTS: ProductPillar[] = [
       { parameter: 'Performance Warranty', value: '25-Year Linear Module / 10-Year Racking' },
       { parameter: 'Tax Incentive Eligibility', value: 'SARS Section 12B (100% Year-1) & 12L' },
     ],
-    imageUrl: optimizeImage('https://i.ibb.co/j98GM2hY/Gemini-Generated-Image-vapyvdvapyvdvapy.png', 1100),
+    imageUrl: '/images/vertx-warehouse-roof.jpg',
   },
   {
     id: 'vertx-estate',
@@ -110,7 +110,7 @@ const PRODUCTS: ProductPillar[] = [
       { parameter: 'Electrical Certification', value: 'SANS 10142-1 COC Issued per Installation' },
       { parameter: 'Maintenance Access', value: 'Full Walkable Corridor Clearance' },
     ],
-    imageUrl: optimizeImage('https://i.ibb.co/GfWMr0JQ/Gemini-Generated-Image-9c3aj9c3aj9c3aj9.png', 1100),
+    imageUrl: '/images/vertx-commercial-estate.jpg',
   },
 ];
 

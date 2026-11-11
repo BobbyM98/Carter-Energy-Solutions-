@@ -31,7 +31,7 @@ const VERIFIED_PROFILES: EngineeringProfile[] = [
       { label: 'Irrigation Drive', value: '0.5 HP – 1.5 HP+ Solar VFD' },
       { label: 'Soiling Mitigation', value: 'Gravity-Assisted Dry Shedding' }
     ],
-    imageUrl: optimizeImage('https://i.ibb.co/Nnypf28k/unnamed-7.png', 1000)
+    imageUrl: '/images/vertx-industrial-roof.webp'
   },
   {
     id: 'industrial-roof-profile',
@@ -47,7 +47,7 @@ const VERIFIED_PROFILES: EngineeringProfile[] = [
       { label: 'Wind Load Rating', value: 'Up to 160 km/h (Aerodynamic)' },
       { label: 'Capital Allowance', value: '100% SARS Section 12B (< 1 MW)' }
     ],
-    imageUrl: optimizeImage('https://i.ibb.co/xK679kyV/unnamed.png', 1000)
+    imageUrl: '/images/vertx-warehouse-roof.jpg'
   },
   {
     id: 'commercial-hybrid-profile',
@@ -63,12 +63,13 @@ const VERIFIED_PROFILES: EngineeringProfile[] = [
       { label: 'Safety Governance', value: 'CETA ID: PSBE/ROY/20/100' },
       { label: 'Electrical Sign-Off', value: 'SANS 10142-1 COC Issued' }
     ],
-    imageUrl: optimizeImage('https://i.ibb.co/VWf3353d/unnamed-5.png', 1000)
+    imageUrl: '/images/vertx-commercial-estate.jpg'
   }
 ];
 
 export const Testimonials: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
   const next = () => {
     setCurrentIndex((prev) => (prev + 1) % VERIFIED_PROFILES.length);
@@ -149,12 +150,21 @@ export const Testimonials: React.FC = () => {
             >
               {/* Visual Column */}
               <div className="lg:col-span-5 relative min-h-[300px] lg:min-h-[440px] bg-brand-forest overflow-hidden">
-                <img
-                  src={activeProfile.imageUrl}
-                  alt={activeProfile.title}
-                  className="w-full h-full object-cover opacity-85"
-                  loading="lazy"
-                />
+                {!failedImages[activeProfile.id] ? (
+                  <img
+                    src={activeProfile.imageUrl}
+                    alt={activeProfile.title}
+                    className="w-full h-full object-cover opacity-90"
+                    loading="lazy"
+                    onError={() =>
+                      setFailedImages((prev) => ({ ...prev, [activeProfile.id]: true }))
+                    }
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-brand-forest to-brand-charcoal flex items-center justify-center p-8 text-brand-ivory font-serif text-xl text-center">
+                    {activeProfile.title}
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-black/90 via-brand-black/30 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-brand-gold mb-2">

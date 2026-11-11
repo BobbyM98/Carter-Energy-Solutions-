@@ -249,9 +249,8 @@ export const TrustSignals: React.FC = () => {
             <div className="aspect-[16/7] rounded-sm overflow-hidden border border-brand-charcoal/10 dark:border-brand-sage/15 relative group">
               {!imgFailed ? (
                 <img
-                  src={optimizeImage('https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png', 900)}
+                  src="/images/vertx-agri-walls.webp"
                   alt="Carter Vert-X System installed along agricultural perimeter"
-                  referrerPolicy="no-referrer"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                   decoding="async"

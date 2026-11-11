@@ -154,10 +154,9 @@ export const ReferFriendModal: React.FC<ReferFriendModalProps> = ({ isOpen, onCl
               <div className="relative h-64 md:h-72 w-full overflow-hidden shrink-0">
                 <div className="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/80 to-transparent z-10" />
                 <img 
-                  src="/src/assets/images/solar_advisor_1780326472829.png" 
+                  src="/images/solar-advisor.png" 
                   alt="Carter Energy advisor offering referral rewards" 
                   className="absolute inset-0 w-full h-full object-cover object-center scale-105"
-                  referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-black to-transparent z-10" />
                 

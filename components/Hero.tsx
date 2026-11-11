@@ -31,7 +31,7 @@ const SLIDES: SlideData[] = [
       'Precision vertical bifacial solar architecture and high-yield monocrystalline engineering. Deploy Carter Vert-X Systems and Vert-X Walls designed for South African industry, commercial estates, and agriculture.',
     cta: 'Request Engineering Proposal',
     secondaryCta: 'Explore Vert-X Systems',
-    image: optimizeImage('https://i.ibb.co/F4H29r8L/Gemini-Generated-Image-ask7jyask7jyask7-1.png', 1400),
+    image: '/images/vertx-hero-1.webp',
     imageAlt: 'Carter Energy Solutions Vert-X vertical solar architectural installation',
   },
   {
@@ -46,7 +46,7 @@ const SLIDES: SlideData[] = [
       'Vert-X Walls integrate 90° vertical N-Type bifacial arrays directly along farm boundaries and perimeter fence lines—preserving 100% of grazing and arable land while harvesting dual morning and afternoon peaks.',
     cta: 'Explore Vert-X Walls',
     secondaryCta: 'Calculate Site Yield',
-    image: optimizeImage('https://i.ibb.co/7xh2RMMY/Gemini-Generated-Image-xhsictxhsictxhsi.png', 1400),
+    image: '/images/vertx-estate-hybrid.webp',
     imageAlt: 'Carter Vert-X Walls vertical bifacial solar fence installation on South African farmland',
   },
   {
@@ -61,7 +61,7 @@ const SLIDES: SlideData[] = [
       'Ultra-lightweight aerodynamic vertical racking (<10 kg/m²) chemically bonded with Sika® structural adhesive. Zero concrete ballast and zero roof membrane penetrations for industrial warehouses and malls.',
     cta: 'Inspect Technical Datasheet',
     secondaryCta: 'Download Compliance Pack',
-    image: optimizeImage('https://i.ibb.co/j98GM2hY/Gemini-Generated-Image-vapyvdvapyvdvapy.png', 1400),
+    image: '/images/vertx-warehouse-roof.jpg',
     imageAlt: 'Carter Vert-X Industrial lightweight vertical solar racking on warehouse roof',
   },
 ];
